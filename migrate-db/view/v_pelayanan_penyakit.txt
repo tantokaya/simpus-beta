@@ -1,0 +1,7 @@
+CREATE VIEW v_pelayanan_penyakit AS
+SELECT p.kd_trans_pelayanan, p.kd_rekam_medis, p.tgl_pelayanan, p.kd_puskesmas, pp.kd_trans_penyakit, 
+
+pp.kd_penyakit, pp.kd_jenis_kasus 
+FROM pelayanan p, pelayanan_penyakit pp
+WHERE
+ p.kd_trans_pelayanan = pp.kd_trans_pelayanan
