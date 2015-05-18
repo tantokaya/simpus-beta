@@ -34,7 +34,7 @@ if ($this->session->flashdata('flash_message') != ""): ?>
         <span class="iconfa-lock"></span>
             E-Puskesmas
         <span class="subtitle">
-          Selamat datang di E-Puskesmas!
+          Selamat datang di E-Puskesmas Kota Bogor !
         </span>
         </h1>
         <div class="loginwrapperinner">
