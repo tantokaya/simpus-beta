@@ -26,17 +26,17 @@
                         
                         <!---- CETAK register START ---->
    						<div id="list">
-                        	<h4 class="widgettitle nomargin shadowed">Register Harian</h4>
+                        	<h4 class="widgettitle nomargin shadowed">Rekap Penyakit Per Minggu</h4>
                             <div class="widgetcontent bordered shadowed nopadding">
                                 <?php echo form_open('cont_cetak_lap_harian/register_harian/cetak', array('class' => 'stdform stdform2', 'id' => 'form_input')); ?>
                                        
                                      <table style="border:1px solid grey; background-color:#ccff99; color:black; font-size:10pt;" width="67.5%">
 		<tr>
 		  <td width="90" style="padding:15px;"><strong>Dari Tanggal</strong></td>
-		  <td width="120" >: <input type="text" name="tgl_mulai" id="tgl_mulai"  style="width:80px; font-size: 13px; background-color:#FFFFE0; font-weight: bold; text-align:center;"></td>
-		  <td width="30"><strong>s/d</strong></td>
+		  <td width="120" >: <input type="text" name="tgl" id="tgl"  style="width:80px; font-size: 13px; background-color:#FFFFE0; font-weight: bold; text-align:center;"></td>
+	<!--	  <td width="30"><strong>s/d</strong></td>
 		  <td width="130"><input type="text"  name="tgl_akhir" id="tgl_akhir" style="width:80px; font-size: 13px; background-color:#FFFFE0; font-weight: bold; text-align:center;"></td>
-		  		 
+		  	-->	 
 		</tr>
 	  </table>   
                                        
@@ -56,3 +56,8 @@
         </div><!--contentinner-->
     </div><!--maincontent-->
 </div><!--mainright-->
+<script>
+    jQuery("#tgl").datepicker({
+        dateFormat:"dd-mm-yy"
+    });
+</script>
