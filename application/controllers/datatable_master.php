@@ -36,7 +36,7 @@ function pengguna()
 			//->where('user.id_akses','1');
 			*/
 			
-		$sql = $this->datatables->select('user.id_user,user.nama,user.nip,user.email,akses.akses,puskesmas.nm_puskesmas');
+		$sql = $this->datatables->select('user.id_user,user.nama,user.nip,user.username,akses.akses,puskesmas.nm_puskesmas');
         $sql->unset_column('user.id_user');
         $sql->add_column('Aksi', '
 				<a href="'.base_url().'cont_master_setting/pengguna/ubah/$1" class="btn btn-primary btn-circle"><i class="iconsweets-create iconsweets-white"></i></a> <a href="'.base_url().'cont_master_setting/pengguna/hapus/$1" class="btn btn-danger btn-circle" onClick="return confirm(\'Anda yakin ingin menghapus data ini?\')"><i class="iconsweets-trashcan iconsweets-white" ></i></a>
@@ -591,8 +591,8 @@ DATE_FORMAT(pelayanan.tgl_pelayanan, "%d-%m-%Y") as tgl_format, pelayanan.kd_rek
                                           </div>
 			','pelayanan.kd_trans_pelayanan');
 				
-				} // filter untuk pasien per poli dan ugd
-				elseif($this->session->userdata('id_akses') == 10 || $this->session->userdata('id_akses') == 11 || $this->session->userdata('id_akses') == 12 || $this->session->userdata('id_akses') == 13 )
+				} // filter untuk pasien per poli dan ugd dan PTRM
+				elseif($this->session->userdata('id_akses') == 10 || $this->session->userdata('id_akses') == 11 || $this->session->userdata('id_akses') == 12 || $this->session->userdata('id_akses') == 13 || $this->session->userdata('id_akses') == 14)
 				{ 	// tambahkan alamat dan umur, unset unit layanan dan cara bayar
 					$sql->where('unit_pelayanan.kd_unit_pelayanan',$this->session->userdata('kd_unit_pelayanan'));
 					$sql->unset_column('unit_pelayanan.nm_unit');

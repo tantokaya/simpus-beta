@@ -1,6 +1,6 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Poli_gigi extends CI_Controller
+class Ptrm extends CI_Controller
 {
 	function __construct()
 	{
@@ -8,7 +8,7 @@ class Poli_gigi extends CI_Controller
 		$simkes=$this->load->database('default', TRUE);
 		
 		// cek session
-		if ($this->session->userdata('logged_in') == false && $this->session->userdata('id_akses') !== 10) {
+		if ($this->session->userdata('logged_in') == false && $this->session->userdata('id_akses') !== 14) {
 			$this->session->unset_userdata();
 			$this->session->sess_destroy();
 			redirect('login');
@@ -29,7 +29,7 @@ class Poli_gigi extends CI_Controller
 	public function index()
 	{
 		if ($this->session->userdata('logged_in') == true)
-			redirect('poli_gigi/dashboard');
+			redirect('ptrm/dashboard');
 		else {
 			$this->session->unset_userdata();
 			$this->session->sess_destroy();

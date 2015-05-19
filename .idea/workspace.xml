@@ -1,0 +1,692 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="b6b30922-0ff0-4160-a6b7-06d000876683" name="Default" comment="" />
+    <ignored path="simpus-beta.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="simpus-beta" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="unit_farmasi.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/application/views/operator/unit_farmasi.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="218" column="0" selection-start="7964" selection-end="7964" vertical-scroll-proportion="1.6847636" vertical-offset="2744" max-vertical-offset="4794">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ref_json.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/controllers/ref_json.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="188" column="66" selection-start="5592" selection-end="5592" vertical-scroll-proportion="-0.0" vertical-offset="3196" max-vertical-offset="8211">
+              <folding>
+                <marker date="1424222915757" expanded="true" signature="643:681" placeholder="SELECT max(k..." />
+                <marker date="1424222915757" expanded="true" signature="1159:1240" placeholder="SELECT kd_ob..obat..." />
+                <marker date="1424222915757" expanded="true" signature="1627:1712" placeholder="SELECT nik F..pasien..." />
+                <marker date="1424222915757" expanded="true" signature="2088:2179" placeholder="SELECT kd_pr..tindakan..." />
+                <marker date="1424222915757" expanded="true" signature="2504:2698" placeholder="SELECT obat...obat..." />
+                <marker date="1424222915757" expanded="true" signature="3766:3954" placeholder="SELECT obat...obat..." />
+                <marker date="1424222915757" expanded="true" signature="4470:4544" placeholder="SELECT * FRO..tindakan..." />
+                <marker date="1424222915757" expanded="true" signature="5171:5383" placeholder="SELECT unit_..unit_farmasi..." />
+                <marker date="1424222915757" expanded="true" signature="6091:6340" placeholder="SELECT pelay..pelayanan..." />
+                <marker date="1424222915757" expanded="true" signature="6828:6902" placeholder="SELECT * FRO..pasien..." />
+                <marker date="1424222915757" expanded="true" signature="7657:7684" placeholder="SELECT * FRO..obat..." />
+                <marker date="1424222915757" expanded="true" signature="7710:7794" placeholder="SELECT * FRO..obat..." />
+                <marker date="1424222915757" expanded="true" signature="8203:8230" placeholder="SELECT * FRO..obat..." />
+                <marker date="1424222915757" expanded="true" signature="8256:8340" placeholder="SELECT * FRO..obat..." />
+                <marker date="1424222915757" expanded="true" signature="8770:8799" placeholder="SELECT * FRO..pasien..." />
+                <marker date="1424222915757" expanded="true" signature="8825:8931" placeholder="SELECT * FRO..pasien..." />
+                <marker date="1424222915757" expanded="true" signature="9350:9381" placeholder="SELECT * FRO..tindakan..." />
+                <marker date="1424222915757" expanded="true" signature="9407:9510" placeholder="SELECT * FRO..tindakan..." />
+                <marker date="1424222915757" expanded="true" signature="9917:10886" placeholder="SELECT pelay..pelayanan..." />
+                <marker date="1424222915757" expanded="true" signature="10912:12193" placeholder="SELECT pelay..pelayanan..." />
+                <marker date="1424222915757" expanded="true" signature="12592:13181" placeholder="SELECT pelay..pelayanan_tindakan..." />
+                <marker date="1424222915757" expanded="true" signature="13207:13917" placeholder="SELECT pelay..pelayanan_tindakan..." />
+                <marker date="1424222915757" expanded="true" signature="14461:14488" placeholder="SELECT * FRO..obat..." />
+                <marker date="1424222915757" expanded="true" signature="14514:14606" placeholder="SELECT * FRO..obat..." />
+                <marker date="1424222915757" expanded="true" signature="15014:15043" placeholder="SELECT * FRO..pasien..." />
+                <marker date="1424222915757" expanded="true" signature="15069:15163" placeholder="SELECT * FRO..pasien..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="cont_master_farmasi.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/controllers/cont_master_farmasi.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="496" column="33" selection-start="19095" selection-end="19095" vertical-scroll-proportion="-4.8461537" vertical-offset="8306" max-vertical-offset="9911">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="login.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/controllers/login.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="45" column="44" selection-start="1374" selection-end="1374" vertical-scroll-proportion="0.0" vertical-offset="325" max-vertical-offset="3587">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="m_crud.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/models/m_crud.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="36" column="5" selection-start="765" selection-end="765" vertical-scroll-proportion="0.0" vertical-offset="379" max-vertical-offset="46784">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="masuk.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/views/operator/masuk.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="6827" max-vertical-offset="9826">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="false" />
+    </FindUsagesManager>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="changedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/application/controllers/cont_master_wil_puskesmas.php" />
+        <option value="$PROJECT_DIR$/application/views/administrator/dashboard.php" />
+        <option value="$PROJECT_DIR$/application/models/m_crud.php" />
+        <option value="$PROJECT_DIR$/application/controllers/admin.php" />
+        <option value="$PROJECT_DIR$/application/controllers/barang.php" />
+        <option value="$PROJECT_DIR$/application/views/administrator/gudang.php" />
+        <option value="$PROJECT_DIR$/application/views/administrator/unit_farmasi.php" />
+        <option value="$PROJECT_DIR$/application/views/administrator/apotek.php" />
+        <option value="$PROJECT_DIR$/application/views/daftar_apotek_masuk.php" />
+        <option value="$PROJECT_DIR$/application/views/daftar_keluar_apotek.php" />
+        <option value="$PROJECT_DIR$/application/views/administrator/pendaftaran.php" />
+        <option value="$PROJECT_DIR$/application/views/login.php" />
+        <option value="$PROJECT_DIR$/application/controllers/login.php" />
+        <option value="$PROJECT_DIR$/application/views/administrator/pengguna.php" />
+        <option value="$PROJECT_DIR$/application/views/operator/pengguna.php" />
+        <option value="$PROJECT_DIR$/application/controllers/cont_master_setting.php" />
+        <option value="$PROJECT_DIR$/application/views/administrator/side_menu.php" />
+        <option value="$PROJECT_DIR$/application/views/operator/side_menu.php" />
+        <option value="$PROJECT_DIR$/application/views/operator/golongan_obat.php" />
+        <option value="$PROJECT_DIR$/application/views/operator/jenis_obat.php" />
+        <option value="$PROJECT_DIR$/application/views/operator/satuan_kecil.php" />
+        <option value="$PROJECT_DIR$/application/views/operator/terapi_obat.php" />
+        <option value="$PROJECT_DIR$/application/views/operator/golongan_petugas.php" />
+        <option value="$PROJECT_DIR$/application/views/operator/posisi.php" />
+        <option value="$PROJECT_DIR$/application/views/operator/milik_obat.php" />
+        <option value="$PROJECT_DIR$/application/views/operator/spesialisasi.php" />
+        <option value="$PROJECT_DIR$/application/views/operator/pendidikan_kesehatan.php" />
+        <option value="$PROJECT_DIR$/application/views/operator/unit_pelayanan.php" />
+        <option value="$PROJECT_DIR$/application/views/operator/dokter.php" />
+        <option value="$PROJECT_DIR$/application/controllers/cont_master_pelayanan.php" />
+        <option value="$PROJECT_DIR$/application/controllers/datatable_master.php" />
+        <option value="$PROJECT_DIR$/application/views/operator/obat.php" />
+        <option value="$PROJECT_DIR$/application/views/operator/petugas.php" />
+        <option value="$PROJECT_DIR$/application/views/operator/status_keluar_pasien.php" />
+        <option value="$PROJECT_DIR$/application/views/operator/ruangan.php" />
+        <option value="$PROJECT_DIR$/application/views/operator/kamar.php" />
+        <option value="$PROJECT_DIR$/application/views/operator/unit_farmasi.php" />
+        <option value="$PROJECT_DIR$/application/controllers/ref_json.php" />
+        <option value="$PROJECT_DIR$/application/controllers/cont_master_farmasi.php" />
+      </list>
+    </option>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simpus-beta" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simpus-beta" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simpus-beta" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simpus-beta" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simpus-beta" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simpus-beta" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simpus-beta" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simpus-beta" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simpus-beta" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simpus-beta" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simpus-beta" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="operator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simpus-beta" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simpus-beta" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="models" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simpus-beta" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simpus-beta" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="options.lastSelected" value="web-ide.project.structure" />
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../wilayah" />
+    <property name="FullScreen" value="false" />
+    <property name="recentsLimit" value="5" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
+      <method />
+    </configuration>
+    <list size="0" />
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b6b30922-0ff0-4160-a6b7-06d000876683" name="Default" comment="" />
+      <created>1423551421383</created>
+      <updated>1423551421383</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2203514" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32861635" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="myTodoPanelSettings">
+      <TodoPanelSettings />
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/application/views/administrator/gudang.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="63" selection-start="1328" selection-end="1328" vertical-scroll-proportion="-6.5384617" vertical-offset="255" max-vertical-offset="1122" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/administrator/apotek.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="99" selection-start="1285" selection-end="1285" vertical-scroll-proportion="-5.230769" vertical-offset="306" max-vertical-offset="1139" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/administrator/masuk.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="247" column="173" selection-start="12655" selection-end="12674" vertical-scroll-proportion="0.19789842" vertical-offset="4086" max-vertical-offset="9826" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/ListBarangApotek.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.43664384" vertical-offset="255" max-vertical-offset="986" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/daftar_apotek_masuk.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="8" selection-start="486" selection-end="507" vertical-scroll-proportion="0.32749563" vertical-offset="306" max-vertical-offset="1292" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/daftar_keluar_apotek.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="52" column="98" selection-start="1289" selection-end="1289" vertical-scroll-proportion="0.56567425" vertical-offset="561" max-vertical-offset="1428" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/barang.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="814" column="5" selection-start="25861" selection-end="25861" vertical-scroll-proportion="-9.216458" vertical-offset="18990" max-vertical-offset="48195" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/administrator/apotek_masuk.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="18" selection-start="16" selection-end="18" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="8653" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/administrator/apotek_keluar.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="74" column="43" selection-start="3758" selection-end="3758" vertical-scroll-proportion="-7.7930403" vertical-offset="5513" max-vertical-offset="10370" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/administrator/keluar.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="235" column="167" selection-start="11678" selection-end="11689" vertical-scroll-proportion="-5.5" vertical-offset="3852" max-vertical-offset="10064" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/administrator/pendaftaran.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="261" column="99" selection-start="17460" selection-end="17471" vertical-scroll-proportion="-14.985348" vertical-offset="12619" max-vertical-offset="18139" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/administrator/puskesmas.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="167" column="161" selection-start="8597" selection-end="8608" vertical-scroll-proportion="0.4168126" vertical-offset="2601" max-vertical-offset="4301" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/administrator/pelayanan_today.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="611" column="80" selection-start="40983" selection-end="41039" vertical-scroll-proportion="0.86339754" vertical-offset="9894" max-vertical-offset="34119" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/login.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="31" selection-start="1179" selection-end="1179" vertical-scroll-proportion="-3.5" vertical-offset="504" max-vertical-offset="2108" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/administrator/pengguna.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="232" column="25" selection-start="0" selection-end="14829" vertical-scroll-proportion="-2.6153846" vertical-offset="3876" max-vertical-offset="7259" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/helpers/datatables_helper.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.75133216" vertical-offset="423" max-vertical-offset="986" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/libraries/template.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-9.974315" vertical-offset="5825" max-vertical-offset="6409" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/libraries/Datatables.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="525" column="35" selection-start="16389" selection-end="16392" vertical-scroll-proportion="-2.513135" vertical-offset="10360" max-vertical-offset="10931" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/operator/pengguna.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="103" column="101" selection-start="3720" selection-end="3725" vertical-scroll-proportion="-3.5686274" vertical-offset="1569" max-vertical-offset="6868" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/cont_master_setting.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="79" column="92" selection-start="3098" selection-end="3098" vertical-scroll-proportion="0.60644007" vertical-offset="1004" max-vertical-offset="3655" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/administrator/side_menu.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="224" column="4" selection-start="10573" selection-end="10573" vertical-scroll-proportion="6.3117337" vertical-offset="204" max-vertical-offset="4063" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/operator/side_menu.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="154" column="8" selection-start="7785" selection-end="7785" vertical-scroll-proportion="4.2276707" vertical-offset="204" max-vertical-offset="2873" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/operator/jenis_obat.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="152" column="36" selection-start="8297" selection-end="8297" vertical-scroll-proportion="0.95271456" vertical-offset="2040" max-vertical-offset="3910" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/operator/satuan_kecil.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="151" column="36" selection-start="8383" selection-end="8383" vertical-scroll-proportion="0.56567425" vertical-offset="2244" max-vertical-offset="3893" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/operator/terapi_obat.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="151" column="36" selection-start="8322" selection-end="8322" vertical-scroll-proportion="1.4588442" vertical-offset="1734" max-vertical-offset="3893" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/operator/golongan_obat.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="150" column="36" selection-start="8291" selection-end="8291" vertical-scroll-proportion="0.8809107" vertical-offset="2047" max-vertical-offset="3859" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/operator/golongan_petugas.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="118" column="40" selection-start="7375" selection-end="7375" vertical-scroll-proportion="0.2084063" vertical-offset="1887" max-vertical-offset="3077" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/operator/posisi.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="51" column="40" selection-start="2972" selection-end="2972" vertical-scroll-proportion="0.6252189" vertical-offset="510" max-vertical-offset="3060" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/operator/spesialisasi.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="98" column="50" selection-start="5937" selection-end="5937" vertical-scroll-proportion="0.14886165" vertical-offset="1581" max-vertical-offset="3026" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/cont_master_petugas.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="182" column="73" selection-start="6745" selection-end="6745" vertical-scroll-proportion="0.39355993" vertical-offset="2874" max-vertical-offset="3706" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/operator/pendidikan_kesehatan.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="67" column="40" selection-start="3381" selection-end="3381" vertical-scroll-proportion="0.9229422" vertical-offset="612" max-vertical-offset="3723" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/operator/milik_obat.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="75" column="44" selection-start="3353" selection-end="3565" vertical-scroll-proportion="0.10683012" vertical-offset="1214" max-vertical-offset="3876" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/operator/unit_pelayanan.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="98" column="50" selection-start="4833" selection-end="4833" vertical-scroll-proportion="0.23817864" vertical-offset="1530" max-vertical-offset="2992" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/dokter.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1428" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/cont_transaksi_pendaftaran.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="18" selection-start="959" selection-end="959" vertical-scroll-proportion="74.26923" vertical-offset="2407" max-vertical-offset="4641" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/datatable_master.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="396" column="57" selection-start="21498" selection-end="21498" vertical-scroll-proportion="-6.2352943" vertical-offset="6414" max-vertical-offset="10421" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/cont_master_pelayanan.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="434" column="50" selection-start="17483" selection-end="17483" vertical-scroll-proportion="0.54561716" vertical-offset="7073" max-vertical-offset="11152" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/operator/dokter.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="92" column="124" selection-start="6274" selection-end="6287" vertical-scroll-proportion="-14.115385" vertical-offset="1197" max-vertical-offset="4998" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/operator/obat.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="139" column="109" selection-start="5658" selection-end="5658" vertical-scroll-proportion="0.2084063" vertical-offset="2244" max-vertical-offset="7786" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/operator/petugas.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="161" selection-start="2352" selection-end="2352" vertical-scroll-proportion="0.4168126" vertical-offset="476" max-vertical-offset="5525" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/operator/status_keluar_pasien.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="117" column="40" selection-start="6436" selection-end="6436" vertical-scroll-proportion="0.6252189" vertical-offset="1632" max-vertical-offset="3026" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/operator/ruangan.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="125" column="40" selection-start="7876" selection-end="7876" vertical-scroll-proportion="0.6252189" vertical-offset="1768" max-vertical-offset="3230" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/operator/pendaftaran.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="75" column="119" selection-start="4729" selection-end="4742" vertical-scroll-proportion="-10.807356" vertical-offset="7446" max-vertical-offset="18139" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/operator/pelayanan_today.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="611" column="80" selection-start="40983" selection-end="41039" vertical-scroll-proportion="0.31873906" vertical-offset="10205" max-vertical-offset="34119" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/operator/kamar.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="126" column="61" selection-start="7797" selection-end="7797" vertical-scroll-proportion="0.0" vertical-offset="2142" max-vertical-offset="3655" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/operator/masuk.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="6827" max-vertical-offset="9826">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/m_crud.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="5" selection-start="765" selection-end="765" vertical-scroll-proportion="0.0" vertical-offset="379" max-vertical-offset="46784">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/login.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="44" selection-start="1374" selection-end="1374" vertical-scroll-proportion="0.0" vertical-offset="325" max-vertical-offset="3587">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/cont_master_farmasi.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="496" column="33" selection-start="19095" selection-end="19095" vertical-scroll-proportion="-4.8461537" vertical-offset="8306" max-vertical-offset="9911">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/ref_json.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="188" column="66" selection-start="5592" selection-end="5592" vertical-scroll-proportion="0.0" vertical-offset="3196" max-vertical-offset="8211">
+          <folding>
+            <marker date="1424222915757" expanded="true" signature="643:681" placeholder="SELECT max(k..." />
+            <marker date="1424222915757" expanded="true" signature="1159:1240" placeholder="SELECT kd_ob..obat..." />
+            <marker date="1424222915757" expanded="true" signature="1627:1712" placeholder="SELECT nik F..pasien..." />
+            <marker date="1424222915757" expanded="true" signature="2088:2179" placeholder="SELECT kd_pr..tindakan..." />
+            <marker date="1424222915757" expanded="true" signature="2504:2698" placeholder="SELECT obat...obat..." />
+            <marker date="1424222915757" expanded="true" signature="3766:3954" placeholder="SELECT obat...obat..." />
+            <marker date="1424222915757" expanded="true" signature="4470:4544" placeholder="SELECT * FRO..tindakan..." />
+            <marker date="1424222915757" expanded="true" signature="5171:5383" placeholder="SELECT unit_..unit_farmasi..." />
+            <marker date="1424222915757" expanded="true" signature="6091:6340" placeholder="SELECT pelay..pelayanan..." />
+            <marker date="1424222915757" expanded="true" signature="6828:6902" placeholder="SELECT * FRO..pasien..." />
+            <marker date="1424222915757" expanded="true" signature="7657:7684" placeholder="SELECT * FRO..obat..." />
+            <marker date="1424222915757" expanded="true" signature="7710:7794" placeholder="SELECT * FRO..obat..." />
+            <marker date="1424222915757" expanded="true" signature="8203:8230" placeholder="SELECT * FRO..obat..." />
+            <marker date="1424222915757" expanded="true" signature="8256:8340" placeholder="SELECT * FRO..obat..." />
+            <marker date="1424222915757" expanded="true" signature="8770:8799" placeholder="SELECT * FRO..pasien..." />
+            <marker date="1424222915757" expanded="true" signature="8825:8931" placeholder="SELECT * FRO..pasien..." />
+            <marker date="1424222915757" expanded="true" signature="9350:9381" placeholder="SELECT * FRO..tindakan..." />
+            <marker date="1424222915757" expanded="true" signature="9407:9510" placeholder="SELECT * FRO..tindakan..." />
+            <marker date="1424222915757" expanded="true" signature="9917:10886" placeholder="SELECT pelay..pelayanan..." />
+            <marker date="1424222915757" expanded="true" signature="10912:12193" placeholder="SELECT pelay..pelayanan..." />
+            <marker date="1424222915757" expanded="true" signature="12592:13181" placeholder="SELECT pelay..pelayanan_tindakan..." />
+            <marker date="1424222915757" expanded="true" signature="13207:13917" placeholder="SELECT pelay..pelayanan_tindakan..." />
+            <marker date="1424222915757" expanded="true" signature="14461:14488" placeholder="SELECT * FRO..obat..." />
+            <marker date="1424222915757" expanded="true" signature="14514:14606" placeholder="SELECT * FRO..obat..." />
+            <marker date="1424222915757" expanded="true" signature="15014:15043" placeholder="SELECT * FRO..pasien..." />
+            <marker date="1424222915757" expanded="true" signature="15069:15163" placeholder="SELECT * FRO..pasien..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/operator/unit_farmasi.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="218" column="0" selection-start="7964" selection-end="7964" vertical-scroll-proportion="1.6847636" vertical-offset="2744" max-vertical-offset="4794">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
+

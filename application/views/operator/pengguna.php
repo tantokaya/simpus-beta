@@ -76,13 +76,13 @@
                     <tr>
                         <td>N I P</td>
                         <td>
-                            <input type="text" name="nip2" id="nip" maxlength="18" size="18" class="input-large" value="<?php echo $row['nip'] ?>" />
+                            <input type="text" name="nip" id="nip" maxlength="18" size="18" class="input-large" value="<?php echo $row['nip'] ?>" />
                         </td>
                     </tr>
                     <tr>
                         <td>Nama Lengkap</td>
                         <td>
-                            <input type="text" name="nama2" id="nama" class="input-large" value="<?php echo $row['nama'] ?>" />
+                            <input type="text" name="nama" id="nama" class="input-large" value="<?php echo $row['nama'] ?>" />
                         </td>
                     </tr>
 
