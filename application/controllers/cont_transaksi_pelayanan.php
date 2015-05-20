@@ -1420,7 +1420,18 @@ class Cont_transaksi_pelayanan extends CI_Controller
 	
 	public function cetak_rujukan() {
         $kd_trans_pelayanan = $this->uri->segment(3);
-
+		$q="SELECT kd_status_pasien, tempat_rujukan FROM pelayanan WHERE kd_trans_pelayanan='$kd_trans_pelayanan'";
+		$kueri = $this->m_crud->manualQuery($q);
+		$hasil = $kueri->row_array();
+		if ($hasil['kd_status_pasien'] != 'SKP-4' AND $hasil['tempat_rujukan']=='') {
+			echo "Pasien tidak dirujuk";
+		} 
+		
+		elseif ($hasil['kd_status_pasien'] == 'SKP-4' AND $hasil['tempat_rujukan']== '' ){
+			echo "Tempat rujukan belum diisi oleh dokter";
+		}
+		elseif (($hasil['kd_status_pasien'] == 'SKP-4' AND $hasil['tempat_rujukan']!= '') OR ($hasil['kd_status_pasien'] != 'SKP-4' AND $hasil['tempat_rujukan']!='') ){
+		
         $this->load->library('Pdf');
         $pdf = new Pdf('P', 'mm', 'A4', true, 'UTF-8', false);
         // $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
@@ -1451,10 +1462,14 @@ class Cont_transaksi_pelayanan extends CI_Controller
         $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));
 
         $puskesmas = $this->m_rujukan->get_puskesmas_info($this->session->userdata('kd_puskesmas'));
-
+		$kd_trans_pelayanan = $this->uri->segment(3);
+		$surat = $this->m_rujukan->get_data_rujukan($kd_trans_pelayanan);
+		
+		#echo $this->db->last_query(); exit;
+		
         $html     = '<table align="center" border="0" align="left">';
         $html    .= '<tr>
-                        <td width="30%"><img src="'.base_url().'assets/img/logo.png" width="50" height="50"/></td>
+                        <td width="30%" style="text-align: center;"><img src="'.base_url().'assets/img/logo.png" width="80" height="80"/></td>
                         <td width="70%"><h3>PEMERINTAH KOTA BOGOR<br>DINAS KESEHATAN KOTA</h3>
                         <h4>UPTD '.$puskesmas["nm_puskesmas"].'<br>'.$puskesmas["alamat"].'</h4>
                         </td>
@@ -1462,58 +1477,58 @@ class Cont_transaksi_pelayanan extends CI_Controller
         $html    .= '</table>';
         $html    .= '<p align="center"><b>SURAT RUJUKAN</b></p>';
 
-        $html   .= '<table align="left" cellpadding="2" cellspacing="0" border="0">
+        $html   .= '<table align="center" cellpadding="2" cellspacing="0" border="0" width="100%">
     <tr>
-        <td>Kepada Yth. TS dr. Poli</td>
-        <td>:</td>
-        <td>__POLI_</td>
+        <td width="30%" style="text-align: left;">Kepada Yth. TS dr. Poli</td>
+        <td width="5%" style="text-align: left;">:</td>
+        <td width="65%" style="text-align: left;">................................</td>
     </tr>
     <tr>
-        <td>Di RS</td>
-        <td>:</td>
-        <td>__RS_</td>
-    </tr>
-    <tr>
-        <td colspan="3">&nbsp;</td>
-    </tr>
-    <tr>
-        <td colspan="3">Mohon untuk pemeriksaan dan penanganan selanjutnya, OS: </td>
-    </tr>
-    <tr>
-        <td>Nama</td>
-        <td>:</td>
-        <td>__NAMA_</td>
-    </tr>
-    <tr>
-        <td>Umur</td>
-        <td>:</td>
-        <td>__UMUR_</td>
-    </tr>
-    <tr>
-        <td>Jenis Kelamin</td>
-        <td>:</td>
-        <td>__JENIS_KELAMIN_</td>
-    </tr>
-    <tr>
-        <td>Alamat</td>
-        <td>:</td>
-        <td>__ALAMAT_</td>
-    </tr>
-    <tr>
-        <td>Diagnosa</td>
-        <td>:</td>
-        <td>__DIAGNOSA_</td>
-    </tr>
-    <tr>
-        <td>Telah diberikan</td>
-        <td>:</td>
-        <td>__POLI_</td>
+        <td style="text-align: left;">Di RS</td>
+        <td style="text-align: left;">:</td>
+        <td style="text-align: left;">'.$surat["tempat_rujukan"].'</td>
     </tr>
     <tr>
         <td colspan="3">&nbsp;</td>
     </tr>
     <tr>
-        <td colspan="3">Demikian atas bantuannya, kami ucapkan terima kasih.</td>
+        <td style="text-align: left;" colspan="3">Mohon untuk pemeriksaan dan penanganan selanjutnya, OS: </td>
+    </tr>
+    <tr>
+        <td style="text-align: left;">Nama</td>
+        <td style="text-align: left;">:</td>
+        <td style="text-align: left;">'.$surat["nm_lengkap"].'</td>
+    </tr>
+    <tr>
+        <td style="text-align: left;">Umur</td>
+        <td style="text-align: left;">:</td>
+        <td style="text-align: left;">'.$surat["umur"].' Tahun</td>
+    </tr>
+    <tr>
+        <td style="text-align: left;">Jenis Kelamin</td>
+        <td style="text-align: left;">:</td>
+        <td style="text-align: left;">'.$surat["jenis_kelamin"].'</td>
+    </tr>
+    <tr>
+        <td style="text-align: left;">Alamat</td>
+        <td style="text-align: left;">:</td>
+        <td style="text-align: left;">'.$surat["alamat"].', Kel. '.ucwords(strtolower($surat["nm_kelurahan"])).', Kec. '.ucwords(strtolower($surat["nm_kecamatan"])).' , '.ucwords(strtolower($surat["nm_kota"])).'</td>
+    </tr>
+    <tr>
+        <td style="text-align: left;">Diagnosa</td>
+        <td style="text-align: left;">:</td>
+        <td style="text-align: left;">'.$surat["penyakit"].'</td>
+    </tr>
+    <tr>
+        <td style="text-align: left;">Telah diberikan</td>
+        <td style="text-align: left;">:</td>
+        <td style="text-align: left;">'.$surat["tindakan"].'</td>
+    </tr>
+    <tr>
+        <td colspan="3">&nbsp;</td>
+    </tr>
+    <tr>
+        <td style="text-align: left;" colspan="3">Demikian atas bantuannya, kami ucapkan terima kasih.</td>
     </tr>
     <tr>
         <td colspan="3">&nbsp;</td>
@@ -1535,7 +1550,7 @@ class Cont_transaksi_pelayanan extends CI_Controller
     <tr>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
-        <td>...........................................<br><hr>...........................................</td>
+        <td><u>........................................... </u><br> <br>...........................................</td>
     </tr>
 </table>';
 
@@ -1549,6 +1564,7 @@ class Cont_transaksi_pelayanan extends CI_Controller
         $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
         $pdf->Output('Surat Rujukan.pdf', 'I');
     }
+	}
 	
 }
 ?>
