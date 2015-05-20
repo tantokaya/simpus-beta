@@ -30,6 +30,7 @@ class Cont_cetak_lap_harian extends CI_Controller
 		}
 		
 		if ($par1 == 'cetak') {
+		
 			$this->load->library('excel');
 			require APPPATH."libraries/PHPExcel/IOFactory.php";
 	
@@ -38,25 +39,31 @@ class Cont_cetak_lap_harian extends CI_Controller
 			
 			$kd_puskesmas = $this->session->userdata('kd_puskesmas');
             $puskesmas = $this->m_register_harian->get_puskesmas_info($kd_puskesmas);
-			
+						
 			$objReader = PHPExcel_IOFactory::createReader($fileType); 
 			$objReader->setIncludeCharts(TRUE);
 			$objPHPExcel = $objReader->load($inputFileName); 
 			$objPHPExcel->setActiveSheetIndex(0);
+			
 
 			$tgl	= $this->input->post('tgl');
-			$pasien = $this->m_register_harian->get_pasien_rawat_umum_by_date($this->functions->convert_date_sql($tgl));
-
-
-         #  echo('<pre>'); print_r($pasien); exit;
+			$kd_unit_pelayanan = $this->input->post('kd_unit_pelayanan');
+			$unit = $this->m_register_harian->get_unit_pelayanan_info($kd_unit_pelayanan);
+			$pasien = $this->m_register_harian->get_pasien_rawat_umum_by_date($this->functions->convert_date_sql($tgl), $kd_unit_pelayanan);
+			
+			#echo $this->db->last_query(); exit;  //untuk menampilkan sintaks query trakir
+			
+			#echo '<pre>'; print_r($data); exit;
+			
+			#echo('<pre>'); print_r($pasien); exit;
 			
 			/****************************************************************************************/
 			/* HEADER DATA EXCEL
 			/****************************************************************************************/
-			$objPHPExcel->getActiveSheet()->setCellValue('C3', $puskesmas['nm_puskesmas']);
-            $objPHPExcel->getActiveSheet()->setCellValue('H3', $tgl);
-
-
+			
+			$objPHPExcel->getActiveSheet()->setCellValue('I1', $unit['nm_unit']);
+			$objPHPExcel->getActiveSheet()->setCellValue('A2', $puskesmas['nm_puskesmas']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A3', $tgl);
 
             $i=7;
             $no=1;
@@ -70,30 +77,34 @@ class Cont_cetak_lap_harian extends CI_Controller
                     case 2: $jk = "P"; break;
 
                 }
-
+				if ($rs['alamat']=='') {$rs['alamat']= "-";}
+				if ($rs['nm_kelurahan']=='') {$rs['nm_kelurahan']= "-";}
+				if ($rs['nm_kota']=='') {$rs['nm_kota']= "-";}
+				if ($rs['umur']=='') {$rs['umur']= "-";}
+				if ($rs['cara_bayar']=='') {$rs['cara_bayar']= "-";}
+				if ($rs['penyakit']=='') {$rs['penyakit']= "-";}
+				if ($rs['tindakan']=='') {$rs['tindakan']= "-";}
+				if ($rs['jns_kasus']=='') {$rs['jns_kasus']= "-";}
+				if ($rs['keterangan']=='') {$rs['keterangan']= "-";}
+				if ($rs['nm_dokter']=='') {$rs['nm_dokter']= "-";}
+				
                 $objPHPExcel->getActiveSheet()->setCellValue('C'.$i, $jk);
                 $objPHPExcel->getActiveSheet()->setCellValue('D'.$i, $rs['alamat']);
+				$objPHPExcel->getActiveSheet()->setCellValue('E'.$i, $rs['nm_kelurahan']);
+				$objPHPExcel->getActiveSheet()->setCellValue('F'.$i, $rs['nm_kota']);
                 $objPHPExcel->getActiveSheet()->setCellValue('G'.$i, $rs['umur']);
                 $objPHPExcel->getActiveSheet()->setCellValue('H'.$i, $rs['cara_bayar']);
+				$objPHPExcel->getActiveSheet()->setCellValue('I'.$i, $rs['penyakit']);
+				$objPHPExcel->getActiveSheet()->setCellValue('J'.$i, $rs['tindakan']);
+				$objPHPExcel->getActiveSheet()->setCellValue('K'.$i, $rs['jns_kasus']);
                 $objPHPExcel->getActiveSheet()->setCellValue('L'.$i, $rs['keterangan']);
                 $objPHPExcel->getActiveSheet()->setCellValue('M'.$i, $rs['nm_dokter']);
-
-                /*
-                $objPHPExcel->getActiveSheet()->setCellValue('E'.$i, $a['jml_terima']);
-                $objPHPExcel->getActiveSheet()->setCellValue('G'.$i, $a['kluar_k_pustu']);
-                $objPHPExcel->getActiveSheet()->setCellValue('H'.$i, $a['kluar_k_unit_lain']);
-                $objPHPExcel->getActiveSheet()->setCellValue('I'.$i, $a['kluar_k_apt']);
-
-                $b = $this->m_lb2->get_stok_opname($bln, $thn, $a['kd_obat']);
-                $objPHPExcel->getActiveSheet()->setCellValue('L'.$i, $b);
-                */
+     
                 $i++;
                 $no++;
             }
 
-
-
-
+			
 			$filename='Register_'.date("d/m/Y H-i-s").'.xls'; //save our workbook as this file name
 			header('Content-Type: application/vnd.ms-excel'); //mime type
 			header('Content-Disposition: attachment;filename="'.$filename.'"'); //tell browser what's the file name
@@ -104,7 +115,7 @@ class Cont_cetak_lap_harian extends CI_Controller
 			$objWriter->save('php://output');
 		
 		}
-		
+		$data['list_unit_pelayanan']		= $this->m_crud->get_list_unit_pelayanan('1');
 		$data['page_name']  = 'Register Harian';
 		$data['page_title'] = 'Register Harian';
 		$this->template->display('form_register', $data);
