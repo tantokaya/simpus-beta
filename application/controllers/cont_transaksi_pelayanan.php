@@ -5,6 +5,7 @@ class Cont_transaksi_pelayanan extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
+		$this->load->model('m_rujukan');
 		
 		// cek session
 		if ($this->session->userdata('logged_in') == false) {
@@ -1416,6 +1417,138 @@ class Cont_transaksi_pelayanan extends CI_Controller
 			header('location:'.base_url());
 		}
 	}
+	
+	public function cetak_rujukan() {
+        $kd_trans_pelayanan = $this->uri->segment(3);
+
+        $this->load->library('Pdf');
+        $pdf = new Pdf('P', 'mm', 'A4', true, 'UTF-8', false);
+        // $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetPageOrientation('P');
+        $pdf->SetAuthor('Pemerintah Kota Bogor');
+        $pdf->SetTitle('Surat Rujukan Umum');
+        $pdf->SetSubject('Surat Rujukan Rumah Sakit');
+        $pdf->SetKeywords('Surat Rujukan');
+        // $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 001', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
+        $pdf->setFooterData(array(0,64,0), array(0,64,128));
+        $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+        $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+        if (@file_exists(dirname(__FILE__).'/lang/eng.php'))
+        {
+            require_once(dirname(__FILE__).'/lang/eng.php');
+            $pdf->setLanguageArray($l);
+        }
+        $pdf->setFontSubsetting(true);
+        $pdf->SetFont('dejavusans', '', 8, '', true);
+        $pdf->AddPage();
+        $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));
+
+        $puskesmas = $this->m_rujukan->get_puskesmas_info($this->session->userdata('kd_puskesmas'));
+
+        $html     = '<table align="center" border="0" align="left">';
+        $html    .= '<tr>
+                        <td width="30%"><img src="'.base_url().'assets/img/logo.png" width="50" height="50"/></td>
+                        <td width="70%"><h3>PEMERINTAH KOTA BOGOR<br>DINAS KESEHATAN KOTA</h3>
+                        <h4>UPTD '.$puskesmas["nm_puskesmas"].'<br>'.$puskesmas["alamat"].'</h4>
+                        </td>
+                    </tr>';
+        $html    .= '</table>';
+        $html    .= '<p align="center"><b>SURAT RUJUKAN</b></p>';
+
+        $html   .= '<table align="left" cellpadding="2" cellspacing="0" border="0">
+    <tr>
+        <td>Kepada Yth. TS dr. Poli</td>
+        <td>:</td>
+        <td>__POLI_</td>
+    </tr>
+    <tr>
+        <td>Di RS</td>
+        <td>:</td>
+        <td>__RS_</td>
+    </tr>
+    <tr>
+        <td colspan="3">&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="3">Mohon untuk pemeriksaan dan penanganan selanjutnya, OS: </td>
+    </tr>
+    <tr>
+        <td>Nama</td>
+        <td>:</td>
+        <td>__NAMA_</td>
+    </tr>
+    <tr>
+        <td>Umur</td>
+        <td>:</td>
+        <td>__UMUR_</td>
+    </tr>
+    <tr>
+        <td>Jenis Kelamin</td>
+        <td>:</td>
+        <td>__JENIS_KELAMIN_</td>
+    </tr>
+    <tr>
+        <td>Alamat</td>
+        <td>:</td>
+        <td>__ALAMAT_</td>
+    </tr>
+    <tr>
+        <td>Diagnosa</td>
+        <td>:</td>
+        <td>__DIAGNOSA_</td>
+    </tr>
+    <tr>
+        <td>Telah diberikan</td>
+        <td>:</td>
+        <td>__POLI_</td>
+    </tr>
+    <tr>
+        <td colspan="3">&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="3">Demikian atas bantuannya, kami ucapkan terima kasih.</td>
+    </tr>
+    <tr>
+        <td colspan="3">&nbsp;</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Salam Sejawat,</td>
+     </tr>
+    <tr>
+        <td colspan="3">&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="3">&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="3">&nbsp;</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>...........................................<br><hr>...........................................</td>
+    </tr>
+</table>';
+
+        $pdf->SetTitle('Judul');
+        $pdf->SetHeaderMargin(30);
+        $pdf->SetTopMargin(20);
+        $pdf->setFooterMargin(20);
+        $pdf->SetAutoPageBreak(true);
+        $pdf->SetAuthor('Pengarang');
+        $pdf->SetDisplayMode('real', 'default');
+        $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
+        $pdf->Output('Surat Rujukan.pdf', 'I');
+    }
 	
 }
 ?>
