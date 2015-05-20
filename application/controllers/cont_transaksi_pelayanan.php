@@ -1431,7 +1431,7 @@ class Cont_transaksi_pelayanan extends CI_Controller
 			echo "Tempat rujukan belum diisi oleh dokter";
 		}
 		elseif (($hasil['kd_status_pasien'] == 'SKP-4' AND $hasil['tempat_rujukan']!= '') OR ($hasil['kd_status_pasien'] != 'SKP-4' AND $hasil['tempat_rujukan']!='') ){
-		
+				
         $this->load->library('Pdf');
         $pdf = new Pdf('P', 'mm', 'A4', true, 'UTF-8', false);
         // $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
@@ -1464,6 +1464,13 @@ class Cont_transaksi_pelayanan extends CI_Controller
         $puskesmas = $this->m_rujukan->get_puskesmas_info($this->session->userdata('kd_puskesmas'));
 		$kd_trans_pelayanan = $this->uri->segment(3);
 		$surat = $this->m_rujukan->get_data_rujukan($kd_trans_pelayanan);
+		
+		if ($surat['alamat']=='') {$surat['alamat']= "-";}
+		if ($surat['umur']=='') {$surat['umur']= "-";}
+		if ($surat['jenis_kelamin']=='') {$surat['jenis_kelamin']= "-";}
+		if ($surat['penyakit']=='') {$surat['penyakit']= "-";}
+		if ($surat['tindakan']=='') {$surat['tindakan']= "-";}
+		if ($surat['tempat_rujukan']=='') {$surat['tempat_rujukan']= "-";}
 		
 		#echo $this->db->last_query(); exit;
 		
