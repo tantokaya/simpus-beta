@@ -36,7 +36,11 @@ function pengguna()
 			//->where('user.id_akses','1');
 			*/
 			
+<<<<<<< HEAD
 		$sql = $this->datatables->select('user.id_user,user.nama,user.nip,user.username,akses.akses,puskesmas.nm_puskesmas');
+=======
+		$sql = $this->datatables->select('user.id_user,user.nama,user.nip,user.email,akses.akses,puskesmas.nm_puskesmas');
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
         $sql->unset_column('user.id_user');
         $sql->add_column('Aksi', '
 				<a href="'.base_url().'cont_master_setting/pengguna/ubah/$1" class="btn btn-primary btn-circle"><i class="iconsweets-create iconsweets-white"></i></a> <a href="'.base_url().'cont_master_setting/pengguna/hapus/$1" class="btn btn-danger btn-circle" onClick="return confirm(\'Anda yakin ingin menghapus data ini?\')"><i class="iconsweets-trashcan iconsweets-white" ></i></a>
@@ -581,7 +585,10 @@ DATE_FORMAT(pelayanan.tgl_pelayanan, "%d-%m-%Y") as tgl_format, pelayanan.kd_rek
                                             <button class="btn">P i l i h</button>
                                             <button data-toggle="dropdown" class="btn dropdown-toggle"><span class="caret"></span></button>
                                             <ul class="dropdown-menu">
+<<<<<<< HEAD
 											  <li><a href="'.base_url().'cont_transaksi_pelayanan/cetak_rujukan/$1">Cetak Rujukan</a></li>
+=======
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
                                               <li><a href="'.base_url().'cont_transaksi_pelayanan/pelayanan_today/ubah/$1">Ubah</a></li>
                                               <li><a href="#" onClick="event.preventDefault(); return jConfirm(\'Anda yakin ingin menghapus data ini?\',\'Konfirmasi Hapus Data\', function(r){if(r==true){var href = \''.base_url().'cont_transaksi_pelayanan/pelayanan_today/hapus/$1\';window.location.href=href;}else{event.preventDefault();}});" title="Hapus">Hapus</a></li>
                                               <li><a href="'.base_url().'c_bayar_tindakan/bayar_tindakan/tambah/bayar/$1">Bayar</a></li>
@@ -592,8 +599,13 @@ DATE_FORMAT(pelayanan.tgl_pelayanan, "%d-%m-%Y") as tgl_format, pelayanan.kd_rek
                                           </div>
 			','pelayanan.kd_trans_pelayanan');
 				
+<<<<<<< HEAD
 				} // filter untuk pasien per poli dan ugd dan PTRM
 				elseif($this->session->userdata('id_akses') == 10 || $this->session->userdata('id_akses') == 11 || $this->session->userdata('id_akses') == 12 || $this->session->userdata('id_akses') == 13 || $this->session->userdata('id_akses') == 14)
+=======
+				} // filter untuk pasien per poli dan ugd
+				elseif($this->session->userdata('id_akses') == 10 || $this->session->userdata('id_akses') == 11 || $this->session->userdata('id_akses') == 12 || $this->session->userdata('id_akses') == 13 )
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
 				{ 	// tambahkan alamat dan umur, unset unit layanan dan cara bayar
 					$sql->where('unit_pelayanan.kd_unit_pelayanan',$this->session->userdata('kd_unit_pelayanan'));
 					$sql->unset_column('unit_pelayanan.nm_unit');

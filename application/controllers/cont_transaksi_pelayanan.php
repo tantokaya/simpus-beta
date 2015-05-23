@@ -5,7 +5,10 @@ class Cont_transaksi_pelayanan extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
+<<<<<<< HEAD
 		$this->load->model('m_rujukan');
+=======
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
 		
 		// cek session
 		if ($this->session->userdata('logged_in') == false) {
@@ -1418,6 +1421,7 @@ class Cont_transaksi_pelayanan extends CI_Controller
 		}
 	}
 	
+<<<<<<< HEAD
 	public function cetak_rujukan() {
         $kd_trans_pelayanan = $this->uri->segment(3);
 		$q="SELECT kd_status_pasien, tempat_rujukan FROM pelayanan WHERE kd_trans_pelayanan='$kd_trans_pelayanan'";
@@ -1573,5 +1577,7 @@ class Cont_transaksi_pelayanan extends CI_Controller
     }
 	}
 	
+=======
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
 }
 ?>

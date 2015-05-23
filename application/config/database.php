@@ -51,7 +51,11 @@ $active_record = TRUE;
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'root';
 $db['default']['password'] = '';
+<<<<<<< HEAD
 $db['default']['database'] = 'pus_bogortimur';
+=======
+$db['default']['database'] = 'simkesmas_dev';
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = FALSE;

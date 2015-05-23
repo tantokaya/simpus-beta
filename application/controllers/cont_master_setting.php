@@ -50,13 +50,22 @@ class Cont_master_setting extends CI_Controller
 		}
 		if ($par1 == 'ubah' && $par2 == 'do_update') {
 			$data['email'] = $this->input->post('email');
+<<<<<<< HEAD
+=======
+            $data['username'] = $this->input->post('username');
+			//$data['password'] = $this->input->post('password');
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
 			$data['nip'] = $this->input->post('nip');
 			$data['nama'] = $this->input->post('nama');
 			$data['id_akses'] = $this->input->post('id_akses');
 			$data['kd_puskesmas'] = $this->session->userdata('kd_puskesmas');
+<<<<<<< HEAD
 			$data['username'] = $this->input->post('username');
 			//$data['password'] = $this->input->post('password');
 					
+=======
+			
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
 			$this->m_crud->perbaharui('id_user', $par3, 'user', $data);
 			$this->session->set_flashdata('flash_message', 'Data user berhasil diperbaharui!');
 			redirect('cont_master_setting/pengguna', 'refresh');

@@ -15,14 +15,22 @@
         <div class="leftmenu">        
             <ul class="nav nav-tabs nav-stacked">
             	<li class="nav-header">Menu Utama</li>
+<<<<<<< HEAD
                 <li class="<?php if($page_name == 'dashboard')echo 'active';?>"><a href="<?php echo base_url(); ?>poli_umum/dashboard"><span class="icon-align-justify"></span> Dashboard</a></li>
+=======
+                <li class="<?php if($page_name == 'dashboard')echo 'active';?>"><a href="<?php echo base_url(); ?>poli_gigi/dashboard"><span class="icon-align-justify"></span> Dashboard</a></li>
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
 				
 				<li class="<?php if($page_name == 'pelayanan')echo 'active';?>"><a href="<?php echo base_url(); ?>cont_transaksi_pelayanan/pelayanan_today"><span class="icon-align-justify"></span>Menu Pelayanan</a></li>
 			<!--	
 				<li class="<?php if($page_name == 'pendaftaran' || $page_name== 'pelayanan'  )echo 'active'; ?>dropdown"><a href=""><span class="icon-briefcase"></span> Menu Utama</a>
                 	<ul style="<?php if($page_name == 'pendaftaran' || $page_name== 'pelayanan'  )echo 'display: block'; ?>">
 						<li><a href="<?php echo base_url(); ?>cont_transaksi_pendaftaran/pendaftaran">Daftar Antrian Pasien</a></li>
+<<<<<<< HEAD
 						<li><a href="<?php echo base_url(); ?>cont_transaksi_pelayanan/pelayanan_today">Pelayanan</a></li>
+=======
+						<li><a href="<?php echo base_url(); ?>cont_transaksi_pelayanan/pelayanan">Pelayanan</a></li>
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
 					</ul>
                 </li>	-->
             </ul>

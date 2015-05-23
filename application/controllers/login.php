@@ -93,9 +93,12 @@ class Login extends CI_Controller {
 				case 13:
 					redirect('ugd/dashboard');
 					break;
+<<<<<<< HEAD
 				case 14:
 					redirect('ptrm/dashboard');
 					break;
+=======
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
 				
 			}
 			
@@ -160,8 +163,13 @@ class Login extends CI_Controller {
 			
 				$this->session->set_userdata('akses', 'poli_gigi');
 				$this->session->set_userdata('kd_unit_pelayanan', '3');
+<<<<<<< HEAD
 			} 
 			 else if ($row ->id_akses == 11) {
+=======
+			
+			}	 else if ($row ->id_akses == 11) {
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
 			
 				$this->session->set_userdata('akses', 'poli_kia');
 				$this->session->set_userdata('kd_unit_pelayanan', '4');
@@ -176,11 +184,14 @@ class Login extends CI_Controller {
 				$this->session->set_userdata('akses', 'ugd');
 				$this->session->set_userdata('kd_unit_pelayanan', '23');
 			}																
+<<<<<<< HEAD
 			else if ($row ->id_akses == 14) {
 			
 				$this->session->set_userdata('akses', 'ptrm');
 				$this->session->set_userdata('kd_unit_pelayanan', '17');
 			}	
+=======
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
 			
 			$this->session->set_userdata('id_user', $row->id_user);
 			$this->session->set_userdata('nama', $row->nama);

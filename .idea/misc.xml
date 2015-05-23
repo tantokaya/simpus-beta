@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ProjectRootManager" version="2" />
+<<<<<<< HEAD
+=======
+  <component name="SvnBranchConfigurationManager">
+    <option name="mySupportsUserInfoFilter" value="true" />
+  </component>
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
 </project>
 

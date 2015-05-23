@@ -26,7 +26,11 @@
             				<?php endif;?>
       						
                             <li class="<?php if(!isset($edit_tindakan))echo 'ui-tabs-active';?>"><a href="#list"><i class="icon-align-justify"></i> Daftar Tindakan</a></li>
+<<<<<<< HEAD
                   <li class=""><a href="#tambah"><i class="icon-plus"></i> Tambah Tindakan</a></li>	
+=======
+                       <!--     <li class=""><a href="#tambah"><i class="icon-plus"></i> Tambah Tindakan</a></li>	-->
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
                         </ul>
                         
                         <!----EDITING FORM STARTS---->
@@ -107,7 +111,11 @@
                          <!---- END DAFTAR tindakan ---->
                         
                         <!---- TAMBAH tindakan START ---->
+<<<<<<< HEAD
                        <div id="tambah">
+=======
+             <!--           <div id="tambah">
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
                        		<h4 class="widgettitle nomargin shadowed">Data Tindakan</h4>
                             <div class="widgetcontent bordered shadowed nopadding">
                                 <?php echo form_open('cont_master_pelayanan/tindakan/tambah', array('class' => 'stdform stdform2', 'id' => 'form_input')); ?>
@@ -137,7 +145,11 @@
                                         </p>
                                	<?php echo form_close();  ?>
                                 </div>
+<<<<<<< HEAD
                         </div>	
+=======
+                        </div>	-->
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
                         <!---- END TAMBAH PROPINSI ---->
                         
                 	</div><!--tabs-->

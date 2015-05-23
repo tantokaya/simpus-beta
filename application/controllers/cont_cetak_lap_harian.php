@@ -13,8 +13,15 @@ class Cont_cetak_lap_harian extends CI_Controller
 		}
 		
 		$this->load->model('m_register_harian');		
+<<<<<<< HEAD
 		$this->load->library('template');
 
+=======
+		$this->load->library('template');		
+		$this->load->library('Datatables');
+        $this->load->library('table');
+		
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
 		$this->output->set_header('Last-Modified: ' . gmdate("D, d M Y H:i:s") . ' GMT');
 		$this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
 		$this->output->set_header('Pragma: no-cache');
@@ -30,21 +37,32 @@ class Cont_cetak_lap_harian extends CI_Controller
 		}
 		
 		if ($par1 == 'cetak') {
+<<<<<<< HEAD
 		
+=======
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
 			$this->load->library('excel');
 			require APPPATH."libraries/PHPExcel/IOFactory.php";
 	
 			$fileType		='Excel5';
+<<<<<<< HEAD
 			$inputFileName	= APPPATH . "libraries/register_harian.xls";
 			
 			$kd_puskesmas = $this->session->userdata('kd_puskesmas');
             $puskesmas = $this->m_register_harian->get_puskesmas_info($kd_puskesmas);
 						
+=======
+			$inputFileName	= APPPATH . "libraries/format_lb2_puskesmas.xls";
+			
+			$kd_puskesmas = $this->session->userdata('kd_puskesmas');
+			
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
 			$objReader = PHPExcel_IOFactory::createReader($fileType); 
 			$objReader->setIncludeCharts(TRUE);
 			$objPHPExcel = $objReader->load($inputFileName); 
 			$objPHPExcel->setActiveSheetIndex(0);
 			
+<<<<<<< HEAD
 
 			$tgl	= $this->input->post('tgl');
 			$kd_unit_pelayanan = $this->input->post('kd_unit_pelayanan');
@@ -105,6 +123,46 @@ class Cont_cetak_lap_harian extends CI_Controller
             }
 
 			
+=======
+			//get puskesmas info from session
+			$data['puskesmas'] = $this->m_crud->get_info_puskesmas($kd_puskesmas);
+			$bln	= $this->input->post('bulan');
+			$thn	= $this->input->post('tahun');
+			
+			/****************************************************************************************/
+			/* FILLING DATA EXCEL
+			/****************************************************************************************/
+			
+			$objPHPExcel->getActiveSheet()->setCellValue('C4', ': '. $data['puskesmas'][0]['nm_puskesmas']);
+			$objPHPExcel->getActiveSheet()->setCellValue('C5', ': '. $data['puskesmas'][0]['nm_kecamatan']);
+			$objPHPExcel->getActiveSheet()->setCellValue('J4', $bulan);
+			$objPHPExcel->getActiveSheet()->setCellValue('J5', $thn);
+				
+			/* DATA SET */
+			
+			// Param get_stok(bulan, tahun, kode obat)
+			//------------------------------------------------------------------------------------------------
+			
+			$stok_all = $this->m_lb2->get_stok_all($bln, $thn);
+			$i=13;
+			$no=1;
+			foreach($stok_all as $a){
+				$objPHPExcel->getActiveSheet()->setCellValue('A'.$i, $no);	
+				$objPHPExcel->getActiveSheet()->setCellValue('B'.$i, $a['nama_obat']);
+				$objPHPExcel->getActiveSheet()->setCellValue('C'.$i, $a['sat_kecil_obat']);
+				$objPHPExcel->getActiveSheet()->setCellValue('D'.$i, $a['stok_awal']);	
+				$objPHPExcel->getActiveSheet()->setCellValue('E'.$i, $a['jml_terima']);
+				$objPHPExcel->getActiveSheet()->setCellValue('G'.$i, $a['kluar_k_pustu']);
+				$objPHPExcel->getActiveSheet()->setCellValue('H'.$i, $a['kluar_k_unit_lain']);
+				$objPHPExcel->getActiveSheet()->setCellValue('I'.$i, $a['kluar_k_apt']);
+				
+				$b = $this->m_lb2->get_stok_opname($bln, $thn, $a['kd_obat']);
+				$objPHPExcel->getActiveSheet()->setCellValue('L'.$i, $b);
+				$i++;
+				$no++;
+			}
+
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
 			$filename='Register_'.date("d/m/Y H-i-s").'.xls'; //save our workbook as this file name
 			header('Content-Type: application/vnd.ms-excel'); //mime type
 			header('Content-Disposition: attachment;filename="'.$filename.'"'); //tell browser what's the file name
@@ -115,7 +173,11 @@ class Cont_cetak_lap_harian extends CI_Controller
 			$objWriter->save('php://output');
 		
 		}
+<<<<<<< HEAD
 		$data['list_unit_pelayanan']		= $this->m_crud->get_list_unit_pelayanan('1');
+=======
+		
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
 		$data['page_name']  = 'Register Harian';
 		$data['page_title'] = 'Register Harian';
 		$this->template->display('form_register', $data);

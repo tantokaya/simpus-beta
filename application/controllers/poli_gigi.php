@@ -94,9 +94,15 @@ class Poli_gigi extends CI_Controller
             $data['top_desease']			= $this->m_dashboard->get_top5_desease();
 
             for ($i=1; $i <= 12; $i++){
+<<<<<<< HEAD
                 $data['pria'][$i] = $this->m_dashboard->get_pasien_laki($i);
                 $data['wanita'][$i] = $this->m_dashboard->get_pasien_perempuan($i);
                 $data['kunjungan'][$i] = $this->m_dashboard->get_total_kunjungan_monthly($i);
+=======
+                $data['pria'][$i]       = $this->m_dashboard->get_pasien_laki($i);
+                $data['wanita'][$i]     = $this->m_dashboard->get_pasien_perempuan($i);
+                $data['kunjungan'][$i]  = $this->m_dashboard->get_total_kunjungan_monthly($i);
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
             }
 
             //echo '<pre>'; print_r($data['kunjungan']); exit;

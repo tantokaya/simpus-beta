@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="2fc64f59-ae65-40be-b2a4-d14cf11f7bd8" name="Default" comment="" />
+=======
+    <list default="true" readonly="true" id="2fc64f59-ae65-40be-b2a4-d14cf11f7bd8" name="Default" comment="" />
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
     <ignored path="simpus-beta.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -22,6 +26,7 @@
     <favorites_list name="simpus-beta" />
   </component>
   <component name="FileEditorManager">
+<<<<<<< HEAD
     <leaf>
       <file leaf-file-name="database.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/config/database.php">
@@ -42,6 +47,9 @@
         </entry>
       </file>
     </leaf>
+=======
+    <leaf />
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -51,6 +59,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+<<<<<<< HEAD
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
@@ -59,6 +68,8 @@
       </list>
     </option>
   </component>
+=======
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
@@ -77,7 +88,11 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectReloadState">
+<<<<<<< HEAD
     <option name="STATE" value="0" />
+=======
+    <option name="STATE" value="2" />
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
@@ -106,7 +121,43 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+<<<<<<< HEAD
               <option name="myItemId" value="simpus-botim" />
+=======
+              <option name="myItemId" value="simpus-beta" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simpus-beta" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simpus-beta" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simpus-beta" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simpus-beta" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="config" />
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -116,12 +167,19 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+<<<<<<< HEAD
     <property name="options.lastSelected" value="vcs.Git" />
+=======
+    <property name="options.lastSelected" value="web-ide.project.structure" />
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
+<<<<<<< HEAD
     <property name="FullScreen" value="false" />
+=======
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
   </component>
   <component name="RunManager">
     <list size="0" />
@@ -197,11 +255,16 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/application/config/database.php">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state line="48" column="22" selection-start="2587" selection-end="2587" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1547">
+=======
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="663" max-vertical-offset="1547">
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/.htaccess">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="17" selection-start="236" selection-end="236" vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="238">
@@ -224,6 +287,11 @@
     <entry file="file://$PROJECT_DIR$/.htaccess">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="17" selection-start="236" selection-end="236" vertical-scroll-proportion="0.22295082" vertical-offset="0" max-vertical-offset="610">
+=======
+    <entry file="file://$PROJECT_DIR$/application/config/database.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.1352739" vertical-offset="663" max-vertical-offset="1547">
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
           <folding />
         </state>
       </provider>

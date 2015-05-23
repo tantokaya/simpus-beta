@@ -7,7 +7,11 @@
 	<div class="breadcrumbwidget">
     	<ul class="breadcrumb">
         	<li><a href="#">Home</a> <span class="divider">/</span></li>
+<<<<<<< HEAD
             <li><a href="#">Laporan Harian</a> <span class="divider">/</span></li>
+=======
+            <li><a href="#">Laporan Bulanan</a> <span class="divider">/</span></li>
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
             <li class="active"><?php echo $page_title; ?></li>
         </ul>
 	</div><!--breadcrumbwidget-->
@@ -26,6 +30,7 @@
                         
                         <!---- CETAK register START ---->
    						<div id="list">
+<<<<<<< HEAD
                         	<h4 class="widgettitle nomargin shadowed">Rekap Penyakit Per Minggu</h4>
                             <div class="widgetcontent bordered shadowed nopadding">
                                 <?php echo form_open('cont_cetak_lap_harian/register_harian/cetak', array('class' => 'stdform stdform2', 'id' => 'form_input')); ?>
@@ -45,6 +50,19 @@
             <?php endforeach; ?>
             </select>
 		  </td>
+=======
+                        	<h4 class="widgettitle nomargin shadowed">Register Harian</h4>
+                            <div class="widgetcontent bordered shadowed nopadding">
+                                <?php echo form_open('cont_cetak_lap_harian/register_harian/cetak', array('class' => 'stdform stdform2', 'id' => 'form_input')); ?>
+                                       
+                                     <table style="border:1px solid grey; background-color:#ccff99; color:black; font-size:10pt;" width="67.5%">
+		<tr>
+		  <td width="90" style="padding:15px;"><strong>Dari Tanggal</strong></td>
+		  <td width="120" >: <input type="text" name="tgl_mulai" id="tgl_mulai"  style="width:80px; font-size: 13px; background-color:#FFFFE0; font-weight: bold; text-align:center;"></td>
+		  <td width="30"><strong>s/d</strong></td>
+		  <td width="130"><input type="text"  name="tgl_akhir" id="tgl_akhir" style="width:80px; font-size: 13px; background-color:#FFFFE0; font-weight: bold; text-align:center;"></td>
+		  		 
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
 		</tr>
 	  </table>   
                                        
@@ -63,9 +81,13 @@
             </div><!--row-fluid-->
         </div><!--contentinner-->
     </div><!--maincontent-->
+<<<<<<< HEAD
 </div><!--mainright-->
 <script>
     jQuery("#tgl").datepicker({
         dateFormat:"dd-mm-yy"
     });
 </script>
+=======
+</div><!--mainright-->
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a

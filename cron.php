@@ -3,14 +3,23 @@ ob_start();
 
 $host	= 'localhost';
 $user	= 'root';
+<<<<<<< HEAD
 $pass	= 'admin2013';
 $db	= 'pus_bogortimur';
+=======
+$pass	= '1pt3kn3t';
+$db		= 'simkesmas_dev';
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
 
 $conn = mysql_connect($host,$user,$pass) or die('gagal koneksi');
 mysql_select_db($db, $conn);
 
 # sample cron taken 1 jan 2015 form dec 2014 
+<<<<<<< HEAD
 # $cron_date = '2015-05-01';
+=======
+# $cron_date = '2014-12-01';
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
 $cron_date = date('Y-m-d');
 
 $x = explode('-', $cron_date);
@@ -26,7 +35,11 @@ if($x[1] == 1){
 $table_name = 'lb2_'.$bln;
 
 
+<<<<<<< HEAD
 #echo "<h3 align='center'>LB 2 BULAN ".$bln." ".$thn."</h3>";
+=======
+echo "<h3 align='center'>LB 2 BULAN ".$bln." ".$thn."</h3>";
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
 
 $table = "<table border='1' width='100%' align='center' cellpadding='2' cellspacing='2'>";
 $table .= "<thead>";
@@ -125,8 +138,15 @@ mysql_close($conn);
 $table .= "</tbody>";
 $table .= "</table>";
 
+<<<<<<< HEAD
 #echo $table;
 echo "LB 2 BULAN ".$bln." ".$thn." - ".date('Y-m-d h:i:s').", ";
 
 ob_end_flush(); 
+=======
+echo $table;
+
+
+ob_end_flush();
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
 ?>

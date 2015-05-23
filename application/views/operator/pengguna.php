@@ -76,13 +76,21 @@
                     <tr>
                         <td>N I P</td>
                         <td>
+<<<<<<< HEAD
                             <input type="text" name="nip" id="nip" maxlength="18" size="18" class="input-large" value="<?php echo $row['nip'] ?>" />
+=======
+                            <input type="text" name="nip2" id="nip" maxlength="18" size="18" class="input-large" value="<?php echo $row['nip'] ?>" />
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
                         </td>
                     </tr>
                     <tr>
                         <td>Nama Lengkap</td>
                         <td>
+<<<<<<< HEAD
                             <input type="text" name="nama" id="nama" class="input-large" value="<?php echo $row['nama'] ?>" />
+=======
+                            <input type="text" name="nama2" id="nama" class="input-large" value="<?php echo $row['nama'] ?>" />
+>>>>>>> ab59302b9b52d66f0388fa440b043cfdd19f090a
                         </td>
                     </tr>
 
