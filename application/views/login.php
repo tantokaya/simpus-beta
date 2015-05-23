@@ -59,7 +59,7 @@ if ($this->session->flashdata('flash_message') != ""): ?>
                 <a href="">
               <span class="icon-question-sign icon-white">
               </span>
-                    Lupa Passw ?
+                    Lupa Password ?
                 </a>
             </p>
 
