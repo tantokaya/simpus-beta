@@ -62,13 +62,13 @@
             <tr>
                 <td>Kode Obat</td>
                 <td>
-                    <input type="text" name="kd_obat" id="kd_obat" class="input-medium" value="<?php echo $row['kd_obat']; ?>" />
+                    <input type="text" name="kd_obat" id="kd_obat" class="input-medium" value="<?php echo $row['kd_obat']; ?>" readonly />
                 </td>
             </tr>
             <tr>
                 <td>Nama Obat</td>
                 <td>
-                    <input type="text" name="nama_obat" id="nama_obat" class="input-xlarge" value="<?php echo $row['nama_obat']; ?>"/>
+                    <input type="text" name="nama_obat" id="nama_obat" class="input-xlarge" value="<?php echo $row['nama_obat']; ?>" autofocus="true"/>
                 </td>
             </tr>
             <tr>
