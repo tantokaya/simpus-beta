@@ -1041,6 +1041,7 @@ class Barang extends CI_Controller
 		$data['apotek_keluar']		= $this->m_crud->get_all_apotek_keluar();
 		$data['list_obat']		= $this->m_crud->get_list_obat('1');
 		$data['list_satuan_kecil']	= $this->m_crud->get_list_sat_kecil();
+        $data['all_new_resep']	= $this->m_crud->get_all_new_resep();
 				
 		$this->template->display('apotek_keluar', $data);
 		

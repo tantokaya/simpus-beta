@@ -19,7 +19,7 @@
                     <?php foreach($all_new_resep as $db): ?>
                     <li>
                         <a href="">
-                            <span class="icon-envelope"></span> No Trans <strong><?php echo $db['nm_lengkap']; ?></strong> <small class="muted"> - <?php echo $db['kd_trans_pelayanan']; ?></small>
+                            <span class="icon-envelope"></span> Resep Pasien : <strong><?php echo $db['nm_lengkap']; ?></strong> <small class="muted"> - <?php echo $db['kd_trans_pelayanan']; ?></small>
                         </a>
                     </li>
                     <?php endforeach; ?>

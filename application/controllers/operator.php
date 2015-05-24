@@ -95,6 +95,8 @@ class Operator extends CI_Controller
 			}		
 			
 			//echo '<pre>'; print_r($data['kunjungan']); exit;
+
+            $data['all_new_resep']	= $this->m_crud->get_all_new_resep();
 			
 			$this->template->display('dashboard', $data);
 		} else {
