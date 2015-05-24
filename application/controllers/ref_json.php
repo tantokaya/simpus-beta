@@ -247,6 +247,30 @@ class Ref_json extends CI_Controller
 			}
 		
 	}
+
+    public function CariTRPasien()
+	{
+		if($this->session->userdata('logged_in')!="")
+
+			$kodetr = $this->input->post('kode',true);
+
+//			$text = "SELECT * FROM pasien WHERE kd_rekam_medis='$koderek' GROUP BY kd_rekam_medis LIMIT 25";
+            $text = "SELECT pelayanan.kd_trans_pelayanan,pelayanan.kd_rekam_medis,pelayanan.tgl_pelayanan,
+              pasien.nm_lengkap,pasien.alamat FROM pelayanan
+              INNER JOIN pasien ON pelayanan.kd_rekam_medis = pasien.kd_rekam_medis WHERE pelayanan.kd_trans_pelayanan='$kodetr'";
+			$d = $this->m_crud->manualQuery($text);
+			$row = $d->num_rows();
+			if($row>0){
+				foreach($d->result() as $t){
+					$data['bio_nama'] 		= $t->nm_lengkap;
+					echo json_encode($data);
+				}
+			}else{
+				$data['bio_nama'] 		= '';
+				echo json_encode($data);
+			}
+
+	}
 //////////////////////////////////////* MENAMPILKAN DATA BARANG *///////////////////////////////////////	
 	public function DataBarang()
 	{

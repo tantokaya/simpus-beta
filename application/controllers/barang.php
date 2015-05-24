@@ -566,17 +566,17 @@ class Barang extends CI_Controller
 		$data['kd_keluar']			= $this->m_crud->MaxKodeKeluarApotek();
 		$data['tgl_keluar']			= date('Y-m-d');
         $data['kd_trans_pelayanan'] = $trans_id;
-		//$data['kd_milik_obat']		= 'PKM';
-		
+
 		$this->m_crud->simpan('brg_apotek_keluar_header', $data);
 
-
-
-		$this->db->select('pelayanan_obat.*,obat.nama_obat,obat.harga_beli,satuan_kecil.sat_kecil_obat');
+        $this->db->select('pelayanan_obat.kd_trans_obat,pelayanan_obat.kd_obat,pelayanan_obat.dosis,pelayanan_obat.kd_sat_kecil_obat,
+            pelayanan_obat.qty,pelayanan_obat.racikan,pelayanan_obat.sta_resep,obat.nama_obat,obat.harga_beli,satuan_kecil.sat_kecil_obat,
+            obat.kd_sat_kecil_obat,pelayanan_obat.kd_trans_pelayanan,pelayanan.kd_rekam_medis,pasien.nm_lengkap,pasien.alamat');
 		$this->db->from('pelayanan_obat');
 		$this->db->join('obat', 'pelayanan_obat.kd_obat = obat.kd_obat');
 		$this->db->join('pelayanan','pelayanan_obat.kd_trans_pelayanan = pelayanan.kd_trans_pelayanan');
-		$this->db->join('satuan_kecil', 'pelayanan_obat.kd_sat_kecil_obat = satuan_kecil.kd_sat_kecil_obat');
+		$this->db->join('satuan_kecil', 'obat.kd_sat_kecil_obat = satuan_kecil.kd_sat_kecil_obat');
+		$this->db->join('pasien', 'pelayanan.kd_rekam_medis = pasien.kd_rekam_medis');
 		$this->db->where('pelayanan_obat.kd_trans_pelayanan', $trans_id);
 		
 		$list_obat = $this->db->get()->result_array();
@@ -590,14 +590,22 @@ class Barang extends CI_Controller
 			$data2['sat_kecil_obat']        = $lo['sat_kecil_obat'];
 			$data2['racikan'] 		        = $lo['racikan'];
 			$data2['tgl_keluar'] 	        = date('Y-m-d');
+			$data2['nm_lengkap'] 	        = $lo['nm_lengkap'];
 
 			
 			$this->m_crud->simpan('brg_apotek_keluar_detail', $data2);
+
+            $text = "UPDATE brg_apotek_keluar_header SET nm_lengkap= '$lo[nm_lengkap]' WHERE kd_trans_pelayanan = '$trans_id'";
+            $d['sta_nama'] = $this->m_crud->manualQuery($text);
 
 		endforeach;
 
         $text = "UPDATE pelayanan SET status='1' WHERE kd_trans_pelayanan = '$trans_id'";
         $d['sta'] = $this->m_crud->manualQuery($text);
+
+        $text = "UPDATE pelayanan_obat SET sta_resep='Y' WHERE kd_trans_pelayanan = '$trans_id'";
+        $d['sta_r'] = $this->m_crud->manualQuery($text);
+
 
     }	
 	function simpanBayarTindakan()
@@ -1024,11 +1032,11 @@ class Barang extends CI_Controller
 		
 		$data['tgl_keluar']			= date('d-m-Y');
 		$data['kodekeluar']			= $this->m_crud->MaxKodeKeluarApotek(); 
-		$data['page_name']  			= 'barang_keluar_apotek';
+		$data['page_name']  		= 'barang_keluar_apotek';
 		$data['page_title']	 		= 'Barang Keluar Apotek';
 		$data['kd_obat']	 		= '';
 		$data['kd_resep']	 		= '';
-		$data['sat_kecil_obat']			= '';
+		$data['sat_kecil_obat']		= '';
 		$data['keterangan']	 		= '';
 		$data['nama_obat']	 		= '';
 		$data['nm_lengkap']			= '';

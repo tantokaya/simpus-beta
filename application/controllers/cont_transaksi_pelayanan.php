@@ -367,8 +367,8 @@ class Cont_transaksi_pelayanan extends CI_Controller
 				$this->db->trans_commit();
 				$this->session->set_flashdata('flash_message', 'Data transaksi pelayanan berhasil diperbaharui!');
 			}
-			
-			
+
+
 			redirect('cont_transaksi_pelayanan/pelayanan_today', 'refresh');
 			
 		} else if ($par1 == 'ubah') {
@@ -462,8 +462,9 @@ class Cont_transaksi_pelayanan extends CI_Controller
 		$data['list_bed']					= $this->m_crud->get_list_kamar('1'); // kd_ruangan
 		$data['list_satuan_kecil']			= $this->m_crud->get_list_satuan_kecil('1');
 		$data['list_status_keluar']			= $this->m_crud->get_list_status_keluar('1');
-		
-		$this->template->display('pelayanan_today', $data);
+        $data['all_new_resep']	            = $this->m_crud->get_all_new_resep();
+
+        $this->template->display('pelayanan_today', $data);
 		#echo '<pre>'; print_r($data); exit;
 	}
 	
@@ -1233,7 +1234,7 @@ class Cont_transaksi_pelayanan extends CI_Controller
 		$data['page_name']  = 'pelayanan';
 		$data['page_title'] = 'Pelayanan';
 		$data['pelayanan_hr_ini']	= $this->m_crud->get_pelayanan_by_date();
-		
+
 		$tmpl = array('table_open' => '<table id="dyntable" class="table table-bordered">');
         $this->table->set_template($tmpl);
  	
@@ -1248,11 +1249,11 @@ class Cont_transaksi_pelayanan extends CI_Controller
 		$data['list_dokter']				= $this->m_crud->get_list_dokter();
 		$data['list_jenis_kasus']			= $this->m_crud->get_list_jenis_kasus();
 		$data['list_jenis_diagnosa']		= $this->m_crud->get_list_jenis_diagnosa();
-	$data['list_ruangan']				= $this->m_crud->get_list_ruangan_by_id($this->session->userdata('kd_puskesmas')); 
+	    $data['list_ruangan']				    = $this->m_crud->get_list_ruangan_by_id($this->session->userdata('kd_puskesmas'));
 		//$data['list_bed']					= $this->m_crud->get_list_kamar('RG-01'); // kd_ruangan
 		$data['list_satuan_kecil']			= $this->m_crud->get_list_satuan_kecil('1');
 		$data['list_status_keluar']			= $this->m_crud->get_list_status_keluar('1');
-		
+
 		$this->template->display('pelayanan_today_lab', $data);
 		
 	}

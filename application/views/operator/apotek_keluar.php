@@ -56,11 +56,8 @@
             <div class="span6">
                 <table class="table table-bordered table-invoice">
                     <tr>
-                        <td>ID Pasien</td>
-                        <td>
-                            <input type="text" id="nik" name="nik">
-                            <button type="button" name="list_pasien" id="list_pasien" class="btn btn-danger btn-small" title="Cari Pasien"><i class="icon-list-alt icon-white"></i></button>
-                        </td>
+                        <td>No Trans Pelayanan</td>
+                        <td><input type="text" name="no_tr" id="no_tr" style="width:200px; font-size: 12px; " value="<?php echo $no_tr; ?>" placeholder="..." readonly/></td>
                     </tr>
                     <tr>
                         <td>Nama Pasien</td>
@@ -129,12 +126,6 @@
             <div id="daftarbarang"></div>
         </div>
 
-        <!--<div id="tampil_data2"></div>
-        <div id="DataResep" title="Data Resep">
-        Nomor Layanan &nbsp;<input type="text" id="cariresep" class="input-large search-query" placeholder="pencarian">
-        <button type="button" name="tutup2" id="tutup2" class="btn btn-small btn-info"><i class="icon-off icon-white"></i> Tutup</button>
-            <div id="daftarresep"></div>
-        </div>-->
 
         <?php echo form_close(); ?>
         <?php endforeach; ?>
@@ -179,13 +170,9 @@
         </div>
         <div class="span6">
             <table class="table table-bordered table-invoice">
-
                 <tr>
-                    <td>ID Pasien</td>
-                    <td>
-                        <input type="text" id="nik" name="nik">
-                        <button type="button" name="list_pasien" id="list_pasien" class="btn btn-danger btn-small" title="Cari Pasien"><i class="icon-list-alt icon-white"></i></button>
-                    </td>
+                    <td>No Trans Pelayanan</td>
+                    <td><input type="text" name="no_tr" id="no_tr" style="width:200px; font-size: 12px; " value="<?php echo $no_tr; ?>" placeholder="..." readonly/></td>
                 </tr>
                 <tr>
                     <td>Nama Pasien</td>
@@ -324,11 +311,6 @@ $(document).ready(function(){
     });
 
 
-    /*$("#kd_obat").keyup(function(e){
-     var isi = $(e.target).val();
-     $(e.target).val(isi.toUpperCase());
-     });*/
-
     $("#keterangan").keyup(function(e){
         var isi = $(e.target).val();
         $(e.target).val(isi.toUpperCase());
@@ -392,25 +374,21 @@ $(document).ready(function(){
     }
 
 //////////////////////////////* AUTOCOMPLETE KODE PASIEN */////////////////////////
-    $("#nik").autocomplete({
-        source: function(request,response) {
-            $.ajax({
-                url: "<?php echo site_url('ref_json/ListPasien'); ?>",
-                data: { kode: $("#nik").val()},
-                dataType: "json",
-                type: "POST",
-                success: function(data){
-                    response(data);
-                }
-            });
-        },
+
+    $("#no_tr").focus(function(e){
+        var isi = $(e.target).val();
+        CariKodeTRPasien();
     });
 
-    function CariKodePasien(){
-        var koderek = $("#nik").val();
+    $("#no_tr").keyup(function(){
+        CariKodeTRPasien();
+    });
+
+    function CariKodeTRPasien(){
+        var kodetr = $("#no_tr").val();
         $.ajax({
-            url	: "<?php echo site_url('ref_json/CariPasien'); ?>",
-            data	: "kode="+koderek,
+            url	: "<?php echo site_url('ref_json/CariTRPasien'); ?>",
+            data	: "kode="+kodetr,
             cache	: false,
             dataType: "json",
             type	: "POST",
@@ -420,44 +398,8 @@ $(document).ready(function(){
         });
     }
 
-    $("#nik").focus();
-    $("#nik").keyup(function(e){
-        var isi = $(e.target).val();
-        $(e.target).val(isi.toUpperCase());
-    });
-    $("#nik").focus(function(e){
-        var isi = $(e.target).val();
-        CariKodePasien();
-    });
 
-    $("#nik").keyup(function(){
-        CariKodePasien();
-    });
-
-
-////////////////////////////////* HITUNG JUMLAH */////////////////////////////////
-    /*	function hitung(){
-     var jml = $("#jml").val();
-     var hrg = $("#harga_beli").val();
-     var harga = hrg.replace(",","");
-     if(jml.length>0  && harga.length>0){
-     var total = parseInt(jml)*parseInt(harga);
-     //var total = total.toCurrency();
-     $("#total").val(total);
-     }else{
-     $("#total").val(0);
-     }
-
-     }
-     $("#jml").keyup(function(){
-     hitung();
-     });
-     $("#harga_beli").keyup(function(){
-     hitung();
-     });
-     */
-//////////////////////////* SCRIPT OPEN DIALOGUE *////////////////////////////
-    function DataBarangApotek(){
+function DataBarangApotek(){
         var cari = $("#caribarang").val();
         var string = "cari="+cari;
         $.ajax({

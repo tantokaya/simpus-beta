@@ -1,5 +1,6 @@
 <script type="text/javascript">
 function pilih2(id){
+
 	$.ajax({
 			type	: 'POST',
 			url		: "<?php echo site_url(); ?>barang/simpanResep",
@@ -12,9 +13,9 @@ function pilih2(id){
 			}
 		});
 	$("#DataResep").dialog('close');
-	//$("#kd_trans_pelayanan").val(id);
-	//$("#kd_trans_pelayanan").focus();
-	
+    $("#no_tr").val(id);
+    $("#no_tr").focus();
+
 	function detailBarang(){
 		var kode = $("#kodekeluar").val();
 		var string = "kode="+kode;
