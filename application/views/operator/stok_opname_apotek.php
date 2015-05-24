@@ -99,7 +99,7 @@
                               </tr>
                               <tr>
                                   <td>Tgl Kadaluarsa</td>
-                                  <td><strong><input type="text" name="tgl_kadaluarsa" id="tgl_kadaluarsa"  value="<?php echo $tgl_kadaluarsa; ?>" style="width:100px; font-size: 13px;" /></strong></td>
+                                  <td><strong><input type="text" name="tgl_kadaluarsa" id="tgl_kadaluarsa"  value="<?php echo $tgl_kadaluarsa; ?>" style="width:100px; font-size: 13px;" disabled /></strong></td>
                               </tr>
 							  
 						</table>
@@ -259,7 +259,7 @@
                             </tr>
 						    <tr>
 								<td>Tgl Kadaluarsa</td>
-								<td><strong><input type="text" name="tgl_kadaluarsa" id="tgl_kadaluarsa"  value="<?php echo $tgl_kadaluarsa; ?>" style="width:100px; font-size: 13px;" /></strong></td>
+								<td><strong><input type="text" name="tgl_kadaluarsa" id="tgl_kadaluarsa"  value="<?php echo $tgl_kadaluarsa; ?>" style="width:100px; font-size: 13px;" disabled/></strong></td>
 							</tr>
 
 						</table>
@@ -349,6 +349,7 @@ $(document).ready(function(){
                 $("#sat_kecil_obat").val(data.sat_kecil_obat);
                 $("#sat_kecil_obat2").val(data.sat_kecil_obat);
                 $("#onhand").val(data.apotek_stok);
+                $("#tgl_kadaluarsa").val(data.tgl_kadaluarsa);
 
                 $("#jml").val('');
                 $("#jml").focus();
