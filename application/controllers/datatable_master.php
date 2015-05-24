@@ -180,7 +180,6 @@ function pengguna()
 			$hy ->from('obat');
 			$hy ->join('golongan_obat', 'obat.kd_gol_obat = golongan_obat.kd_gol_obat');
 			$hy ->join('satuan_kecil', 'obat.kd_sat_kecil_obat = satuan_kecil.kd_sat_kecil_obat');
-			//->join('satuan_besar', 'obat.kd_sat_besar_obat = satuan_besar.kd_sat_besar_obat')
 			$hy ->join('terapi_obat', 'obat.kd_terapi_obat = terapi_obat.kd_terapi_obat');
  			
 			if($this->session->userdata('id_akses') == 1) {
@@ -188,6 +187,10 @@ function pengguna()
 				<a href="'.base_url().'cont_master_farmasi/obat/ubah/$1" class="btn btn-primary btn-circle"><i class="iconsweets-create iconsweets-white"></i></a> <a href="'.base_url().'cont_master_farmasi/obat/hapus/$1" class="btn btn-danger btn-circle" onClick="return confirm(\'Anda yakin ingin menghapus data ini?\')"><i class="iconsweets-trashcan iconsweets-white" ></i></a>
 			','obat.kd_obat');
 			}
+            elseif($this->session->userdata('id_akses')== 7){
+                $hy ->add_column('Aksi', '
+				<a href="'.base_url().'cont_master_farmasi/obat/ubah/$1" class="btn btn-primary btn-circle"><i class="iconsweets-create iconsweets-white"></i></a>','obat.kd_obat');
+            }
 			
         echo $this->datatables->generate();
 	}

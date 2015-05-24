@@ -199,9 +199,7 @@
 
 <!---- DAFTAR OBAT START ---->
 <div id="list">
-    <?php echo $this->
-        table->
-        generate(); ?>
+    <?php echo $this->table->generate(); ?>
     <script type="text/javascript">
         jQuery(document).ready(function () {
                 var oTable = jQuery('#dyntable').dataTable({
