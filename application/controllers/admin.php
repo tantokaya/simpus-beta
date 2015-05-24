@@ -93,7 +93,9 @@ class Admin extends CI_Controller
 			$data['total_kunjungan_year']	= $this->m_dashboard->get_total_kunjungan_yearly(date('Y'));
 			
 			$data['top_desease']			= $this->m_dashboard->get_top5_desease();
-			
+
+            $data['all_new_resep']	= $this->m_crud->get_all_new_resep();
+
 			for ($i=1; $i <= 12; $i++){
 				$data['pria'][$i] = $this->m_dashboard->get_pasien_laki($i);
 				$data['wanita'][$i] = $this->m_dashboard->get_pasien_perempuan($i);

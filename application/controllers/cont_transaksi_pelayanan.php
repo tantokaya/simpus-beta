@@ -120,6 +120,8 @@ class Cont_transaksi_pelayanan extends CI_Controller
 					$pelayanan_obat['kd_sat_kecil_obat'] 	= ${"satuan_".$i};
 					$pelayanan_obat['qty'] 					= ${"jumlah_".$i};
 					$pelayanan_obat['racikan'] 				= ${"racikan_".$i};
+					$pelayanan_obat['sta_resep'] 			= 'N';
+
 					$this->m_crud->simpan('pelayanan_obat', $pelayanan_obat);
 				} 	
 				$i++;
@@ -164,7 +166,7 @@ class Cont_transaksi_pelayanan extends CI_Controller
 					$pelayanan_tindakan['kd_produk'] 			= ${"kd_produk_lab_".$i};
 					$pelayanan_tindakan['qty'] 					= ${"qty_lab_".$i};
 					$pelayanan_tindakan['ket_tindakan']		 	= ${"ket_tindakan_lab_".$i};
-					
+
 					$this->m_crud->simpan('pelayanan_tindakan', $pelayanan_tindakan);
 				}	
 				$i++;

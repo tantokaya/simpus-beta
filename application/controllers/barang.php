@@ -39,8 +39,7 @@ class Barang extends CI_Controller
 		$this->load->helper('download');
 		$name = 'LapStokApotek.xls';
 		$data = file_get_contents("uploads/LapStokApotek.xls"); // letak file pada aplikasi kita
- 
-		
+
 		force_download($name, $data);
 	}
 	
@@ -73,6 +72,8 @@ class Barang extends CI_Controller
             foreach($hasiljml->result() as $t){
                 $data['jumlah'] = $t->jumlah;
             }
+
+            $data['all_new_resep']	= $this->m_crud->get_all_new_resep();
 
             $this->template->display('gudang', $data);
 		} else {
@@ -716,6 +717,7 @@ class Barang extends CI_Controller
             foreach($hasiljml->result() as $t){
                 $data['jumlah'] = $t->jumlah;
             }
+            $data['all_new_resep']	= $this->m_crud->get_all_new_resep();
 
 			$this->template->display('apotek', $data);
 		} else {

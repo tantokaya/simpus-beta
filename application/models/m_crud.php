@@ -2751,6 +2751,23 @@ public function ItemAwalApotek($id){
 		return $query->result_array();
 	}
 
+    function get_all_new_resep()
+    {
+        $this->db->distinct();
+        $this->db->select('pelayanan.kd_trans_pelayanan,pelayanan.kd_rekam_medis,pelayanan.tgl_pelayanan,pelayanan_obat.sta_resep,
+                        pasien.nm_lengkap');
+        $this->db->from('pelayanan');
+        $this->db->where('pelayanan_obat.sta_resep','N');
+        $this->db->join('pelayanan_obat', 'pelayanan.kd_trans_pelayanan = pelayanan_obat.kd_trans_pelayanan');
+        $this->db->join('pasien', 'pelayanan.kd_rekam_medis = pasien.kd_rekam_medis');
+        $this->db->order_by('pelayanan.kd_trans_pelayanan','DESC');
+        $this->db->limit(10);
+
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+
 	
 }
 

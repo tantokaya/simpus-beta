@@ -10,11 +10,24 @@
 		    <a href="" class="showmenu"></a>
 		
 		<div class="headerright">
-		    <div class="dropdown notification">
-				<a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#"><?php echo ucfirst($this->session->userdata('akses')); ?></a>
-			</div><!--dropdown-->
-			<div class="dropdown userinfo">
-			<a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="/page.html"><?php echo $this->session->userdata('nama'); ?> <b class="caret"></b></a>
+            <div class="dropdown notification">
+                <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="/page.html">
+                    <span class="iconsweets-megaphone iconsweets-white"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li class="nav-header">Resep yang masuk dari Poli</li>
+                    <?php foreach($all_new_resep as $db): ?>
+                    <li>
+                        <a href="">
+                            <span class="icon-envelope"></span> No Trans <strong><?php echo $db['nm_lengkap']; ?></strong> <small class="muted"> - <?php echo $db['kd_trans_pelayanan']; ?></small>
+                        </a>
+                    </li>
+                    <?php endforeach; ?>
+                    <li><a href="JavaScript:window.location.reload()"><span class="icon-refresh"></span> REFRESH PESAN !!!</a></li>
+                </ul>
+            </div><!--dropdown-->
+		    <div class="dropdown userinfo">
+			<a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="/page.html"><?php echo "Hi, ".$this->session->userdata('nama')." !"; ?> <b class="caret"></b></a>
 			<ul class="dropdown-menu">
 			    <li><a href="<?php echo base_url(); ?>edit_profile"><span class="icon-edit"></span> Edit Profile</a></li>
 			    <li><a href=""><span class="icon-wrench"></span> Account Settings</a></li>
