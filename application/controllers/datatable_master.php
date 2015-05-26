@@ -490,7 +490,7 @@ function takaran_dosis()
 	
 	function pendaftaran()
 	{
-			$hy = $this->datatables->select('pasien.kd_rekam_medis,pasien.no_reg,pasien.nm_lengkap,pasien.alamat,Round(DATEDIFF( CURDATE( ) , pasien.tanggal_lahir )/365) as umur,cara_bayar.cara_bayar,pasien.kd_puskesmas', FALSE);
+			$hy = $this->datatables->select('pasien.kd_rekam_medis,pasien.idkartu_medical, pasien.nm_lengkap,pasien.alamat,Round(DATEDIFF( CURDATE( ) , pasien.tanggal_lahir )/365) as umur,cara_bayar.cara_bayar,pasien.kd_puskesmas', FALSE);
 			//$hy = $this->datatables->select('kd_rekam_medis,no_reg,nm_lengkap,alamat,Round(DATEDIFF( CURDATE( ) , tanggal_lahir )/365) as umur, kd_bayar,kd_puskesmas', FALSE);
 			$hy ->unset_column('pasien.kd_puskesmas');
 			
@@ -560,7 +560,7 @@ function takaran_dosis()
 	function pelayanan_today()
 	{            
 	$sql = $this->datatables->select('pelayanan.kd_petugas, pelayanan.kd_trans_pelayanan,  
-DATE_FORMAT(pelayanan.tgl_pelayanan, "%d-%m-%Y") as tgl_format, pelayanan.kd_rekam_medis, pasien.nm_lengkap, pasien.alamat, pelayanan.umur, unit_pelayanan.nm_unit, cara_bayar.cara_bayar,status_keluar_pasien.style, status_keluar_pasien.keterangan, pelayanan.kd_puskesmas, pelayanan.tgl_pelayanan', false);
+DATE_FORMAT(pelayanan.tgl_pelayanan, "%d-%m-%Y") as tgl_format, pelayanan.kd_rekam_medis, pasien.nm_lengkap, pasien.alamat, pelayanan.umur, unit_pelayanan.singkatan, cara_bayar.cara_bayar, pasien.no_asuransi, status_keluar_pasien.style, status_keluar_pasien.keterangan, pelayanan.kd_puskesmas, pelayanan.tgl_pelayanan', false);
             $sql->unset_column('pelayanan.kd_puskesmas,pelayanan.tgl_pelayanan');
             $sql->unset_column('pelayanan.kd_petugas');
             $sql->unset_column('status_keluar_pasien.keterangan');
@@ -575,33 +575,35 @@ DATE_FORMAT(pelayanan.tgl_pelayanan, "%d-%m-%Y") as tgl_format, pelayanan.kd_rek
 
 			if ($this->session->userdata('id_akses') == 2) // pendaftaran, tanpa status keluar pasien
 				{	
-							$sql->unset_column('status_keluar_pasien.style');
+							//$sql->unset_column('status_keluar_pasien.style');
 							//$sql->unset_column('pasien.alamat');
 							//$sql->unset_column('pelayanan.umur');
+							$sql->edit_column('status_keluar_pasien.style', '<button class="btn $1 btn-circle" title="$2"><i class="iconsweets-wifi2 iconsweets-white"></i></button>', 'status_keluar_pasien.style, status_keluar_pasien.keterangan');
 							$sql->add_column('Aksi', '
                                 
 					<div class="btn-group">
                                             <button class="btn">P i l i h</button>
                                             <button data-toggle="dropdown" class="btn dropdown-toggle"><span class="caret"></span></button>
-                                            <ul class="dropdown-menu">
+                        <ul class="dropdown-menu">
+											  <li><a href="'.base_url().'cont_transaksi_pelayanan/cetak_kertas_resep/$1">Kertas Resep</a></li>
 											  <li><a href="'.base_url().'cont_transaksi_pelayanan/cetak_rujukan/$1">Cetak Rujukan</a></li>
+											  <li class="divider"></li>
                                               <li><a href="'.base_url().'cont_transaksi_pelayanan/pelayanan_today/ubah/$1">Ubah</a></li>
                                               <li><a href="#" onClick="event.preventDefault(); return jConfirm(\'Anda yakin ingin menghapus data ini?\',\'Konfirmasi Hapus Data\', function(r){if(r==true){var href = \''.base_url().'cont_transaksi_pelayanan/pelayanan_today/hapus/$1\';window.location.href=href;}else{event.preventDefault();}});" title="Hapus">Hapus</a></li>
-                                              <li><a href="'.base_url().'c_bayar_tindakan/bayar_tindakan/tambah/bayar/$1">Bayar</a></li>
-                                              <li class="divider"></li>
-                                              <li><a href="'.base_url().'cont_transaksi_pelayanan/cetak_resep/$1" target="blank" title="Cetak Resep">Cetak Resep</a></li>
-					      <li><a href="#">Lihat Pembayaran</a></li>		                                            
 					    </ul>
                                           </div>
 			','pelayanan.kd_trans_pelayanan');
+				
+			//	<li><a href="'.base_url().'c_bayar_tindakan/bayar_tindakan/tambah/bayar/$1">Bayar</a></li>
+               // <li><a href="'.base_url().'cont_transaksi_pelayanan/cetak_resep/$1" target="blank" title="Cetak Resep">Cetak Resep</a></li>
 				
 				} // filter untuk pasien per poli dan ugd dan PTRM
 				elseif($this->session->userdata('id_akses') == 10 || $this->session->userdata('id_akses') == 11 || $this->session->userdata('id_akses') == 12 || $this->session->userdata('id_akses') == 13 || $this->session->userdata('id_akses') == 14)
 				{ 	// tambahkan alamat dan umur, unset unit layanan dan cara bayar
 					$sql->where('unit_pelayanan.kd_unit_pelayanan',$this->session->userdata('kd_unit_pelayanan'));
-					$sql->unset_column('unit_pelayanan.nm_unit');
+					$sql->unset_column('unit_pelayanan.singkatan');
 					$sql->unset_column('cara_bayar.cara_bayar');
-					
+					$sql->unset_column('pasien.no_asuransi');
 					$sql->edit_column('status_keluar_pasien.style', '<button class="btn $1 btn-circle" title="$2"><i class="iconsweets-wifi2 iconsweets-white"></i></button>', 'status_keluar_pasien.style, status_keluar_pasien.keterangan');
 							$sql->add_column('Aksi', '
 							<div class="btn-group">
@@ -621,6 +623,7 @@ DATE_FORMAT(pelayanan.tgl_pelayanan, "%d-%m-%Y") as tgl_format, pelayanan.kd_rek
 				else if($this->session->userdata('id_akses') == 1  || $this->session->userdata('id_akses') == 7 )
 						{ 	$sql->unset_column('pelayanan.kd_petugas'); 
 							$sql->edit_column('status_keluar_pasien.style', '<button class="btn $1 btn-circle" title="$2"><i class="iconsweets-wifi2 iconsweets-white"></i></button>', 'status_keluar_pasien.style, status_keluar_pasien.keterangan');
+							$sql->unset_column('pasien.no_asuransi');
 							$sql->add_column('Aksi', '
                                 
 					<div class="btn-group">
@@ -638,6 +641,7 @@ DATE_FORMAT(pelayanan.tgl_pelayanan, "%d-%m-%Y") as tgl_format, pelayanan.kd_rek
 			','pelayanan.kd_trans_pelayanan');
                         } else if ($this->session->userdata('id_akses') == 9 ) // aksi kasir
 						{
+						$sql->unset_column('pasien.no_asuransi');
 						$sql->edit_column('status_keluar_pasien.style', '<button class="btn $1 btn-circle" title="$2"><i class="iconsweets-wifi2 iconsweets-white"></i></button>', 'status_keluar_pasien.style, status_keluar_pasien.keterangan');
 
 						$sql->add_column('Aksi', '
@@ -647,6 +651,7 @@ DATE_FORMAT(pelayanan.tgl_pelayanan, "%d-%m-%Y") as tgl_format, pelayanan.kd_rek
 						} 
 						else {	// aksi untuk user selain diatas
 							$sql->edit_column('status_keluar_pasien.style', '<button class="btn $1 btn-circle" title="$2"><i class="iconsweets-wifi2 iconsweets-white"></i></button>', 'status_keluar_pasien.style, status_keluar_pasien.keterangan');
+							$sql->unset_column('pasien.no_asuransi');
 							$sql->add_column('Aksi', '
 					<div class="btn-group">
                                             <button class="btn">P i l i h</button>
@@ -662,7 +667,6 @@ DATE_FORMAT(pelayanan.tgl_pelayanan, "%d-%m-%Y") as tgl_format, pelayanan.kd_rek
 						}
               echo $this->datatables->generate();
 	}	
-	
 
 	function pelayanan_today_lab()
 	{            

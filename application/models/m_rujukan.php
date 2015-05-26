@@ -34,5 +34,19 @@ class M_rujukan extends CI_Model {
         $query = $this->db->get();
         return $query->row_array();
 	}
-
+	
+	function get_data_pasien($kd_trans_pelayanan) {
+		$this->db->select('pelayanan.kd_bayar, pelayanan.umur, pasien.nm_lengkap, jenis_kelamin.jenis_kelamin, pasien.alamat, pasien.idkartu_medical, pasien.kd_rekam_medis,pasien.no_asuransi, dokter.nm_dokter, kelurahan.nm_kelurahan, kecamatan.nm_kecamatan, kota.nm_kota');
+        $this->db->from('pelayanan');
+        $this->db->join('pasien','pelayanan.kd_rekam_medis = pasien.kd_rekam_medis','left');
+		$this->db->join('kelurahan','pasien.kd_kelurahan=kelurahan.kd_kelurahan','left');
+		$this->db->join('kecamatan','pasien.kd_kecamatan=kecamatan.kd_kecamatan','left');
+		$this->db->join('kota','pasien.kd_kota=kota.kd_kota','left');
+		$this->db->join('dokter','dokter.kd_dokter=pelayanan.kd_dokter','left');
+		$this->db->join('jenis_kelamin', 'jenis_kelamin.kd_jenis_kelamin=pasien.kd_jenis_kelamin', 'left');
+		$this->db->where('pelayanan.kd_trans_pelayanan', $kd_trans_pelayanan);
+		
+        $query = $this->db->get();
+        return $query->row_array();
+	}
 }

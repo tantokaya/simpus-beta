@@ -80,7 +80,6 @@ class Cont_cetak_lap_harian extends CI_Controller
 				if ($rs['alamat']=='') {$rs['alamat']= "-";}
 				if ($rs['nm_kelurahan']=='') {$rs['nm_kelurahan']= "-";}
 				if ($rs['nm_kota']=='') {$rs['nm_kota']= "-";}
-				if ($rs['umur']=='') {$rs['umur']= "-";}
 				if ($rs['cara_bayar']=='') {$rs['cara_bayar']= "-";}
 				if ($rs['penyakit']=='') {$rs['penyakit']= "-";}
 				if ($rs['tindakan']=='') {$rs['tindakan']= "-";}
@@ -92,7 +91,7 @@ class Cont_cetak_lap_harian extends CI_Controller
                 $objPHPExcel->getActiveSheet()->setCellValue('D'.$i, $rs['alamat']);
 				$objPHPExcel->getActiveSheet()->setCellValue('E'.$i, $rs['nm_kelurahan']);
 				$objPHPExcel->getActiveSheet()->setCellValue('F'.$i, $rs['nm_kota']);
-                $objPHPExcel->getActiveSheet()->setCellValue('G'.$i, $rs['umur']);
+                $objPHPExcel->getActiveSheet()->setCellValue('G'.$i, $rs['gol_umur']);
                 $objPHPExcel->getActiveSheet()->setCellValue('H'.$i, $rs['cara_bayar']);
 				$objPHPExcel->getActiveSheet()->setCellValue('I'.$i, $rs['penyakit']);
 				$objPHPExcel->getActiveSheet()->setCellValue('J'.$i, $rs['tindakan']);

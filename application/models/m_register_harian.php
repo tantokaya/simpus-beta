@@ -26,7 +26,7 @@ class M_register_harian extends CI_Model {
 	
 	function get_pasien_rawat_umum_by_date($tgl, $kd_unit_pelayanan){
 
-        $this->db->select('dokter.nm_dokter,pelayanan.kd_trans_pelayanan, pelayanan.tgl_pelayanan, pasien.no_reg, pelayanan.kd_rekam_medis, pasien.nm_lengkap, pasien.kd_jenis_kelamin, pelayanan.umur, cara_bayar.cara_bayar, unit_pelayanan.nm_unit, pasien.alamat, kelurahan.nm_kelurahan, kota.nm_kota, pelayanan_penyakit.kd_penyakit,jenis_kasus.jenis_kasus, GROUP_CONCAT(DISTINCT jenis_kasus.jenis_kasus SEPARATOR "; ") as jns_kasus, pelayanan_tindakan.kd_produk, GROUP_CONCAT(DISTINCT tindakan.produk SEPARATOR "; ") as tindakan, status_keluar_pasien.keterangan,GROUP_CONCAT(DISTINCT pelayanan_penyakit.kd_penyakit SEPARATOR "; ") as kd_icd, GROUP_CONCAT(DISTINCT icd.penyakit SEPARATOR "; ") as penyakit');
+        $this->db->select('dokter.nm_dokter,pelayanan.kd_trans_pelayanan, pelayanan.tgl_pelayanan, pasien.no_reg, pelayanan.kd_rekam_medis, pasien.nm_lengkap, pasien.kd_jenis_kelamin, golongan_umur.gol_umur,cara_bayar.cara_bayar, unit_pelayanan.nm_unit, pasien.alamat, kelurahan.nm_kelurahan, kota.nm_kota, pelayanan_penyakit.kd_penyakit,jenis_kasus.jenis_kasus, GROUP_CONCAT(DISTINCT jenis_kasus.jenis_kasus SEPARATOR "; ") as jns_kasus, pelayanan_tindakan.kd_produk, GROUP_CONCAT(DISTINCT tindakan.produk SEPARATOR "; ") as tindakan, status_keluar_pasien.keterangan,GROUP_CONCAT(DISTINCT pelayanan_penyakit.kd_penyakit SEPARATOR "; ") as kd_icd, GROUP_CONCAT(DISTINCT icd.penyakit SEPARATOR "; ") as penyakit');
         $this->db->from('pelayanan');
         $this->db->join('pasien','pelayanan.kd_rekam_medis = pasien.kd_rekam_medis','left');
         $this->db->join('cara_bayar','pelayanan.kd_bayar = cara_bayar.kd_bayar','left');
@@ -39,6 +39,7 @@ class M_register_harian extends CI_Model {
 		$this->db->join('icd','pelayanan_penyakit.kd_penyakit=icd.kd_penyakit','left');
 		$this->db->join('pelayanan_tindakan','pelayanan.kd_trans_pelayanan=pelayanan_tindakan.kd_trans_pelayanan','left');
 		$this->db->join('tindakan','pelayanan_tindakan.kd_produk=tindakan.kd_produk','left');
+		$this->db->join('golongan_umur','pelayanan.kd_gol_umur=golongan_umur.kd_gol_umur');
 		$this->db->join('jenis_kasus','pelayanan_penyakit.kd_jenis_kasus=jenis_kasus.kd_jenis_kasus','left');
 		
         $this->db->where('pelayanan.tgl_pelayanan', $tgl);

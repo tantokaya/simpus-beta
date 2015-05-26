@@ -6,8 +6,7 @@ class Cont_transaksi_pendaftaran extends CI_Controller
 	{
 		parent::__construct();
 		$simkes=$this->load->database('default', TRUE);
-		//$simobat=$this->load->database('obat', TRUE);
-		
+				
 		// cek session
 		if ($this->session->userdata('logged_in') == false && $this->session->userdata('id_akses') !== 1) {
 			$this->session->unset_userdata();

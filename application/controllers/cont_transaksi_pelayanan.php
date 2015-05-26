@@ -81,25 +81,28 @@ class Cont_transaksi_pelayanan extends CI_Controller
 			$this->db->where('kd_rekam_medis', $pelayanan['kd_rekam_medis']);
 			$query = $this->db->get()->row_array();
 			
-			$umur = $query['tanggal_lahir'];
-			#echo $umur; exit;
+			$umur = $query['tanggal_lahir']; // dapet tgl lahir misal 2010-06-16
+			//echo $umur; exit;
 			
+			$hitung = $this->functions->dateDifference($umur, date('Y-m-d'));
+			$umurku=$hitung[0].' Tahun '.$hitung[1].' Bulan '.$hitung[2].' Hari';
+			//echo $hitung[0];
+			$pelayanan['umur'] = $umurku; // dalam bentuk string
+			//echo '<pre>'; print_r($hitung); exit;
+			//$pelayanan['umur'] = $umur_dlm_hari['umur_in_days']/365; // masukin angka umur ke dbase
 			//echo '<pre>'; print_r($list_gol_umur); exit;
-			$umur_dlm_hari = $this->m_crud->calculate_age_in_days($pelayanan['tgl_pelayanan'],$umur);
-						
 			#print_r($umur_dlm_hari); exit;
 			#echo $umur_dlm_hari['umur_in_days']; exit;
-			
+			$umur_dlm_hari = $this->m_crud->calculate_age_in_days($pelayanan['tgl_pelayanan'],$umur);
 			foreach($list_gol_umur as $rs):
 				if($umur_dlm_hari['umur_in_days'] >= $rs['min_hr'] and $umur_dlm_hari['umur_in_days'] <= $rs['max_hr']){
-					$pelayanan_penyakit['kd_gol_umur'] = $rs['kd_gol_umur'];	
+					$pelayanan_penyakit['kd_gol_umur'] = $rs['kd_gol_umur'];
+					$pelayanan['kd_gol_umur'] = $rs['kd_gol_umur'];
 				}
 			endforeach;
 			
 			#print_r($pelayanan_penyakit); exit;
-			
-			$pelayanan['umur'] = $umur_dlm_hari['umur_in_days']/365;
-			
+
 			// start transaksi dengan db
 			$this->db->trans_start();
 			
@@ -120,8 +123,6 @@ class Cont_transaksi_pelayanan extends CI_Controller
 					$pelayanan_obat['kd_sat_kecil_obat'] 	= ${"satuan_".$i};
 					$pelayanan_obat['qty'] 					= ${"jumlah_".$i};
 					$pelayanan_obat['racikan'] 				= ${"racikan_".$i};
-					$pelayanan_obat['sta_resep'] 			= 'N';
-
 					$this->m_crud->simpan('pelayanan_obat', $pelayanan_obat);
 				} 	
 				$i++;
@@ -166,7 +167,7 @@ class Cont_transaksi_pelayanan extends CI_Controller
 					$pelayanan_tindakan['kd_produk'] 			= ${"kd_produk_lab_".$i};
 					$pelayanan_tindakan['qty'] 					= ${"qty_lab_".$i};
 					$pelayanan_tindakan['ket_tindakan']		 	= ${"ket_tindakan_lab_".$i};
-
+					
 					$this->m_crud->simpan('pelayanan_tindakan', $pelayanan_tindakan);
 				}	
 				$i++;
@@ -185,11 +186,12 @@ class Cont_transaksi_pelayanan extends CI_Controller
 				$this->db->trans_commit();
 				$this->session->set_flashdata('flash_message', 'Data transaksi pelayanan berhasil disimpan!');
 			}
-			if($this->session->userdata('id_akses') == 2 )
-			{ 	redirect('cont_transaksi_pendaftaran/pendaftaran', 'refresh');
-			} else { redirect('cont_transaksi_pelayanan/pelayanan_today', 'refresh'); }	
 			
-			//redirect('cont_transaksi_pelayanan/pelayanan_today', 'refresh');
+		/*	if($this->session->userdata('id_akses') == 2 ) //akun pendaftaran
+			{ 	redirect('cont_transaksi_pendaftaran/pendaftaran', 'refresh');
+			} else { redirect('cont_transaksi_pelayanan/pelayanan_today', 'refresh'); }	*/
+			
+			redirect('cont_transaksi_pelayanan/pelayanan_today', 'refresh');
 		}
 		
 		if ($par1 == 'ubah' && $par2 == 'do_update') {
@@ -271,7 +273,7 @@ class Cont_transaksi_pelayanan extends CI_Controller
 			#print_r($pelayanan_penyakit); exit;
 			
 			
-			$pelayanan['umur'] = $umur_dlm_hari['umur_in_days']/365;
+			//$pelayanan['umur'] = $umur_dlm_hari['umur_in_days']/365;
 			
 			// start transaksi dengan database
 			$this->db->trans_start();
@@ -367,8 +369,8 @@ class Cont_transaksi_pelayanan extends CI_Controller
 				$this->db->trans_commit();
 				$this->session->set_flashdata('flash_message', 'Data transaksi pelayanan berhasil diperbaharui!');
 			}
-
-
+			
+			
 			redirect('cont_transaksi_pelayanan/pelayanan_today', 'refresh');
 			
 		} else if ($par1 == 'ubah') {
@@ -442,12 +444,12 @@ class Cont_transaksi_pelayanan extends CI_Controller
         	$this->table->set_template($tmpl);
  	
 		if ($this->session->userdata('id_akses') == 2) // pendaftaran, tanpa status keluar pasien
-		{ $this->table->set_heading('Kode. Layanan','No. Rekam Medis','Nama Pasien','Alamat','Umur (tahun)','Unit Layanan','Metode Pembayaran', 'Aksi');
+		{ $this->table->set_heading('Kode. Layanan','No. RM','Nama Pasien','Alamat','Umur','Unit Layanan','Pembayaran','No. KS','Status', 'Aksi');
 		} 
 		elseif ($this->session->userdata('id_akses') == 10 || $this->session->userdata('id_akses') == 11 || $this->session->userdata('id_akses') == 12 || $this->session->userdata('id_akses') == 13 )
 		{ 	// view datatable jika di poli
-			$this->table->set_heading('Kode. Layanan','No. Rekam Medis','Nama Pasien','Alamat','Umur (tahun)','Status', 'Aksi');
-		} else { $this->table->set_heading('Kode. Layanan','No. Rekam Medis','Nama Pasien','Alamat','Umur (tahun)','Unit Layanan','Metode Pembayaran','Status', 'Aksi'); 
+			$this->table->set_heading('Kode. Layanan','No. RM','Nama Pasien','Alamat','Umur','Status', 'Aksi');
+		} else { $this->table->set_heading('Kode. Layanan','No. RM','Nama Pasien','Alamat','Umur','Unit Layanan','Pembayaran','Status', 'Aksi'); 
 		}	
 		
 		
@@ -462,9 +464,9 @@ class Cont_transaksi_pelayanan extends CI_Controller
 		$data['list_bed']					= $this->m_crud->get_list_kamar('1'); // kd_ruangan
 		$data['list_satuan_kecil']			= $this->m_crud->get_list_satuan_kecil('1');
 		$data['list_status_keluar']			= $this->m_crud->get_list_status_keluar('1');
-        $data['all_new_resep']	            = $this->m_crud->get_all_new_resep();
-
-        $this->template->display('pelayanan_today', $data);
+		$data['all_new_resep']	            = $this->m_crud->get_all_new_resep();
+		
+		$this->template->display('pelayanan_today', $data);
 		#echo '<pre>'; print_r($data); exit;
 	}
 	
@@ -1234,7 +1236,7 @@ class Cont_transaksi_pelayanan extends CI_Controller
 		$data['page_name']  = 'pelayanan';
 		$data['page_title'] = 'Pelayanan';
 		$data['pelayanan_hr_ini']	= $this->m_crud->get_pelayanan_by_date();
-
+		
 		$tmpl = array('table_open' => '<table id="dyntable" class="table table-bordered">');
         $this->table->set_template($tmpl);
  	
@@ -1249,11 +1251,11 @@ class Cont_transaksi_pelayanan extends CI_Controller
 		$data['list_dokter']				= $this->m_crud->get_list_dokter();
 		$data['list_jenis_kasus']			= $this->m_crud->get_list_jenis_kasus();
 		$data['list_jenis_diagnosa']		= $this->m_crud->get_list_jenis_diagnosa();
-	    $data['list_ruangan']				    = $this->m_crud->get_list_ruangan_by_id($this->session->userdata('kd_puskesmas'));
+		$data['list_ruangan']				= $this->m_crud->get_list_ruangan_by_id($this->session->userdata('kd_puskesmas')); 
 		//$data['list_bed']					= $this->m_crud->get_list_kamar('RG-01'); // kd_ruangan
 		$data['list_satuan_kecil']			= $this->m_crud->get_list_satuan_kecil('1');
 		$data['list_status_keluar']			= $this->m_crud->get_list_status_keluar('1');
-
+		
 		$this->template->display('pelayanan_today_lab', $data);
 		
 	}
@@ -1576,5 +1578,130 @@ class Cont_transaksi_pelayanan extends CI_Controller
     }
 	}
 	
+	//_______ Cetak Kerta Resep Kosong __________//
+	public function cetak_kertas_resep() {
+       
+        $this->load->library('Pdf');
+		$pdf = new Pdf('P', 'mm','A4', true, 'UTF-8', false);
+        // $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetPageOrientation('P');
+        $pdf->SetAuthor('Pemerintah Kota Bogor');
+        $pdf->SetTitle('Resep Obat');
+        $pdf->SetSubject('Resep Obat');
+        $pdf->SetKeywords('Resep Obat');
+        // $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 001', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
+        $pdf->setFooterData(array(0,64,0), array(0,64,128));
+        $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+        $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+        if (@file_exists(dirname(__FILE__).'/lang/eng.php'))
+        {
+            require_once(dirname(__FILE__).'/lang/eng.php');
+            $pdf->setLanguageArray($l);
+        }
+        $pdf->setFontSubsetting(true);
+        $pdf->SetFont('dejavusans', '', 8, '', true);
+        $pdf->AddPage();
+        $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));
+
+        $puskesmas = $this->m_rujukan->get_puskesmas_info($this->session->userdata('kd_puskesmas'));
+		$kd_trans_pelayanan = $this->uri->segment(3);
+		$surat = $this->m_rujukan->get_data_pasien($kd_trans_pelayanan);
+		
+		if ($surat['alamat']=='') {$surat['alamat']= "-";}
+		if ($surat['umur']=='') {$surat['umur']= "-";}
+		if ($surat['jenis_kelamin']=='') {$surat['jenis_kelamin']= "-";}
+		if ($surat['idkartu_medical']=='') {$surat['idkartu_medical']= "-";}
+		if ($surat['kd_bayar']=='') {$surat['kd_bayar']= "-";}
+		if ($surat['no_asuransi']=='') {$surat['no_asuransi']= "-";}
+		if ($surat['nm_dokter']=='') {$surat['nm_dokter']= "_____________________";}
+		$tgl=date('d-m-Y');
+		
+		#echo $this->db->last_query(); exit;
+		
+        $html     = '<table align="center" border="0" align="left">';
+        $html    .= '<tr>
+                        <td width="30%" style="text-align: center;"><img src="'.base_url().'assets/img/logo.png" width="80" height="80"/></td>
+                        <td width="70%"><h3>PEMERINTAH KOTA BOGOR<br>DINAS KESEHATAN</h3>
+                        <h4>UPTD '.$puskesmas["nm_puskesmas"].'<br>'.$puskesmas["alamat"].'</h4>
+                        </td>
+                    </tr>';
+        $html    .= '</table>';
+        $html    .= '<p align="center"><b>Resep Obat</b></p>';
+
+        $html   .= '<table align="center" cellpadding="2" cellspacing="0" border="0" width="100%">
+    <tr>
+        <td width="10%" border="1px" style="text-align: center;">'.$surat["kd_bayar"].'</td>
+        <td width="5%" style="text-align: left;"></td>
+        <td width="85%" style="text-align: right;">Bogor, '.$tgl.'</td>
+    </tr>
+    <tr>
+        <td style="text-align: right;" colspan="3">No KK: '.$surat["idkartu_medical"].'</td>
+    </tr>
+	<tr>
+        <td style="text-align: right;" colspan="3">No R.M. Pasien: '.$surat["kd_rekam_medis"].'</td>
+    </tr>
+    <tr>
+    <td><p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+	<p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+	<p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p></td>
+  </tr>
+    <tr>
+        <td style="text-align: right;" colspan="3">Pemeriksa, </td>
+    </tr>
+	<tr>
+    <td><p>&nbsp;</p>
+    <p>&nbsp;</p></td>
+  </tr>	
+	<tr>
+        <td style="text-align: right;" colspan="3">'.$surat["nm_dokter"].'</td>
+    </tr>
+    <tr>
+        <td style="text-align: left;">Nama</td>
+        <td style="text-align: left;">:</td>
+        <td style="text-align: left;">'.$surat["nm_lengkap"].'</td>
+    </tr>
+    <tr>
+        <td style="text-align: left;">Umur</td>
+        <td style="text-align: left;">:</td>
+        <td style="text-align: left;">'.$surat["umur"].'</td>
+    </tr>
+    <tr>
+        <td style="text-align: left;">Alamat</td>
+        <td style="text-align: left;">:</td>
+        <td style="text-align: left;">'.$surat["alamat"].', Kel. '.ucwords(strtolower($surat["nm_kelurahan"])).', Kec. '.ucwords(strtolower($surat["nm_kecamatan"])).' , '.ucwords(strtolower($surat["nm_kota"])).'</td>
+    </tr>
+    <tr>
+        <td style="text-align: left;">Status Psn</td>
+        <td style="text-align: left;">:</td>
+        <td style="text-align: left;">'.$surat["kd_bayar"].' , No '.$surat["no_asuransi"].'</td>
+    </tr>
+</table>';
+
+        $pdf->SetTitle('Judul');
+        $pdf->SetHeaderMargin(30);
+        $pdf->SetTopMargin(20);
+        $pdf->setFooterMargin(20);
+        $pdf->SetAutoPageBreak(true);
+        $pdf->SetAuthor('Pengarang');
+        $pdf->SetDisplayMode('real', 'default');
+        $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
+        $pdf->Output('Resep.pdf', 'I');
+    
+	}
 }
 ?>
