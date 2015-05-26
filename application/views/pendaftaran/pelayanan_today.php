@@ -42,6 +42,7 @@
 			jAlert('<?php echo $this->session->flashdata('flash_message'); ?>', 'Informasi');
 		</script>
 <?php endif;?>
+
 <div class="rightpanel">
 	<div class="breadcrumbwidget">
     	<ul class="breadcrumb">
@@ -62,10 +63,12 @@
   	 					<ul>
                         	<?php if(isset($edit_pelayanan)):?>
             				<li class="ui-tabs-active"><a href="#ubah"><i class="icon-edit"></i> Ubah Data Transaksi Pelayanan</a></li>
-            				<?php endif;?>
-      						
-                            <li class="<?php if(!isset($edit_pelayanan) && strlen($this->uri->segment(3)) < 8)echo 'ui-tabs-active';?>"><a href="#list"><i class="icon-align-justify"></i> Daftar Transaksi Pelayanan</a></li>
-                            <li class="<?php if(!isset($edit_pelayanan) && strlen($this->uri->segment(3)) >= 8)echo 'ui-tabs-active'; ?>"><a href="#tambah"><i class="icon-plus"></i>Transaksi Pelayanan Baru</a></li>
+            				<?php endif;?>	
+                           <li class="<?php if(!isset($edit_pelayanan) && strlen($this->uri->segment(3)) >= 8)echo 'ui-tabs-active'; ?>"><a href="#tambah"><i class="icon-plus"></i>Transaksi Pelayanan Baru</a></li>
+						   
+						   <li class="<?php if(!isset($edit_pelayanan) && strlen($this->uri->segment(3)) < 8)echo 'ui-tabs-active';?>"><a href="#list"><i class="icon-align-justify"></i> Daftar Transaksi Pelayanan</a></li>
+							
+                            
                         </ul>
                         
                         
