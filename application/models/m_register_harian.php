@@ -50,4 +50,17 @@ class M_register_harian extends CI_Model {
         $query = $this->db->get();
         return $query->result_array();
     }
+	
+	function get_rekap_cara_bayar($tgl){
+
+        $this->db->select('pelayanan.kd_bayar,unit_pelayanan.nm_unit, count(*) AS jml');
+        $this->db->from('pelayanan');
+        $this->db->join('unit_pelayanan','pelayanan.kd_unit_pelayanan = unit_pelayanan.kd_unit_pelayanan');	
+        $this->db->where('pelayanan.tgl_pelayanan', $tgl);
+		$this->db->group_by('unit_pelayanan.nm_unit, pelayanan.kd_bayar');
+        $this->db->order_by('pelayanan.kd_bayar','ASC');
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 }

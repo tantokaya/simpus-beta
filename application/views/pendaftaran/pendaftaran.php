@@ -511,7 +511,7 @@
                                         <td><input type="text" name="no_asuransi" id="no_asuransi" class="input-large" /></td>
                                     </tr>
                                     <tr>
-                                    	<td>Cara Bayar</td>
+                                    	<td>Cara Bayar *</td>
                                         <td>
                                         	<select name="kd_bayar" id="kd_bayar" data-placeholder="Pilih Cara Bayar" style="width:250px" class="chzn-select" tabindex="2" required>
                                             <option value=""></option>

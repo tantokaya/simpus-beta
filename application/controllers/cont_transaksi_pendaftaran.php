@@ -49,6 +49,7 @@ class Cont_transaksi_pendaftaran extends CI_Controller
 			$data['kd_jenis_pasien'] = $this->input->post('kd_jenis_pasien');
 			$data['kd_bayar'] = $this->input->post('kd_bayar');
 			$data['no_kk'] = $this->input->post('no_kk');
+			$data['idkartu_medical'] = $this->input->post('no_kk');
 			$data['nm_kk'] = $this->input->post('nm_kk');
 			$data['asuransi'] = $this->input->post('asuransi');
 			$data['no_asuransi'] = $this->input->post('no_asuransi');
@@ -90,6 +91,7 @@ class Cont_transaksi_pendaftaran extends CI_Controller
 			$data['kd_jenis_pasien'] = $this->input->post('kd_jenis_pasien');
 			$data['kd_bayar'] = $this->input->post('kd_bayar');
 			$data['no_kk'] = $this->input->post('no_kk');
+			$data['idkartu_medical'] = $this->input->post('no_kk');
 			$data['nm_kk'] = $this->input->post('nm_kk');
 			$data['asuransi'] = $this->input->post('asuransi');
 			$data['no_asuransi'] = $this->input->post('no_asuransi');

@@ -444,7 +444,7 @@ class Cont_transaksi_pelayanan extends CI_Controller
         	$this->table->set_template($tmpl);
  	
 		if ($this->session->userdata('id_akses') == 2) // pendaftaran, tanpa status keluar pasien
-		{ $this->table->set_heading('Kode. Layanan','No. RM','Nama Pasien','Alamat','Umur','Unit Layanan','Pembayaran','No. KS','Status', 'Aksi');
+		{ $this->table->set_heading('Kode. Layanan','No. RM','Nama Pasien','No KK','Alamat','Umur','Unit Layanan','Pembayaran','No. KS','Status', 'Aksi');
 		} 
 		elseif ($this->session->userdata('id_akses') == 10 || $this->session->userdata('id_akses') == 11 || $this->session->userdata('id_akses') == 12 || $this->session->userdata('id_akses') == 13 )
 		{ 	// view datatable jika di poli

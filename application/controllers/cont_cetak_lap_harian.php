@@ -120,6 +120,74 @@ class Cont_cetak_lap_harian extends CI_Controller
 		$this->template->display('form_register', $data);
 	}
 	
+	function rekap_pasien($par1 = '', $par2 = '', $par3 = '')
+	{
+		if (!$this->session->userdata('logged_in') == true)
+		{
+			redirect('login');
+		}
+		
+		if ($par1 == 'cetak') {
+		
+			$this->load->library('excel');
+			require APPPATH."libraries/PHPExcel/IOFactory.php";
+	
+			$fileType		='Excel5';
+			$inputFileName	= APPPATH . "libraries/rekap_cara_bayar.xls";
+			
+			$kd_puskesmas = $this->session->userdata('kd_puskesmas');
+            $puskesmas = $this->m_register_harian->get_puskesmas_info($kd_puskesmas);
+						
+			$objReader = PHPExcel_IOFactory::createReader($fileType); 
+			$objReader->setIncludeCharts(TRUE);
+			$objPHPExcel = $objReader->load($inputFileName); 
+			$objPHPExcel->setActiveSheetIndex(0);
+			
+
+			$tgl	= $this->input->post('tgl');
+			$unit = $this->m_register_harian->get_unit_pelayanan_info($kd_unit_pelayanan);
+			$rekap = $this->m_register_harian->get_rekap_cara_bayar($this->functions->convert_date_sql($tgl));
+			
+			#echo $this->db->last_query(); exit;  //untuk menampilkan sintaks query trakir
+			
+			#echo '<pre>'; print_r($data); exit;
+			
+			#echo('<pre>'); print_r($pasien); exit;
+			
+			/****************************************************************************************/
+			/* HEADER DATA EXCEL
+			/****************************************************************************************/
+			
+			$objPHPExcel->getActiveSheet()->setCellValue('B3', $puskesmas['nm_puskesmas']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B4', $tgl);
+
+            $i=7;
+            $no=1;
+
+            foreach($rekap as $rs){
+				$objPHPExcel->getActiveSheet()->setCellValue('A'.$i, $rs['kd_bayar']);
+                $objPHPExcel->getActiveSheet()->setCellValue('B'.$i, $rs['nm_unit']);
+				$objPHPExcel->getActiveSheet()->setCellValue('C'.$i, $rs['jml']);
+				
+                $i++;
+                $no++;
+            }
+
+			
+			$filename='Rekap_harian_'.date("d/m/Y H-i-s").'.xls'; //save our workbook as this file name
+			header('Content-Type: application/vnd.ms-excel'); //mime type
+			header('Content-Disposition: attachment;filename="'.$filename.'"'); //tell browser what's the file name
+			header('Cache-Control: max-age=0'); //no cache
+
+			$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');  
+			//force user to download the Excel file without writing it to server's HD
+			$objWriter->save('php://output');
+		
+		}
+		$data['page_name']  = 'Rekap Harian';
+		$data['page_title'] = 'Rekap Harian';
+		$this->template->display('form_rekap_kdbayar', $data);
+	}
 
 }
 ?>
