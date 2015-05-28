@@ -46,10 +46,13 @@ class Cont_cetak_lap_harian extends CI_Controller
 			$objPHPExcel->setActiveSheetIndex(0);
 			
 
-			$tgl	= $this->input->post('tgl');
+			//$tgl	= $this->input->post('tgl');
+			$tgl_mulai	= $this->input->post('tgl_mulai');
+			$tgl_akhir	= $this->input->post('tgl_akhir');
 			$kd_unit_pelayanan = $this->input->post('kd_unit_pelayanan');
 			$unit = $this->m_register_harian->get_unit_pelayanan_info($kd_unit_pelayanan);
-			$pasien = $this->m_register_harian->get_pasien_rawat_umum_by_date($this->functions->convert_date_sql($tgl), $kd_unit_pelayanan);
+			
+			$pasien = $this->m_register_harian->get_pasien_rawat_umum_by_date($this->functions->convert_date_sql($tgl_mulai), $this->functions->convert_date_sql($tgl_akhir), $kd_unit_pelayanan);
 			
 			#echo $this->db->last_query(); exit;  //untuk menampilkan sintaks query trakir
 			
@@ -60,10 +63,13 @@ class Cont_cetak_lap_harian extends CI_Controller
 			/****************************************************************************************/
 			/* HEADER DATA EXCEL
 			/****************************************************************************************/
-			
-			$objPHPExcel->getActiveSheet()->setCellValue('I1', $unit['nm_unit']);
+			if ($kd_unit_pelayanan =='') {
+				$unitnya = "SEMUA UNIT";
+			} else {$unitnya = $unit['nm_unit'];}
+			$objPHPExcel->getActiveSheet()->setCellValue('I1', $unitnya);
 			$objPHPExcel->getActiveSheet()->setCellValue('A2', $puskesmas['nm_puskesmas']);
-            $objPHPExcel->getActiveSheet()->setCellValue('A3', $tgl);
+            $objPHPExcel->getActiveSheet()->setCellValue('A3', $tgl_mulai.' sd '.$tgl_akhir);
+			//$objPHPExcel->getActiveSheet()->setCellValue('I3', $tgl_akhir);
 
             $i=7;
             $no=1;
@@ -75,7 +81,6 @@ class Cont_cetak_lap_harian extends CI_Controller
                 switch($rs['kd_jenis_kelamin']){
                     case 1: $jk = "L"; break;
                     case 2: $jk = "P"; break;
-
                 }
 				if ($rs['alamat']=='') {$rs['alamat']= "-";}
 				if ($rs['nm_kelurahan']=='') {$rs['nm_kelurahan']= "-";}

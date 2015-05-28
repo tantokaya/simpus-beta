@@ -30,17 +30,17 @@
                             <div class="widgetcontent bordered shadowed nopadding">
                                 <?php echo form_open('cont_cetak_lap_mingguan/rekap_penyakit/cetak', array('class' => 'stdform stdform2', 'id' => 'form_input')); ?>
                
-        <table style="border:0px solid grey; color:black; font-size:10pt;" width="519">
+        <table style="border:0px solid grey; color:black; font-size:10pt;" width="100%">
 		<tr>
-		  <td width="134" style="padding:15px;"><strong>Dari Tanggal</strong></td>
+		  <td width="131" style="padding:15px;"><strong>Dari Tanggal</strong></td>
 		  <td width="32" align="center" style="padding:15px;"><strong>:</strong></td>
-		  <td width="130" style="padding:15px;"><input type="text" name="tgl_mulai" id="tgl_mulai"  style="width:80px; font-size: 13px; background-color:#FFFFE0; font-weight: bold; text-align:center;"></td>
-		  <td width="66" style="padding:15px;"><strong>s/d</strong></td>
-		  <td width="133" ><input type="text"  name="tgl_akhir" id="tgl_akhir" style="width:80px; font-size: 13px; background-color:#FFFFE0; font-weight: bold; text-align:center;"></td>
+		  <td width="116" style="padding:15px;"><input type="text" name="tgl_mulai" id="tgl_mulai"  style="width:80px; font-size: 13px; background-color:#FFFFE0; font-weight: bold; text-align:center;"></td>
+		  <td width="44" style="padding:15px;"><strong>s/d</strong></td>
+		  <td width="532" ><input type="text"  name="tgl_akhir" id="tgl_akhir" style="width:80px; font-size: 13px; background-color:#FFFFE0; font-weight: bold; text-align:center;"></td>
 		  
 	    </tr>
 		<tr>
-		  <td width="134" style="padding:15px;"><strong>Unit Pelayanan</strong></td>
+		  <td width="131" style="padding:15px;"><strong>Unit Pelayanan</strong></td>
 		  <td width="32" align="center" style="padding:15px;"><strong>:</strong></td>
 		  <td colspan="3" style="padding:15px;"><select name="kd_unit_pelayanan" id="kd_unit_pelayanan" class="uniformselect">
 		    <option value="-">Pilih Unit Pelayanan</option>
@@ -49,7 +49,7 @@
 		    <?php endforeach; ?>
 	      </select></td>
 	    </tr>
-	  </table>                                               
+	  </table>                                              
                                         <p class="stdformbutton">
                                             <button class="btn btn-primary">Proses</button>
                                             <button type="reset" class="btn">Reset</button>

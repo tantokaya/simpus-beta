@@ -187,11 +187,11 @@ class Cont_transaksi_pelayanan extends CI_Controller
 				$this->session->set_flashdata('flash_message', 'Data transaksi pelayanan berhasil disimpan!');
 			}
 			
-		/*	if($this->session->userdata('id_akses') == 2 ) //akun pendaftaran
+			if($this->session->userdata('id_akses') == 2 ) //akun pendaftaran
 			{ 	redirect('cont_transaksi_pendaftaran/pendaftaran', 'refresh');
-			} else { redirect('cont_transaksi_pelayanan/pelayanan_today', 'refresh'); }	*/
+			} else { redirect('cont_transaksi_pelayanan/pelayanan_today', 'refresh'); }	
 			
-			redirect('cont_transaksi_pelayanan/pelayanan_today', 'refresh');
+			//redirect('cont_transaksi_pelayanan/pelayanan_today', 'refresh');
 		}
 		
 		if ($par1 == 'ubah' && $par2 == 'do_update') {
@@ -1582,7 +1582,7 @@ class Cont_transaksi_pelayanan extends CI_Controller
 	public function cetak_kertas_resep() {
        
         $this->load->library('Pdf');
-		$pdf = new Pdf('P', 'mm','A4', true, 'UTF-8', false);
+		$pdf = new Pdf('P', 'mm','BOTIM', true, 'UTF-8', false);
         // $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetPageOrientation('P');
@@ -1606,7 +1606,7 @@ class Cont_transaksi_pelayanan extends CI_Controller
             $pdf->setLanguageArray($l);
         }
         $pdf->setFontSubsetting(true);
-        $pdf->SetFont('dejavusans', '', 8, '', true);
+        $pdf->SetFont('dejavusans', '', 12, '', true);
         $pdf->AddPage();
         $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));
 
@@ -1655,8 +1655,9 @@ class Cont_transaksi_pelayanan extends CI_Controller
 	<p>&nbsp;</p>
     <p>&nbsp;</p>
     <p>&nbsp;</p>
-	<p>&nbsp;</p>
     <p>&nbsp;</p>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
     <p>&nbsp;</p>
     <p>&nbsp;</p></td>
   </tr>

@@ -31,7 +31,7 @@
 				<li class="<?php if($page_name == 'harian1' || $page_name== 'harian2'  )echo 'active'; ?>dropdown"><a href=""><span class="icon-briefcase"></span>Download Laporan</a>
                 	<ul style="<?php if($page_name == 'harian1' || $page_name== 'harian2'  )echo 'display: block'; ?>">
 						<li><a href="<?php echo base_url(); ?>cont_cetak_lap_harian/register_harian">Register Pasien Harian</a></li>
-						<li><a href="<?php echo base_url(); ?>cont_cetak_lap_mingguan/rekap_penyakit">Rekap Pasien per Jenis Pembayaran</a></li>			
+						<li><a href="<?php echo base_url(); ?>cont_cetak_lap_harian/rekap_pasien">Rekap Pasien per Jenis Pembayaran</a></li>			
                 	</ul>
                 </li>
                 

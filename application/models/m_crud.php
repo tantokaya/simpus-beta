@@ -1860,6 +1860,14 @@ public function ItemAwalApotek($id){
 	/**********************************************************************************************************/
 	/* ICD 																			  */
 	/**********************************************************************************************************/
+	
+	function get_list_penyakit($id)
+	{
+		$this->db->select('*');
+		$this->db->from('icd');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
 	function get_all_icd()
 	{
 		$this->db->select('*');
