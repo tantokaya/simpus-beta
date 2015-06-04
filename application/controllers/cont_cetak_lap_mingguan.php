@@ -51,7 +51,7 @@ class Cont_cetak_lap_mingguan extends CI_Controller
 			$unit = $this->m_lap_mingguan->get_unit_pelayanan_info($kd_unit_pelayanan);
 			$icd = $this->m_lap_mingguan->get_pelayanan_penyakit_by_date($this->functions->convert_date_sql($tgl_mulai),$this->functions->convert_date_sql($tgl_akhir), $kd_unit_pelayanan);
 			
-			#echo $this->db->last_query(); exit;  //untuk menampilkan sintaks query trakir
+			//echo $this->db->last_query(); exit;  //untuk menampilkan sintaks query trakir
 			
 			#echo '<pre>'; print_r($data); exit;
 			
@@ -60,11 +60,15 @@ class Cont_cetak_lap_mingguan extends CI_Controller
 			/****************************************************************************************/
 			/* HEADER DATA EXCEL
 			/****************************************************************************************/
+			if ($kd_unit_pelayanan =='') {
+				$unitnya = "SEMUA UNIT PELAYANAN";
+			} else {$unitnya = $unit['nm_unit'];}
 			
+			$periode = $tgl_mulai.' sd '. $tgl_akhir;
 			$objPHPExcel->getActiveSheet()->setCellValue('C2', $puskesmas['nm_puskesmas']);
-			$objPHPExcel->getActiveSheet()->setCellValue('C3', $unit['nm_unit']);
-            $objPHPExcel->getActiveSheet()->setCellValue('C4', $tgl_mulai);
-			$objPHPExcel->getActiveSheet()->setCellValue('C5', $tgl_akhir);
+			$objPHPExcel->getActiveSheet()->setCellValue('C3', $unitnya);
+            $objPHPExcel->getActiveSheet()->setCellValue('C4', $periode);
+			//$objPHPExcel->getActiveSheet()->setCellValue('C5', $tgl_akhir);
 
             $i=9;
             $no=1;
@@ -99,7 +103,7 @@ class Cont_cetak_lap_mingguan extends CI_Controller
 		
 		}
 		$data['list_unit_pelayanan']		= $this->m_crud->get_list_unit_pelayanan('1');
-		$data['page_name']  = 'Rekap Penyakit per Minggu';
+		$data['page_name']  = 'RekapPenyakitPerMinggu';
 		$data['page_title'] = 'Rekap Penyakit';
 		$this->template->display('form_rekap_penyakit', $data);
 		
@@ -143,11 +147,14 @@ class Cont_cetak_lap_mingguan extends CI_Controller
 			/****************************************************************************************/
 			/* HEADER DATA EXCEL
 			/****************************************************************************************/
-			
+			$periode = $tgl_mulai.' sd '. $tgl_akhir;
+			if ($kd_penyakit =='') {
+				$penyakitnya = "SEMUA JENIS PENYAKIT";
+			} else {$penyakitnya = $penyakit['penyakit'];}
 			$objPHPExcel->getActiveSheet()->setCellValue('C2', $puskesmas['nm_puskesmas']);
-			$objPHPExcel->getActiveSheet()->setCellValue('C3', $penyakit['penyakit']);
-            $objPHPExcel->getActiveSheet()->setCellValue('C4', $tgl_mulai);
-			$objPHPExcel->getActiveSheet()->setCellValue('C5', $tgl_akhir);
+			$objPHPExcel->getActiveSheet()->setCellValue('C3', $penyakitnya);
+            $objPHPExcel->getActiveSheet()->setCellValue('C4', $periode);
+			//$objPHPExcel->getActiveSheet()->setCellValue('C5', $tgl_akhir);
 
             $i=9;
             $no=1;
@@ -189,9 +196,87 @@ class Cont_cetak_lap_mingguan extends CI_Controller
 		
 		}
 		$data['list_penyakit']		= $this->m_crud->get_list_penyakit('1');
-		$data['page_name']  = 'Rekap Pasien per Penyakit';
+		$data['page_name']  = 'RekapPasienPerPenyakit';
 		$data['page_title'] = 'Rekap Pasien per Penyakit';
 		$this->template->display('form_rekap_penyakit_bydate', $data);
+		
+	}
+	
+	function rekap_obat_out_apotek($par1 = '', $par2 = '', $par3 = '')
+	{
+		if (!$this->session->userdata('logged_in') == true)
+		{
+			redirect('login');
+		}
+		
+		if ($par1 == 'cetak') {
+		
+			$this->load->library('excel');
+			require APPPATH."libraries/PHPExcel/IOFactory.php";
+	
+			$fileType		='Excel5';
+			$inputFileName	= APPPATH . "libraries/rekap_obat_keluar_apotek.xls";
+			
+			$kd_puskesmas = $this->session->userdata('kd_puskesmas');
+            $puskesmas = $this->m_lap_mingguan->get_puskesmas_info($kd_puskesmas);
+						
+			$objReader = PHPExcel_IOFactory::createReader($fileType); 
+			$objReader->setIncludeCharts(TRUE);
+			$objPHPExcel = $objReader->load($inputFileName); 
+			$objPHPExcel->setActiveSheetIndex(0);			
+
+			$tgl_mulai	= $this->input->post('tgl_mulai');
+			$tgl_akhir	= $this->input->post('tgl_akhir');
+			//$kd_unit_pelayanan = $this->input->post('kd_unit_pelayanan');
+			//$unit = $this->m_lap_mingguan->get_unit_pelayanan_info($kd_unit_pelayanan);
+			$apotek_out = $this->m_lap_mingguan->get_apotek_out_by_date($this->functions->convert_date_sql($tgl_mulai),$this->functions->convert_date_sql($tgl_akhir));
+			
+			#echo $this->db->last_query(); exit;  //untuk menampilkan sintaks query trakir
+			
+			#echo '<pre>'; print_r($data); exit;
+			
+			#echo('<pre>'); print_r($pasien); exit;
+			
+			/****************************************************************************************/
+			/* HEADER DATA EXCEL
+			/****************************************************************************************/
+			$periode = $tgl_mulai.' sd '. $tgl_akhir;
+			$objPHPExcel->getActiveSheet()->setCellValue('C2', $puskesmas['nm_puskesmas']);
+			$objPHPExcel->getActiveSheet()->setCellValue('C3', $periode);
+
+            $i = 7;
+            $no = 1;
+
+            foreach($apotek_out as $rs){
+                $objPHPExcel->getActiveSheet()->setCellValue('A'.$i, $no);
+                 
+				if ($rs['total']=='') {$rs['total']= "-";}
+				if ($rs['sat_kecil_obat']=='') {$rs['sat_kecil_obat']= "-";}
+								
+                $objPHPExcel->getActiveSheet()->setCellValue('B'.$i, $rs['kd_obat']);
+				$objPHPExcel->getActiveSheet()->setCellValue('C'.$i, $rs['nama_obat']);
+                $objPHPExcel->getActiveSheet()->setCellValue('D'.$i, $rs['total']);
+				$objPHPExcel->getActiveSheet()->setCellValue('E'.$i, $rs['sat_kecil_obat']);
+				  
+                $i++;
+                $no++;
+            }
+
+			
+			$filename='Rekap_Apotek_Keluar_'.date("d/m/Y H-i-s").'.xls'; //save our workbook as this file name
+			header('Content-Type: application/vnd.ms-excel'); //mime type
+			header('Content-Disposition: attachment;filename="'.$filename.'"'); //tell browser what's the file name
+			header('Cache-Control: max-age=0'); //no cache
+
+			$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');  
+			//force user to download the Excel file without writing it to server's HD
+			$objWriter->save('php://output');
+		
+		}
+		//$data['list_unit_pelayanan']		= $this->m_crud->get_list_unit_pelayanan('1');
+		$data['page_name']  = 'RekapObatKeluarApotekPerMinggu';
+		$data['page_title'] = 'Rekap Obat Keluar Apotek';
+		$this->template->display('form_rekap_apotek_out', $data);
 		
 	}
 

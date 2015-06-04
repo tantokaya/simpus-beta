@@ -35,12 +35,7 @@
                 	</ul>
                 </li>
                 
-          <!--      
-                <li class="<?php if($page_name == 'pendaftaran' || $page_name== 'pelayanan'  )echo 'active'; ?>dropdown"><a href=""><span class="icon-briefcase"></span> Menu Utama</a>
-                	<ul style="<?php if($page_name == 'pendaftaran' || $page_name== 'pelayanan'  )echo 'display: block'; ?>">
-						<li><a href="<?php echo base_url(); ?>cont_transaksi_pendaftaran/pendaftaran">Pendaftaran</a></li>
-						<li><a href="<?php echo base_url(); ?>pendaftaran/pelayanan">Pelayanan</a></li>	
-						<li><a href="<?php echo base_url(); ?>pendaftaran/laporan">Pembayaran</a></li>	-->
+        
                 	</ul>
                 </li>
             </ul>

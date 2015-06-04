@@ -40,15 +40,15 @@
 		  
 	    </tr>
 		<tr>
-		  <td width="131" style="padding:15px;"><strong>Unit Pelayanan</strong></td>
+		  <td width="168" style="padding:15px;"><strong>Unit Pelayanan</strong></td>
 		  <td width="32" align="center" style="padding:15px;"><strong>:</strong></td>
-		  <td colspan="3" style="padding:15px;"><select name="kd_unit_pelayanan" id="kd_unit_pelayanan" class="uniformselect">
-		    <option value="-">Pilih Unit Pelayanan</option>
-		    <?php foreach($list_unit_pelayanan as $lup) : ?>
-		    <option value="<?php echo $lup['kd_unit_pelayanan']; ?>"><?php echo $lup['nm_unit']; ?></option>
-		    <?php endforeach; ?>
-	      </select></td>
-	    </tr>
+		  <td colspan="3"><select name="kd_unit_pelayanan" id="kd_unit_pelayanan" class="uniformselect">
+			<option value="">SEMUA UNIT PELAYANAN</option>
+			<?php foreach($list_unit_pelayanan as $lup) : ?>
+			<option value="<?php echo $lup['kd_unit_pelayanan']; ?>"><?php echo $lup['nm_unit']; ?></option>
+			<?php endforeach; ?>
+		  </select></td>
+       </tr>
 	  </table>                                              
                                         <p class="stdformbutton">
                                             <button class="btn btn-primary">Proses</button>

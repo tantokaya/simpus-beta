@@ -43,7 +43,7 @@
 		  <td width="141" style="padding:15px;"><strong>Jenis Penyakit</strong></td>
 		  <td width="32" align="center" style="padding:15px;"><strong>:</strong></td>
 		  <td colspan="3" style="padding:15px;"><select name="kd_penyakit" id="kd_penyakit" class="uniformselect">
-		    <option value="-">Pilih Jenis Penyakit</option>
+		    <option value="">Semua Jenis Penyakit</option>
 		    <?php foreach($list_penyakit as $lup) : ?>
 		    <option value="<?php echo $lup['kd_penyakit']; ?>"><?php echo $lup['penyakit']; ?></option>
 		    <?php endforeach; ?>

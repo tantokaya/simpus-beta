@@ -12,7 +12,7 @@
         </ul>
 	</div><!--breadcrumbwidget-->
     <div class="pagetitle">
-    	<h1><?php echo $page_title; ?></h1> <span>Halaman laporan register harian</span>
+    	<h1><?php echo $page_title; ?></h1> <span>Halaman laporan rekap harian</span>
     </div><!--pagetitle-->
      
     <div class="maincontent">
@@ -26,30 +26,16 @@
                         
                         <!---- CETAK register START ---->
    						<div id="list">
-                        	<h4 class="widgettitle nomargin shadowed">Rekap Penyakit Per Minggu</h4>
+                        	<h4 class="widgettitle nomargin shadowed">Rekap Pasien Per Cara Bayar</h4>
                             <div class="widgetcontent bordered shadowed nopadding">
-                                <?php echo form_open('cont_cetak_lap_harian/register_harian/cetak', array('class' => 'stdform stdform2', 'id' => 'form_input')); ?>
+                                <?php echo form_open('cont_cetak_lap_harian/rekap_pasien/cetak', array('class' => 'stdform stdform2', 'id' => 'form_input')); ?>
                                        
- <table style="border:0px solid grey; color:black; font-size:10pt;" width="100%">
-    <tr>
-      <td width="168" style="padding:15px;"><strong>Dari Tanggal</strong></td>
-      <td width="32" align="center" style="padding:15px;"><strong>:</strong></td>
-      <td width="108" style="padding:15px;"><input type="text" name="tgl_mulai" id="tgl_mulai"  style="width:80px; font-size: 13px; background-color:#FFFFE0; font-weight: bold; text-align:center;"></td>
-      <td width="44" style="padding:15px;"><strong>s/d</strong></td>
-      <td width="495" ><input type="text"  name="tgl_akhir" id="tgl_akhir" style="width:80px; font-size: 13px; background-color:#FFFFE0; font-weight: bold; text-align:center;"></td>
-    </tr>
-    <tr>
-      <td width="168" style="padding:15px;"><strong>Unit Pelayanan</strong></td>
-      <td width="32" align="center" style="padding:15px;"><strong>:</strong></td>
-      <td colspan="3"><select name="kd_unit_pelayanan" id="kd_unit_pelayanan" class="uniformselect">
-        
-        <option value="">SEMUA UNIT PELAYANAN</option>
-        <?php foreach($list_unit_pelayanan as $lup) : ?>
-        <option value="<?php echo $lup['kd_unit_pelayanan']; ?>"><?php echo $lup['nm_unit']; ?></option>
-        <?php endforeach; ?>
-      </select></td>
-       </tr>
-  </table>  
+                                     <table style="border:0px solid grey; color:black; font-size:10pt;" width="67.5%">
+		<tr>
+		  <td width="50" style="padding:15px;"><strong>Dari Tanggal: </strong></td>
+		  <td width="120" > <input type="text" name="tgl" id="tgl"  style="width:80px; font-size: 13px; background-color:#FFFFE0; font-weight: bold; text-align:center;"></td>
+		</tr>
+	  </table>   
                                        
                                                            
                                         <p class="stdformbutton">
@@ -59,7 +45,7 @@
                                	<?php echo form_close();  ?>
                                 </div><!--widgetcontent-->
                         </div>
-                        <!---- END CETAK LB2 ---->
+                        <!---- END CETAK  ---->
                         
                 	</div><!--tabs-->
                 </div><!--span12-->

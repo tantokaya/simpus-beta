@@ -43,7 +43,7 @@ class M_register_harian extends CI_Model {
 		$sql->join('jenis_kasus','pelayanan_penyakit.kd_jenis_kasus=jenis_kasus.kd_jenis_kasus','left');
 		$sql->where('pelayanan.tgl_pelayanan >=', $tgl_mulai);
 		$sql->where('pelayanan.tgl_pelayanan <=', $tgl_akhir);
-		//$sql->where('pelayanan.kd_unit_pelayanan', $kd_unit_pelayanan);
+	
 		if ($kd_unit_pelayanan != '') {
 			$sql->where('pelayanan.kd_unit_pelayanan', $kd_unit_pelayanan);
 		}	
@@ -63,6 +63,17 @@ class M_register_harian extends CI_Model {
         $this->db->where('pelayanan.tgl_pelayanan', $tgl);
 		$this->db->group_by('unit_pelayanan.nm_unit, pelayanan.kd_bayar');
         $this->db->order_by('pelayanan.kd_bayar','ASC');
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+	
+	function get_rekap_stok_obat(){
+
+        $this->db->select('obat.kd_obat,obat.nama_obat,obat.apotek_stok,obat.obat_stok,satuan_kecil.sat_kecil_obat');
+        $this->db->from('obat');
+        $this->db->join('satuan_kecil','obat.kd_sat_kecil_obat = satuan_kecil.kd_sat_kecil_obat');	
+        $this->db->order_by('obat.kd_obat','ASC');
 
         $query = $this->db->get();
         return $query->result_array();

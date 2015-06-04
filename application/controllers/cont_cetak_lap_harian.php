@@ -64,9 +64,10 @@ class Cont_cetak_lap_harian extends CI_Controller
 			/* HEADER DATA EXCEL
 			/****************************************************************************************/
 			if ($kd_unit_pelayanan =='') {
-				$unitnya = "SEMUA UNIT";
+				$unitnya = "SEMUA UNIT PELAYANAN";
 			} else {$unitnya = $unit['nm_unit'];}
-			$objPHPExcel->getActiveSheet()->setCellValue('I1', $unitnya);
+			$judul = "REGISTER RAWAT JALAN $unitnya ";
+			$objPHPExcel->getActiveSheet()->setCellValue('A1', $judul);
 			$objPHPExcel->getActiveSheet()->setCellValue('A2', $puskesmas['nm_puskesmas']);
             $objPHPExcel->getActiveSheet()->setCellValue('A3', $tgl_mulai.' sd '.$tgl_akhir);
 			//$objPHPExcel->getActiveSheet()->setCellValue('I3', $tgl_akhir);
@@ -120,7 +121,7 @@ class Cont_cetak_lap_harian extends CI_Controller
 		
 		}
 		$data['list_unit_pelayanan']		= $this->m_crud->get_list_unit_pelayanan('1');
-		$data['page_name']  = 'Register Harian';
+		$data['page_name']  = 'RegisterHarian';
 		$data['page_title'] = 'Register Harian';
 		$this->template->display('form_register', $data);
 	}
@@ -189,10 +190,80 @@ class Cont_cetak_lap_harian extends CI_Controller
 			$objWriter->save('php://output');
 		
 		}
-		$data['page_name']  = 'Rekap Harian';
+		$data['page_name']  = 'RekapHarian';
 		$data['page_title'] = 'Rekap Harian';
 		$this->template->display('form_rekap_kdbayar', $data);
 	}
+	
+	function rekap_stok_obat($par1 = '', $par2 = '', $par3 = '')
+	{
+		if (!$this->session->userdata('logged_in') == true)
+		{
+			redirect('login');
+		}
+		
+		if ($par1 == 'cetak') {
+		
+			$this->load->library('excel');
+			require APPPATH."libraries/PHPExcel/IOFactory.php";
+	
+			$fileType		='Excel5';
+			$inputFileName	= APPPATH . "libraries/rekap_stok_obat.xls";
+			
+			$kd_puskesmas = $this->session->userdata('kd_puskesmas');
+            $puskesmas = $this->m_register_harian->get_puskesmas_info($kd_puskesmas);
+						
+			$objReader = PHPExcel_IOFactory::createReader($fileType); 
+			$objReader->setIncludeCharts(TRUE);
+			$objPHPExcel = $objReader->load($inputFileName); 
+			$objPHPExcel->setActiveSheetIndex(0);
 
+			$tgl	= $this->input->post('tgl');
+			//$unit = $this->m_register_harian->get_unit_pelayanan_info($kd_unit_pelayanan);
+			$rekap = $this->m_register_harian->get_rekap_stok_obat();
+			
+			#echo $this->db->last_query(); exit;  //untuk menampilkan sintaks query trakir
+			
+			#echo '<pre>'; print_r($data); exit;
+			
+			#echo('<pre>'); print_r($pasien); exit;
+			
+			/****************************************************************************************/
+			/* HEADER DATA EXCEL
+			/****************************************************************************************/
+			
+			$objPHPExcel->getActiveSheet()->setCellValue('C2', $puskesmas['nm_puskesmas']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C3', $tgl);
+
+            $i=7;
+            $no=1;
+
+            foreach($rekap as $rs){
+				$objPHPExcel->getActiveSheet()->setCellValue('A'.$i, $no);
+                $objPHPExcel->getActiveSheet()->setCellValue('B'.$i, $rs['kd_obat']);
+				$objPHPExcel->getActiveSheet()->setCellValue('C'.$i, $rs['nama_obat']);
+				$objPHPExcel->getActiveSheet()->setCellValue('D'.$i, $rs['obat_stok']);
+				$objPHPExcel->getActiveSheet()->setCellValue('E'.$i, $rs['apotek_stok']);
+				$objPHPExcel->getActiveSheet()->setCellValue('F'.$i, $rs['sat_kecil_obat']);
+				
+                $i++;
+                $no++;
+            }
+
+			
+			$filename='Rekap_stok_obat_'.date("d/m/Y H-i-s").'.xls'; //save our workbook as this file name
+			header('Content-Type: application/vnd.ms-excel'); //mime type
+			header('Content-Disposition: attachment;filename="'.$filename.'"'); //tell browser what's the file name
+			header('Cache-Control: max-age=0'); //no cache
+
+			$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');  
+			//force user to download the Excel file without writing it to server's HD
+			$objWriter->save('php://output');
+		
+		}
+		$data['page_name']  = 'RekapStokObat';
+		$data['page_title'] = 'Rekap Stok Obat';
+		$this->template->display('form_rekap_stok_obat', $data);
+	}
 }
 ?>

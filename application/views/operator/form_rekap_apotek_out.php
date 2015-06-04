@@ -12,7 +12,7 @@
         </ul>
 	</div><!--breadcrumbwidget-->
     <div class="pagetitle">
-    	<h1><?php echo $page_title; ?></h1> <span>Halaman laporan rekap pasien per penyakit</span>
+    	<h1><?php echo $page_title; ?></h1> <span>Halaman laporan rekap obat keluar dari apotek</span>
     </div><!--pagetitle-->
      
     <div class="maincontent">
@@ -26,9 +26,9 @@
                         
                         <!---- CETAK register START ---->
    						<div id="list">
-                        	<h4 class="widgettitle nomargin shadowed">Rekap Pasien Per Penyakit</h4>
+                        	<h4 class="widgettitle nomargin shadowed">Rekap Obat Keluar dari Apotek</h4>
                             <div class="widgetcontent bordered shadowed nopadding">
-                                <?php echo form_open('cont_cetak_lap_mingguan/rekap_pasien_penyakit/cetak', array('class' => 'stdform stdform2', 'id' => 'form_input')); ?>
+                                <?php echo form_open('cont_cetak_lap_mingguan/rekap_obat_out_apotek/cetak', array('class' => 'stdform stdform2', 'id' => 'form_input')); ?>
                
        <table style="border:0px solid grey; color:black; font-size:10pt;" width="100%">
 		<tr>
@@ -39,16 +39,7 @@
 		  <td width="530" ><input type="text"  name="tgl_akhir" id="tgl_akhir" style="width:80px; font-size: 13px; background-color:#FFFFE0; font-weight: bold; text-align:center;"></td>
 		  
 	    </tr>
-		<tr>
-		  <td width="141" style="padding:15px;"><strong>Jenis Penyakit</strong></td>
-		  <td width="32" align="center" style="padding:15px;"><strong>:</strong></td>
-		  <td colspan="3" style="padding:15px;"><select name="kd_penyakit" id="kd_penyakit" class="uniformselect">
-		    <option value="">Semua Jenis Penyakit</option>
-		    <?php foreach($list_penyakit as $lup) : ?>
-		    <option value="<?php echo $lup['kd_penyakit']; ?>"><?php echo $lup['penyakit']; ?></option>
-		    <?php endforeach; ?>
-	      </select></td>
-	    </tr>
+		
 	  </table>                                            
                                         <p class="stdformbutton">
                                             <button class="btn btn-primary">Proses</button>
@@ -57,7 +48,7 @@
                                	<?php echo form_close();  ?>
                                 </div><!--widgetcontent-->
                         </div>
-                        <!---- END CETAK LB2 ---->
+                        <!---- END CETAK ---->
                         
                 	</div><!--tabs-->
                 </div><!--span12-->

@@ -112,16 +112,16 @@
                 	</ul>
                 </li>
 
-			<li class="<?php if($page_name == 'harian1' || $page_name== 'harian2'  )echo 'active'; ?>dropdown"><a href=""><span class="icon-briefcase"></span>Laporan Tambahan</a>
-                	<ul style="<?php if($page_name == 'harian1' || $page_name== 'harian2'  )echo 'display: block'; ?>">
+			<li class="<?php if($page_name == 'RegisterHarian' || $page_name == 'RekapHarian' || $page_name== 'RekapPenyakitPerMinggu' || $page_name== 'RekapPasienPerPenyakit' || $page_name == 'RekapObatKeluarApotekPerMinggu')echo 'active'; ?>dropdown"><a href=""><span class="icon-briefcase"></span>Laporan Tambahan</a>
+                	<ul style="<?php if($page_name == 'RegisterHarian' || $page_name== 'RekapHarian' || $page_name== 'RekapPenyakitPerMinggu' || $page_name== 'RekapPasienPerPenyakit' || $page_name== 'RekapObatKeluarApotekPerMinggu') echo 'display: block'; ?>">
 						<li><a href="<?php echo base_url(); ?>cont_cetak_lap_harian/register_harian">Register Pasien Harian</a></li>
 						<li><a href="<?php echo base_url(); ?>cont_cetak_lap_harian/rekap_pasien">Rekap Pasien per Jenis Pembayaran</a></li>
 						<li><a href="<?php echo base_url(); ?>cont_cetak_lap_mingguan/rekap_penyakit">Rekap Penyakit Mingguan</a></li>
 						<li><a href="<?php echo base_url(); ?>cont_cetak_lap_mingguan/rekap_pasien_penyakit">Rekap Pasien per Penyakit </a></li>
+						<li><a href="<?php echo base_url(); ?>cont_cetak_lap_mingguan/rekap_obat_out_apotek">Rekap Pengeluaran Obat Di Apotek</a></li>
+						<li><a href="<?php echo base_url(); ?>cont_cetak_lap_harian/rekap_stok_obat">Rekap Stok Obat</a></li>
                 	</ul>
                 </li>
-
-
             </ul>
         </div><!--leftmenu-->
         
