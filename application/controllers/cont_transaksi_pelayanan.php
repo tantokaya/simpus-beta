@@ -84,11 +84,12 @@ class Cont_transaksi_pelayanan extends CI_Controller
 			$umur = $query['tanggal_lahir']; // dapet tgl lahir misal 2010-06-16
 			//echo $umur; exit;
 			
-			$hitung = $this->functions->dateDifference($umur, date('Y-m-d'));
+			$hitung = $this->functions->CalcAge($umur, date('Y-m-d'));
 			$umurku=$hitung[0].' Tahun '.$hitung[1].' Bulan '.$hitung[2].' Hari';
 			//echo $hitung[0];
-			$pelayanan['umur'] = $umurku; // dalam bentuk string
 			//echo '<pre>'; print_r($hitung); exit;
+			$pelayanan['umur'] = $umurku; // dalam bentuk string
+			//echo $hitung; exit;
 			//$pelayanan['umur'] = $umur_dlm_hari['umur_in_days']/365; // masukin angka umur ke dbase
 			//echo '<pre>'; print_r($list_gol_umur); exit;
 			#print_r($umur_dlm_hari); exit;

@@ -118,6 +118,15 @@ class Functions {
                         
             return array($years, $months, $days); 
         } 
+	function CalcAge($startDate, $endDate){
+
+		$diff = abs(strtotime($endDate) - strtotime($startDate));
+
+		$years = floor($diff / (365*60*60*24));
+		$months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
+		$days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
+		return array($years, $months, $days);
+	} 
 }
 
 /* End of file template.php */

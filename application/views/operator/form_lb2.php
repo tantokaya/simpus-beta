@@ -57,7 +57,7 @@
                                             	<option value="--">--Pilih Tahun Laporan--</option>
                                             	<?php 
 													//$current = date('Y'); 
-													$current = '2014';
+													$current = '2015';
 													$start = $current; 
 													for($i=$start;$i<=($current+3);$i++){
 														echo '<option value="'.$i.'">'.$i.'</option>';
