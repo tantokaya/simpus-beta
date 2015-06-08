@@ -176,18 +176,19 @@ function pengguna()
 	
 	function obat()
 	{
-		$hy	= $this->datatables->select('obat.kd_obat,obat.nama_obat,golongan_obat.gol_obat,satuan_kecil.sat_kecil_obat,terapi_obat.terapi_obat');
+		$hy	= $this->datatables->select('obat.kd_obat,obat.nama_obat,satuan_kecil.sat_kecil_obat,terapi_obat.terapi_obat, obat.tgl_kadaluarsa');
 			$hy ->from('obat');
 			$hy ->join('golongan_obat', 'obat.kd_gol_obat = golongan_obat.kd_gol_obat');
 			$hy ->join('satuan_kecil', 'obat.kd_sat_kecil_obat = satuan_kecil.kd_sat_kecil_obat');
 			$hy ->join('terapi_obat', 'obat.kd_terapi_obat = terapi_obat.kd_terapi_obat');
+			
  			
-			if($this->session->userdata('id_akses') == 1) {
+			if($this->session->userdata('id_akses') == 1 ) {
 				$hy ->add_column('Aksi', '
 				<a href="'.base_url().'cont_master_farmasi/obat/ubah/$1" class="btn btn-primary btn-circle"><i class="iconsweets-create iconsweets-white"></i></a> <a href="'.base_url().'cont_master_farmasi/obat/hapus/$1" class="btn btn-danger btn-circle" onClick="return confirm(\'Anda yakin ingin menghapus data ini?\')"><i class="iconsweets-trashcan iconsweets-white" ></i></a>
 			','obat.kd_obat');
 			}
-            elseif($this->session->userdata('id_akses')== 7){
+            elseif($this->session->userdata('id_akses')== 7 OR $this->session->userdata('id_akses') == 6 OR $this->session->userdata('id_akses') == 8){
                 $hy ->add_column('Aksi', '
 				<a href="'.base_url().'cont_master_farmasi/obat/ubah/$1" class="btn btn-primary btn-circle"><i class="iconsweets-create iconsweets-white"></i></a>','obat.kd_obat');
             }
@@ -558,12 +559,13 @@ function takaran_dosis()
 
 	function pelayanan_today()
 	{            
-	$sql = $this->datatables->select('pelayanan.kd_petugas, pelayanan.kd_trans_pelayanan,  
+	$sql = $this->datatables->select('pelayanan.kd_petugas, pelayanan.no_antrian, pelayanan.kd_trans_pelayanan,  
 DATE_FORMAT(pelayanan.tgl_pelayanan, "%d-%m-%Y") as tgl_format, pelayanan.kd_rekam_medis, pasien.nm_lengkap, pasien.idkartu_medical, pasien.alamat, pelayanan.umur, unit_pelayanan.singkatan, cara_bayar.cara_bayar, pasien.no_asuransi, status_keluar_pasien.style, status_keluar_pasien.keterangan, pelayanan.kd_puskesmas, pelayanan.tgl_pelayanan', false);
             $sql->unset_column('pelayanan.kd_puskesmas,pelayanan.tgl_pelayanan');
             $sql->unset_column('pelayanan.kd_petugas');
             $sql->unset_column('status_keluar_pasien.keterangan');
 			$sql->unset_column('tgl_format');
+			$sql->unset_column('unit_pelayanan.singkatan');
 			$sql->from('pelayanan');
 			$sql->join('pasien', 'pelayanan.kd_rekam_medis = pasien.kd_rekam_medis');
 			$sql->join('cara_bayar', 'pelayanan.kd_bayar = cara_bayar.kd_bayar');            
@@ -585,7 +587,7 @@ DATE_FORMAT(pelayanan.tgl_pelayanan, "%d-%m-%Y") as tgl_format, pelayanan.kd_rek
                                             <button class="btn">P i l i h</button>
                                             <button data-toggle="dropdown" class="btn dropdown-toggle"><span class="caret"></span></button>
                         <ul class="dropdown-menu">
-											  <li><a href="'.base_url().'cont_transaksi_pelayanan/cetak_kertas_resep/$1">Kertas Resep</a></li>
+											  <li><a href="'.base_url().'cont_transaksi_pelayanan/cetak_kertas_resep/$1" target="_blank">Kertas Resep</a></li>
 											  <li><a href="'.base_url().'cont_transaksi_pelayanan/cetak_rujukan/$1">Cetak Rujukan</a></li>
 											  <li class="divider"></li>
                                               <li><a href="'.base_url().'cont_transaksi_pelayanan/pelayanan_today/ubah/$1">Ubah</a></li>
@@ -614,7 +616,7 @@ DATE_FORMAT(pelayanan.tgl_pelayanan, "%d-%m-%Y") as tgl_format, pelayanan.kd_rek
                                               <li><a href="'.base_url().'cont_transaksi_pelayanan/pelayanan_today/ubah/$1" >Ubah</a></li>
                                               <li><a href="#" onClick="event.preventDefault(); return jConfirm(\'Anda yakin ingin menghapus data ini?\',\'Konfirmasi Hapus Data\', function(r){if(r==true){var href = \''.base_url().'cont_transaksi_pelayanan/pelayanan_today/hapus/$1\';window.location.href=href;}else{event.preventDefault();}});" title="Hapus">Hapus</a></li>
                                               <li class="divider"></li>						  
-                                        	<li><a href="'.base_url().'cont_transaksi_pelayanan/pelayanan_today/view/$2" >Lihat Rekam Medis</a></li> 
+                                        	<li><a href="'.base_url().'cont_transaksi_pelayanan/pelayanan_today/view/$2" target="_blank">Lihat Rekam Medis</a></li> 
 						<li><a href="'.base_url().'cont_transaksi_pelayanan/cetak_resep/$1" target="blank" title="Cetak Resep">Cetak Resep</a></li>
                                             </ul>
                                           </div>			 

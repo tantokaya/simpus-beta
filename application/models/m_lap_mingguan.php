@@ -58,11 +58,12 @@ class M_lap_mingguan extends CI_Model {
 	}
 	function get_pelayanan_penyakit_by_icd($tgl_mulai, $tgl_akhir, $kd_penyakit){
 
-        $sql = $this->db->select('pasien.nm_lengkap, pasien.kd_jenis_kelamin, pelayanan.umur, pasien.idkartu_medical, pasien.alamat, kelurahan.nm_kelurahan, kecamatan.nm_kecamatan, kartu_medical.nama_kk');
+        $sql = $this->db->select('pasien.nm_lengkap, pasien.kd_jenis_kelamin, pelayanan.umur, pasien.idkartu_medical, pasien.alamat, kelurahan.nm_kelurahan, kecamatan.nm_kecamatan, kartu_medical.nama_kk, jenis_kasus.jenis_kasus, icd.penyakit');
         $sql->from('pelayanan');
+		$sql->join('pelayanan_penyakit','pelayanan_penyakit.kd_trans_pelayanan=pelayanan.kd_trans_pelayanan', 'left');
 		$sql->join('pasien','pelayanan.kd_rekam_medis = pasien.kd_rekam_medis','left');
         $sql->join('kelurahan','pasien.kd_kelurahan=kelurahan.kd_kelurahan','left');
-		$sql->join('pelayanan_penyakit','pelayanan_penyakit.kd_trans_pelayanan=pelayanan.kd_trans_pelayanan', 'left');
+		$sql->join('jenis_kasus','pelayanan_penyakit.kd_jenis_kasus = jenis_kasus.kd_jenis_kasus', 'left');
 		$sql->join('icd','icd.kd_penyakit=pelayanan_penyakit.kd_penyakit','left');
 		$sql->join('kecamatan','pasien.kd_kecamatan = kecamatan.kd_kecamatan','left');
 		$sql->join('kartu_medical','pasien.idkartu_medical = kartu_medical.idkartu_medical','left');

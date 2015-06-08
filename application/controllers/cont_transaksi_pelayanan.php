@@ -37,6 +37,7 @@ class Cont_transaksi_pelayanan extends CI_Controller
 		if ($par1 == 'tambah') {
 			$trans_id 							= $this->m_crud->generate_transaksi();
 			$pelayanan['kd_trans_pelayanan'] 	= $trans_id;
+			$pelayanan['no_antrian']			= $this->m_crud->generate_queue($this->input->post('kd_unit_pelayanan'));
 			$pelayanan['kd_rekam_medis'] 		= $this->input->post('kd_rekam_medis');
 			$pelayanan['tgl_pelayanan'] 		= $this->functions->convert_date_sql($this->input->post('tgl_pelayanan'));
 			$pelayanan['kd_jenis_layanan'] 		= $this->input->post('kd_jenis_layanan');
@@ -48,13 +49,9 @@ class Cont_transaksi_pelayanan extends CI_Controller
 			}
 			$pelayanan['kd_unit_pelayanan'] 	= $this->input->post('kd_unit_pelayanan');
 			$pelayanan['kd_puskesmas']	 		= $this->session->userdata('kd_puskesmas'); 
-			//$pelayanan['kd_puskesmas']	 		= 'P3271020101'; // harusnya diambil dari session
 			$pelayanan['kd_dokter'] 			= $this->input->post('kd_dokter');
 			$pelayanan['kd_petugas'] 			= $this->input->post('kd_petugas');
-			
-			$pelayanan['kd_bayar'] 			= $this->input->post('kd_bayar');
-
-
+			$pelayanan['kd_bayar'] 				= $this->input->post('kd_bayar');
 			$pelayanan['kd_status_pasien'] 		= $this->input->post('kd_status_pasien'); // blm
 			$pelayanan['anamnesa'] 				= $this->input->post('anamnesa');
 			$pelayanan['cat_fisik'] 			= $this->input->post('cat_fisik');
@@ -85,7 +82,7 @@ class Cont_transaksi_pelayanan extends CI_Controller
 			//echo $umur; exit;
 			
 			$hitung = $this->functions->CalcAge($umur, date('Y-m-d'));
-			$umurku=$hitung[0].' Tahun '.$hitung[1].' Bulan '.$hitung[2].' Hari';
+			$umurku=$hitung[0].' Th, '.$hitung[1].' Bln, '.$hitung[2].' Hr';
 			//echo $hitung[0];
 			//echo '<pre>'; print_r($hitung); exit;
 			$pelayanan['umur'] = $umurku; // dalam bentuk string
@@ -188,11 +185,11 @@ class Cont_transaksi_pelayanan extends CI_Controller
 				$this->session->set_flashdata('flash_message', 'Data transaksi pelayanan berhasil disimpan!');
 			}
 			
-			if($this->session->userdata('id_akses') == 2 ) //akun pendaftaran
+	/*		if($this->session->userdata('id_akses') == 2 ) //akun pendaftaran
 			{ 	redirect('cont_transaksi_pendaftaran/pendaftaran', 'refresh');
-			} else { redirect('cont_transaksi_pelayanan/pelayanan_today', 'refresh'); }	
+			} else { redirect('cont_transaksi_pelayanan/pelayanan_today', 'refresh'); }	*/
 			
-			//redirect('cont_transaksi_pelayanan/pelayanan_today', 'refresh');
+			redirect('cont_transaksi_pelayanan/pelayanan_today', 'refresh');
 		}
 		
 		if ($par1 == 'ubah' && $par2 == 'do_update') {
@@ -371,7 +368,6 @@ class Cont_transaksi_pelayanan extends CI_Controller
 				$this->session->set_flashdata('flash_message', 'Data transaksi pelayanan berhasil diperbaharui!');
 			}
 			
-			
 			redirect('cont_transaksi_pelayanan/pelayanan_today', 'refresh');
 			
 		} else if ($par1 == 'ubah') {
@@ -444,13 +440,13 @@ class Cont_transaksi_pelayanan extends CI_Controller
 		$tmpl = array('table_open' => '<table id="dyntable" class="table table-bordered">');
         	$this->table->set_template($tmpl);
  	
-		if ($this->session->userdata('id_akses') == 2) // pendaftaran, tanpa status keluar pasien
-		{ $this->table->set_heading('Kode. Layanan','No. RM','Nama Pasien','No KK','Alamat','Umur','Unit Layanan','Pembayaran','No. KS','Status', 'Aksi');
+		if ($this->session->userdata('id_akses') == 2) // pendaftaran, dengan NO KK dan no KS
+		{ $this->table->set_heading('No Antrian','Kode. Layanan','No. RM','Nama Pasien','No KK','Alamat','Umur','Pembayaran','No. KS','Status', 'Aksi');
 		} 
 		elseif ($this->session->userdata('id_akses') == 10 || $this->session->userdata('id_akses') == 11 || $this->session->userdata('id_akses') == 12 || $this->session->userdata('id_akses') == 13 )
 		{ 	// view datatable jika di poli
-			$this->table->set_heading('Kode. Layanan','No. RM','Nama Pasien','Alamat','Umur','Status', 'Aksi');
-		} else { $this->table->set_heading('Kode. Layanan','No. RM','Nama Pasien','Alamat','Umur','Unit Layanan','Pembayaran','Status', 'Aksi'); 
+			$this->table->set_heading('No Antrian','Kode. Layanan','No. RM','Nama Pasien','Alamat','Umur','Status', 'Aksi');
+		} else { $this->table->set_heading('No Antrian','Kode. Layanan','No. RM','Nama Pasien','Alamat','Umur','Unit Layanan','Pembayaran','Status', 'Aksi'); 
 		}	
 		
 		
@@ -773,8 +769,7 @@ class Cont_transaksi_pelayanan extends CI_Controller
 			$data['counter3']	   	= $this->m_crud->get_total_pelayanan_obat_by_id($par2);
 			
 			//print_r($data['edit_penyakit']).'\n'; print_r($data['list_bed']); exit;
-			
-			
+						
 			//print $this->db->last_query();
 			//exit;
 		}
@@ -1242,9 +1237,7 @@ class Cont_transaksi_pelayanan extends CI_Controller
         $this->table->set_template($tmpl);
  	
 		$this->table->set_heading('Kode. Layanan','No. Rekam Medis','Nama Pasien','ALamat','Umur','Jenis Pemeriksaan','Jml');
-		
-		
-		
+	
 		$data['list_jenis_layanan']			= $this->m_crud->get_list_jenis_layanan();
 		$data['list_unit_pelayanan']		= $this->m_crud->get_list_unit_pelayanan('1');
 		$data['list_petugas']				= $this->m_crud->get_list_petugas('1');
@@ -1583,7 +1576,7 @@ class Cont_transaksi_pelayanan extends CI_Controller
 	public function cetak_kertas_resep() {
        
         $this->load->library('Pdf');
-		$pdf = new Pdf('P', 'mm','BOTIM', true, 'UTF-8', false);
+		$pdf = new Pdf('P', 'mm','A5', true, 'UTF-8', false);
         // $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetPageOrientation('P');
@@ -1628,19 +1621,20 @@ class Cont_transaksi_pelayanan extends CI_Controller
 		
         $html     = '<table align="center" border="0" align="left">';
         $html    .= '<tr>
-                        <td width="30%" style="text-align: center;"><img src="'.base_url().'assets/img/logo.png" width="80" height="80"/></td>
-                        <td width="70%"><h3>PEMERINTAH KOTA BOGOR<br>DINAS KESEHATAN</h3>
-                        <h4>UPTD '.$puskesmas["nm_puskesmas"].'<br>'.$puskesmas["alamat"].'</h4>
-                        </td>
+                        <td width="20%" style="text-align: center;"><img src="'.base_url().'assets/img/logo.png" width="80" height="80"/></td>
+						
+                        <td width="80%" style="text-align: center;"><h5>00/DOK IN PKM - USI/01/PKM/151/2011</h5><br><h3>PEMERINTAH KOTA BOGOR<br>DINAS KESEHATAN</h3>
+                        <h4>UPTD '.$puskesmas["nm_puskesmas"].'<br>'.$puskesmas["alamat"].'<br>'.$puskesmas["no_telp"].'</h4>
+					    </td>
                     </tr>';
         $html    .= '</table>';
-        $html    .= '<p align="center"><b>Resep Obat</b></p>';
+        $html    .= '<p align="left"><b>Resep Obat</b></p>';
 
         $html   .= '<table align="center" cellpadding="2" cellspacing="0" border="0" width="100%">
     <tr>
-        <td width="10%" border="1px" style="text-align: center;">'.$surat["kd_bayar"].'</td>
+        <td width="20%" border="1px" style="text-align: center;">'.$surat["kd_bayar"].'</td>
         <td width="5%" style="text-align: left;"></td>
-        <td width="85%" style="text-align: right;">Bogor, '.$tgl.'</td>
+        <td width="75%" style="text-align: right;">Bogor, '.$tgl.'</td>
     </tr>
     <tr>
         <td style="text-align: right;" colspan="3">No KK: '.$surat["idkartu_medical"].'</td>
@@ -1658,8 +1652,6 @@ class Cont_transaksi_pelayanan extends CI_Controller
     <p>&nbsp;</p>
     <p>&nbsp;</p>
 	<p>&nbsp;</p>
-	<p>&nbsp;</p>
-    <p>&nbsp;</p>
     <p>&nbsp;</p></td>
   </tr>
     <tr>
@@ -1672,10 +1664,15 @@ class Cont_transaksi_pelayanan extends CI_Controller
 	<tr>
         <td style="text-align: right;" colspan="3">'.$surat["nm_dokter"].'</td>
     </tr>
+	<tr>
+        <td width="15%" style="text-align: left;">No. Antrian</td>
+        <td width="2%" style="text-align: left;">:</td>
+        <td width="83%" style="text-align: left;">'.$surat["no_antrian"].'</td>
+    </tr>
     <tr>
-        <td style="text-align: left;">Nama</td>
-        <td style="text-align: left;">:</td>
-        <td style="text-align: left;">'.$surat["nm_lengkap"].'</td>
+        <td width="15%" style="text-align: left;">Nama</td>
+        <td width="2%" style="text-align: left;">:</td>
+        <td width="83%" style="text-align: left;">'.$surat["nm_lengkap"].'</td>
     </tr>
     <tr>
         <td style="text-align: left;">Umur</td>
@@ -1690,7 +1687,7 @@ class Cont_transaksi_pelayanan extends CI_Controller
     <tr>
         <td style="text-align: left;">Status Psn</td>
         <td style="text-align: left;">:</td>
-        <td style="text-align: left;">'.$surat["kd_bayar"].' , No '.$surat["no_asuransi"].'</td>
+        <td style="text-align: left;">'.$surat["cara_bayar"].' , No '.$surat["no_asuransi"].'</td>
     </tr>
 </table>';
 

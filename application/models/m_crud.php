@@ -2775,6 +2775,33 @@ public function ItemAwalApotek($id){
 
         return $query->result_array();
     }
+	
+	function generate_queue($kd_unit){	//auto generate nomor antrian
+		$curr_date = gmdate("Y-m-d", time()+60*60*7);
+
+		$this->db->select('MAX(pelayanan.no_antrian) as no, unit_pelayanan.kd_antrian as kd_antrian');
+		$this->db->from('pelayanan');
+		$this->db->join('unit_pelayanan', 'unit_pelayanan.kd_unit_pelayanan=pelayanan.kd_unit_pelayanan');
+		$this->db->where('pelayanan.tgl_pelayanan', $curr_date);
+		$this->db->where('unit_pelayanan.kd_unit_pelayanan', $kd_unit);
+
+		$sql = $this->db->get();
+
+		if($sql->num_rows() > 0 ){
+			foreach($sql->result() as $d){
+				$no = $d->no;
+				$kode = $d->kd_antrian;
+				$tmp = ((int) substr($no, -3,3))+1;
+				$hasil = $kode.'-'.sprintf("%03s", $tmp);
+			}
+		}else{
+			foreach($sql->result() as $d){
+				$kode = $d->kd_antrian;
+				$hasil = $kode.'-'.'001';
+			}
+		}
+		return $hasil;
+	}
 
 	
 }

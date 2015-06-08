@@ -151,6 +151,7 @@ class Cont_cetak_lap_mingguan extends CI_Controller
 			if ($kd_penyakit =='') {
 				$penyakitnya = "SEMUA JENIS PENYAKIT";
 			} else {$penyakitnya = $penyakit['penyakit'];}
+			
 			$objPHPExcel->getActiveSheet()->setCellValue('C2', $puskesmas['nm_puskesmas']);
 			$objPHPExcel->getActiveSheet()->setCellValue('C3', $penyakitnya);
             $objPHPExcel->getActiveSheet()->setCellValue('C4', $periode);
@@ -179,6 +180,8 @@ class Cont_cetak_lap_mingguan extends CI_Controller
 				$objPHPExcel->getActiveSheet()->setCellValue('F'.$i, $rs['alamat']);
 				$objPHPExcel->getActiveSheet()->setCellValue('G'.$i, $rs['nm_kelurahan']);
 				$objPHPExcel->getActiveSheet()->setCellValue('H'.$i, $rs['nm_kecamatan']);
+				$objPHPExcel->getActiveSheet()->setCellValue('I'.$i, $rs['penyakit']);
+				$objPHPExcel->getActiveSheet()->setCellValue('J'.$i, $rs['jenis_kasus']);
 				
                 $i++;
                 $no++;

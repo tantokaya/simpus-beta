@@ -12,7 +12,7 @@
         </ul>
 	</div><!--breadcrumbwidget-->
     <div class="pagetitle">
-    	<h1><?php echo $page_title; ?></h1> <span>Halaman laporan bulanan 2 (LB1)</span>
+    	<h1><?php echo $page_title; ?></h1> <span>Halaman laporan bulanan 2 (LB2)</span>
     </div><!--pagetitle-->
      
     <div class="maincontent">
@@ -57,7 +57,7 @@
                                             	<option value="--">--Pilih Tahun Laporan--</option>
                                             	<?php 
 													//$current = date('Y'); 
-													$current = '2014';
+													$current = '2015';
 													$start = $current; 
 													for($i=$start;$i<=($current+3);$i++){
 														echo '<option value="'.$i.'">'.$i.'</option>';

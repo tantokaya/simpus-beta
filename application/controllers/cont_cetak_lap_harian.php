@@ -66,7 +66,9 @@ class Cont_cetak_lap_harian extends CI_Controller
 			if ($kd_unit_pelayanan =='') {
 				$unitnya = "SEMUA UNIT PELAYANAN";
 			} else {$unitnya = $unit['nm_unit'];}
+			
 			$judul = "REGISTER RAWAT JALAN $unitnya ";
+			
 			$objPHPExcel->getActiveSheet()->setCellValue('A1', $judul);
 			$objPHPExcel->getActiveSheet()->setCellValue('A2', $puskesmas['nm_puskesmas']);
             $objPHPExcel->getActiveSheet()->setCellValue('A3', $tgl_mulai.' sd '.$tgl_akhir);
@@ -104,7 +106,7 @@ class Cont_cetak_lap_harian extends CI_Controller
 				$objPHPExcel->getActiveSheet()->setCellValue('K'.$i, $rs['jns_kasus']);
                 $objPHPExcel->getActiveSheet()->setCellValue('L'.$i, $rs['keterangan']);
                 $objPHPExcel->getActiveSheet()->setCellValue('M'.$i, $rs['nm_dokter']);
-     
+				$objPHPExcel->getActiveSheet()->setCellValue('N'.$i, $rs['nm_unit']);
                 $i++;
                 $no++;
             }

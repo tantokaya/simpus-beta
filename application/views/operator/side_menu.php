@@ -122,7 +122,7 @@
 						<li><a href="<?php echo base_url(); ?>cont_cetak_lap_mingguan/rekap_obat_out_apotek">Rekap Pengeluaran Obat Di Apotek</a></li>
 						<li><a href="<?php echo base_url(); ?>cont_cetak_lap_harian/rekap_stok_obat">Rekap Stok Obat</a></li>
                 	</ul>
-                </li>
+                </li>		
             </ul>
         </div><!--leftmenu-->
         

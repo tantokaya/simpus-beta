@@ -12,7 +12,7 @@
         </ul>
 	</div><!--breadcrumbwidget-->
     <div class="pagetitle">
-    	<h1><?php echo $page_title; ?></h1> <span>Halaman laporan bulanan 2 (LB2)</span>
+    	<h1><?php echo $page_title; ?></h1> <span>Halaman laporan bulanan 1 (LB1)</span>
     </div><!--pagetitle-->
      
     <div class="maincontent">
@@ -21,14 +21,14 @@
             	<div class="span12">
 					<div id="tabs">
   	 					<ul>
-      						<li class="ui-tabs-active"><a href="#list"><i class="icon-align-justify"></i> Cetak LB2</a></li>
+      						<li class="ui-tabs-active"><a href="#list"><i class="icon-align-justify"></i> Cetak LB1</a></li>
                         </ul>
                         
-                        <!---- CETAK LB2 START ---->
+                        <!---- CETAK LB1 START ---->
    						<div id="list">
                         	<h4 class="widgettitle nomargin shadowed">Generate Laporan</h4>
                             <div class="widgetcontent bordered shadowed nopadding">
-                                <?php echo form_open('c_lb_2/lb2/cetak', array('class' => 'stdform stdform2', 'id' => 'form_input')); ?>
+                                <?php echo form_open('c_lb_1/lb1/cetak', array('class' => 'stdform stdform2', 'id' => 'form_input')); ?>
                                         <p>
                                             <label>Bulan Laporan</label>
                                             <span class="field">
@@ -74,7 +74,7 @@
                                	<?php echo form_close();  ?>
                                 </div><!--widgetcontent-->
                         </div>
-                        <!---- END CETAK LB2 ---->
+                        <!---- END CETAK LB1 ---->
                         
                 	</div><!--tabs-->
                 </div><!--span12-->

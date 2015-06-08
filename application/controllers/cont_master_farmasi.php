@@ -84,10 +84,10 @@ class Cont_master_farmasi extends CI_Controller
 		$tmpl = array('table_open' => '<table id="dyntable" class="table table-bordered">');
         $this->table->set_template($tmpl);
 		
-		if ($this->session->userdata('id_akses')== 1 || $this->session->userdata('id_akses')==7) {
-			$this->table->set_heading('Kode Obat','Nama Obat','Golongan','Satuan','Terapi','Aksi');
+		if ($this->session->userdata('id_akses')== 1 || $this->session->userdata('id_akses')==6 || $this->session->userdata('id_akses')==8 || $this->session->userdata('id_akses')==7) {
+			$this->table->set_heading('Kode Obat','Nama Obat','Satuan','Terapi','Tgl Kadaluwarsa','Aksi');
 		} else {
-			$this->table->set_heading('Kode Obat','Nama Obat','Golongan','Satuan','Terapi');
+			$this->table->set_heading('Kode Obat','Nama Obat','Satuan','Terapi','Tgl Kadaluwarsa');
 		}
 		
  		//$this->table->set_heading('Kode Obat','Nama Obat','Golongan','Satuan','Terapi','Aksi');
