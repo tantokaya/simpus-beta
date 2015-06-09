@@ -79,8 +79,8 @@ class Cont_cetak_lap_harian extends CI_Controller
 
             foreach($pasien as $rs){
                 $objPHPExcel->getActiveSheet()->setCellValue('A'.$i, $no);
-                $objPHPExcel->getActiveSheet()->setCellValue('B'.$i, $rs['nm_lengkap']);
-
+                $objPHPExcel->getActiveSheet()->setCellValue('B'.$i, $rs['kd_rekam_medis']);
+				$objPHPExcel->getActiveSheet()->setCellValue('C'.$i, $rs['nm_lengkap']);
                 switch($rs['kd_jenis_kelamin']){
                     case 1: $jk = "L"; break;
                     case 2: $jk = "P"; break;
@@ -95,18 +95,18 @@ class Cont_cetak_lap_harian extends CI_Controller
 				if ($rs['keterangan']=='') {$rs['keterangan']= "-";}
 				if ($rs['nm_dokter']=='') {$rs['nm_dokter']= "-";}
 				
-                $objPHPExcel->getActiveSheet()->setCellValue('C'.$i, $jk);
-                $objPHPExcel->getActiveSheet()->setCellValue('D'.$i, $rs['alamat']);
-				$objPHPExcel->getActiveSheet()->setCellValue('E'.$i, $rs['nm_kelurahan']);
-				$objPHPExcel->getActiveSheet()->setCellValue('F'.$i, $rs['nm_kota']);
-                $objPHPExcel->getActiveSheet()->setCellValue('G'.$i, $rs['gol_umur']);
-                $objPHPExcel->getActiveSheet()->setCellValue('H'.$i, $rs['cara_bayar']);
-				$objPHPExcel->getActiveSheet()->setCellValue('I'.$i, $rs['penyakit']);
-				$objPHPExcel->getActiveSheet()->setCellValue('J'.$i, $rs['tindakan']);
-				$objPHPExcel->getActiveSheet()->setCellValue('K'.$i, $rs['jns_kasus']);
-                $objPHPExcel->getActiveSheet()->setCellValue('L'.$i, $rs['keterangan']);
-                $objPHPExcel->getActiveSheet()->setCellValue('M'.$i, $rs['nm_dokter']);
-				$objPHPExcel->getActiveSheet()->setCellValue('N'.$i, $rs['nm_unit']);
+                $objPHPExcel->getActiveSheet()->setCellValue('D'.$i, $jk);
+                $objPHPExcel->getActiveSheet()->setCellValue('E'.$i, $rs['alamat']);
+				$objPHPExcel->getActiveSheet()->setCellValue('F'.$i, $rs['nm_kelurahan']);
+				$objPHPExcel->getActiveSheet()->setCellValue('G'.$i, $rs['nm_kota']);
+                $objPHPExcel->getActiveSheet()->setCellValue('H'.$i, $rs['gol_umur']);
+                $objPHPExcel->getActiveSheet()->setCellValue('I'.$i, $rs['cara_bayar']);
+				$objPHPExcel->getActiveSheet()->setCellValue('J'.$i, $rs['penyakit']);
+				$objPHPExcel->getActiveSheet()->setCellValue('K'.$i, $rs['tindakan']);
+				$objPHPExcel->getActiveSheet()->setCellValue('L'.$i, $rs['jns_kasus']);
+                $objPHPExcel->getActiveSheet()->setCellValue('M'.$i, $rs['keterangan']);
+                $objPHPExcel->getActiveSheet()->setCellValue('N'.$i, $rs['nm_dokter']);
+				$objPHPExcel->getActiveSheet()->setCellValue('O'.$i, $rs['nm_unit']);
                 $i++;
                 $no++;
             }
