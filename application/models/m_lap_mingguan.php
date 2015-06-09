@@ -58,7 +58,7 @@ class M_lap_mingguan extends CI_Model {
 	}
 	function get_pelayanan_penyakit_by_icd($tgl_mulai, $tgl_akhir, $kd_penyakit){
 
-        $sql = $this->db->select('pasien.nm_lengkap, pasien.kd_jenis_kelamin, pelayanan.umur, pasien.idkartu_medical, pasien.alamat, kelurahan.nm_kelurahan, kecamatan.nm_kecamatan, kartu_medical.nama_kk, jenis_kasus.jenis_kasus, icd.penyakit');
+        $sql = $this->db->select('pasien.nm_lengkap, pasien.kd_jenis_kelamin, pelayanan.umur, pasien.idkartu_medical, pasien.alamat, kelurahan.nm_kelurahan, kecamatan.nm_kecamatan, kartu_medical.nama_kk, jenis_kasus.jenis_kasus, icd.penyakit, pelayanan.tgl_pelayanan');
         $sql->from('pelayanan');
 		$sql->join('pelayanan_penyakit','pelayanan_penyakit.kd_trans_pelayanan=pelayanan.kd_trans_pelayanan', 'left');
 		$sql->join('pasien','pelayanan.kd_rekam_medis = pasien.kd_rekam_medis','left');
@@ -73,7 +73,7 @@ class M_lap_mingguan extends CI_Model {
 			$sql->where('pelayanan_penyakit.kd_penyakit', $kd_penyakit);
 		}
 		//$sql->where('pelayanan_penyakit.kd_penyakit', $kd_penyakit);
-        $sql->order_by('pasien.nm_lengkap','ASC');
+        $sql->order_by('pelayanan.tgl_pelayanan','ASC');
 		
         $query = $this->db->get();
         return $query->result_array();
@@ -91,6 +91,36 @@ class M_lap_mingguan extends CI_Model {
         $query = $this->db->get();
         return $query->result_array();
 		
+	}
+	
+	function get_mon_resep_by_icd($bln, $thn, $kd_penyakit){
+		$sql = $this->db->select('pelayanan.tgl_pelayanan, pelayanan.kd_trans_pelayanan, pasien.nm_lengkap, pelayanan.umur, pelayanan.anamnesa, satuan_kecil.sat_kecil_obat, GROUP_CONCAT(DISTINCT tindakan.produk SEPARATOR "; ") as tindakan, GROUP_CONCAT(DISTINCT pelayanan_obat.qty SEPARATOR "; ") as jml_obat, GROUP_CONCAT(DISTINCT obat.nama_obat SEPARATOR "; ") as obat, GROUP_CONCAT(DISTINCT pelayanan_obat.dosis SEPARATOR "; ") as dosis_obat, icd.penyakit, count(obat.nama_obat) AS jml_obat ');
+		//DATE_FORMAT(pelayanan.tgl_pelayanan, "%d-%m-%Y") as tgl_indo
+		$sql->from('pelayanan_penyakit');
+		$sql->join('pelayanan', 'pelayanan_penyakit.kd_trans_pelayanan = pelayanan.kd_trans_pelayanan');
+		$sql->join('pelayanan_obat','pelayanan_obat.kd_trans_pelayanan = pelayanan.kd_trans_pelayanan','left');
+		$sql->join('pelayanan_tindakan','pelayanan_tindakan.kd_trans_pelayanan = pelayanan.kd_trans_pelayanan','left');
+		$sql->join('pasien','pasien.kd_rekam_medis = pelayanan.kd_rekam_medis');
+		$sql->join('satuan_kecil','satuan_kecil.kd_sat_kecil_obat = pelayanan_obat.kd_sat_kecil_obat','left');
+		$sql->join('obat','pelayanan_obat.kd_obat = obat.kd_obat','left');
+		$sql->join('tindakan','tindakan.kd_produk = pelayanan_tindakan.kd_produk','left');
+		$sql->join('icd','icd.kd_penyakit = pelayanan_penyakit.kd_penyakit','left');
+		$sql->where('MONTH(pelayanan.tgl_pelayanan)',$bln);
+		$sql->where('YEAR(pelayanan.tgl_pelayanan)',$thn);
+		$sql->where('pelayanan_penyakit.kd_penyakit',$kd_penyakit);
+		$sql->group_by('pelayanan.kd_trans_pelayanan');
+	
+		$query = $this->db->get();
+		return $query->result_array();
+		
+	}
+	function get_icd($kd_penyakit) {
+		$this->db->select('penyakit');
+        $this->db->from('icd');
+        $this->db->where('kd_penyakit', $kd_penyakit);
+
+        $query = $this->db->get();
+        return $query->row_array();
 	}
 	
 }

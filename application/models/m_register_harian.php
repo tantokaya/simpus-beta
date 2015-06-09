@@ -49,7 +49,7 @@ class M_register_harian extends CI_Model {
 		}	
 		
 		$sql->group_by('pelayanan.tgl_pelayanan, pelayanan.kd_trans_pelayanan');
-        $sql->order_by('dokter.nm_dokter, pelayanan.kd_trans_pelayanan','ASC');
+        $sql->order_by('unit_pelayanan.nm_unit, dokter.nm_dokter','ASC');
 
         $query = $this->db->get();
         return $query->result_array();

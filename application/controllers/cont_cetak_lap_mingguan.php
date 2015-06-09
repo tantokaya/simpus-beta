@@ -182,7 +182,7 @@ class Cont_cetak_lap_mingguan extends CI_Controller
 				$objPHPExcel->getActiveSheet()->setCellValue('H'.$i, $rs['nm_kecamatan']);
 				$objPHPExcel->getActiveSheet()->setCellValue('I'.$i, $rs['penyakit']);
 				$objPHPExcel->getActiveSheet()->setCellValue('J'.$i, $rs['jenis_kasus']);
-				
+				$objPHPExcel->getActiveSheet()->setCellValue('K'.$i, $rs['tgl_pelayanan']);
                 $i++;
                 $no++;
             }

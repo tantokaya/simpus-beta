@@ -446,7 +446,7 @@ class Cont_transaksi_pelayanan extends CI_Controller
 		elseif ($this->session->userdata('id_akses') == 10 || $this->session->userdata('id_akses') == 11 || $this->session->userdata('id_akses') == 12 || $this->session->userdata('id_akses') == 13 )
 		{ 	// view datatable jika di poli
 			$this->table->set_heading('No Antrian','Kode. Layanan','No. RM','Nama Pasien','Alamat','Umur','Status', 'Aksi');
-		} else { $this->table->set_heading('No Antrian','Kode. Layanan','No. RM','Nama Pasien','Alamat','Umur','Unit Layanan','Pembayaran','Status', 'Aksi'); 
+		} else { $this->table->set_heading('No Antrian','Kode. Layanan','No. RM','Nama Pasien','Alamat','Umur','Pembayaran','Status', 'Aksi'); 
 		}	
 		
 		
