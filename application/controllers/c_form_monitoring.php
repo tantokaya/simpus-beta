@@ -99,8 +99,9 @@ class C_form_monitoring extends CI_Controller
             $no=1;
 
             foreach($icd as $a){
+				$tgl_kunjungan=$this->functions->convert_date_indo(array("datetime" => $a['tgl_pelayanan']));
                $objPHPExcel->getActiveSheet()->setCellValue('A'.$i, $no);	
-			   $objPHPExcel->getActiveSheet()->setCellValue('B'.$i, $a['tgl_pelayanan']);	
+			   $objPHPExcel->getActiveSheet()->setCellValue('B'.$i, $tgl_kunjungan);	
 				$objPHPExcel->getActiveSheet()->setCellValue('C'.$i, $a['nm_lengkap']);
 				$objPHPExcel->getActiveSheet()->setCellValue('D'.$i, $a['umur']);
 				$objPHPExcel->getActiveSheet()->setCellValue('E'.$i, $a['anamnesa']);
@@ -112,7 +113,8 @@ class C_form_monitoring extends CI_Controller
 				
 				$obatku = '';
 				for($z=0; $z < count($pecahObat); $z++){
-					$obatku .= $pecahObat[$z] . " " . $pecahDosis[$z] . " " . $pecahJml[$z];
+					$obatku .= $pecahObat[$z] . " (" . $pecahDosis[$z] . ") (" . $pecahJml[$z].")";
+					
 					if($z != (count($pecahObat)-1))
 						$obatku .= "\n";
 				}

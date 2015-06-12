@@ -588,7 +588,7 @@ DATE_FORMAT(pelayanan.tgl_pelayanan, "%d-%m-%Y") as tgl_format, pelayanan.kd_rek
                                             <button data-toggle="dropdown" class="btn dropdown-toggle"><span class="caret"></span></button>
                         <ul class="dropdown-menu">
 											  <li><a href="'.base_url().'cont_transaksi_pelayanan/cetak_kertas_resep/$1" target="_blank">Kertas Resep</a></li>
-											  <li><a href="'.base_url().'cont_transaksi_pelayanan/cetak_rujukan/$1">Cetak Rujukan</a></li>
+											  <li><a href="'.base_url().'cont_transaksi_pelayanan/cetak_rujukan/$1" target="_blank">Cetak Rujukan</a></li>
 											  <li class="divider"></li>
                                               <li><a href="'.base_url().'cont_transaksi_pelayanan/pelayanan_today/ubah/$1">Ubah</a></li>
                                               <li><a href="#" onClick="event.preventDefault(); return jConfirm(\'Anda yakin ingin menghapus data ini?\',\'Konfirmasi Hapus Data\', function(r){if(r==true){var href = \''.base_url().'cont_transaksi_pelayanan/pelayanan_today/hapus/$1\';window.location.href=href;}else{event.preventDefault();}});" title="Hapus">Hapus</a></li>
@@ -617,7 +617,8 @@ DATE_FORMAT(pelayanan.tgl_pelayanan, "%d-%m-%Y") as tgl_format, pelayanan.kd_rek
                                               <li><a href="#" onClick="event.preventDefault(); return jConfirm(\'Anda yakin ingin menghapus data ini?\',\'Konfirmasi Hapus Data\', function(r){if(r==true){var href = \''.base_url().'cont_transaksi_pelayanan/pelayanan_today/hapus/$1\';window.location.href=href;}else{event.preventDefault();}});" title="Hapus">Hapus</a></li>
                                               <li class="divider"></li>						  
                                         	<li><a href="'.base_url().'cont_transaksi_pelayanan/pelayanan_today/view/$2" target="_blank">Lihat Rekam Medis</a></li> 
-						<li><a href="'.base_url().'cont_transaksi_pelayanan/cetak_resep/$1" target="blank" title="Cetak Resep">Cetak Resep</a></li>
+											<li><a href="'.base_url().'cont_transaksi_pelayanan/cetak_resep/$1" target="blank" title="Cetak Resep">Cetak Resep</a></li>
+											 <li><a href="'.base_url().'cont_transaksi_pelayanan/cetak_rujukan/$1" target="_blank">Cetak Rujukan</a></li>
                                             </ul>
                                           </div>			 
                         ','pelayanan.kd_trans_pelayanan, pelayanan.kd_rekam_medis');
@@ -639,6 +640,7 @@ DATE_FORMAT(pelayanan.tgl_pelayanan, "%d-%m-%Y") as tgl_format, pelayanan.kd_rek
                                               <li><a href="'.base_url().'c_bayar_tindakan/bayar_tindakan/tambah/bayar/$1">Bayar</a></li>
                                               <li class="divider"></li>
                                               <li><a href="'.base_url().'cont_transaksi_pelayanan/cetak_resep/$1" target="blank" title="Cetak Resep">Cetak Resep</a></li>
+											   <li><a href="'.base_url().'cont_transaksi_pelayanan/cetak_rujukan/$1" target="_blank">Cetak Rujukan</a></li>
 					      	                                            
 					    </ul>
                                           </div>

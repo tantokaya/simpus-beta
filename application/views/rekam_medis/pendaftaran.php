@@ -706,7 +706,7 @@
                         <?php echo form_close();  ?>
                         <!---- END TAMBAH PENDAFTARAN ---->
                         <!---- VIEW REKAM MEDIS STARTS---->
-        				<?php if(isset($view_rekam_medis)):?>
+        						<?php if(isset($view_rekam_medis)):?>
                         <div id="rekam-medis">
                         	<h4 class="widgettitle nomargin">Rekam Medis Pasien</h4>
                             <div class="widgetcontent bordered">
@@ -723,13 +723,10 @@
                                                     <td><?php echo $view_rekam_medis['nm_lengkap']; ?></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>TTL</td>
+                                                    <td>Tempat, Tgl Lahir</td>
                                                     <td><?php echo $view_rekam_medis['tempat_lahir'].' / '.$this->functions->format_tgl_cetak2($view_rekam_medis['tanggal_lahir']); ?></td>
                                                 </tr>
-                                                <tr>
-                                                    <td>Jenis Kelamin</td>
-                                                    <td><?php echo ucwords(strtolower($view_rekam_medis['jenis_kelamin'])); ?></td>
-                                                </tr>
+                                                
                                                 <tr>
                                                     <td>Umur</td>
                                                     <td>
@@ -745,23 +742,14 @@
                                     <div class="span6">
                                     	<table class="table table-bordered table-invoice">
                                             <tbody>
-                                            <!--
+                                          
                                                 <tr>
-                                                    <td width="30%">Golongan Darah</td>
-                                                    <td width="70%"><?php echo $view_rekam_medis['gol_darah']; ?></td>
+                                                    <td>Jenis Kelamin</td>
+                                                    <td><?php echo ucwords(strtolower($view_rekam_medis['jenis_kelamin'])); ?></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Status Marital</td>
-                                                    <td><?php echo $view_rekam_medis['status_marital']; ?></td>
-                                                </tr>
-                                            !-->
-                                                <tr>
-                                                    <td>Nama Ibu</td>
-                                                    <td><?php echo $view_rekam_medis['nm_ibu']; ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Kode Puskesmas</td>
-                                                    <td><?php echo $view_rekam_medis['kd_puskesmas']; ?></td>
+                                                    <td>Alamat</td>
+                                                    <td><?php echo $view_rekam_medis['alamat']; ?></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Puskesmas</td>
@@ -780,8 +768,8 @@
                                             	<tr>
                                                 	<th>No.</th>
                                                     <th>Tanggal</th>
-                                                    <th>Jenis</th>
-                                                    <!--<th>Poli</th>-->
+                                                    <th>Puskesmas</th>
+                                                    <th>Poli</th>
                                                     <th>Dokter</th>
                                                     <th>Anamnesa</th>
                                                     <th>Penyakit</th>
@@ -799,8 +787,8 @@
                                             	<tr>
                                                 	<td><?php echo $i; ?></td>
                                                     <td><?php echo $this->functions->convert_date_indo(array("datetime" => $rs['tgl_pelayanan'])); ?></td>
-                                                    <td><?php echo $rs['jenis_layanan']; ?></td> 
-                                                    <!--<td><?php echo $rs['unit_layanan']; ?></td>-->
+                                                    <td><?php echo $rs['nm_puskesmas']; ?></td> <!-- jenis layanan diganti poli mana -->
+                                                    <td><?php echo $rs['unit_layanan']; ?></td>
                                                     <td><?php echo $rs['dokter']; ?></td>
                                                     <td><?php echo $rs['anamnesa']; ?></td>
                                                     <td><?php echo $rs['kd_icd']; ?> - <?php echo $rs['penyakit']; ?></td>
@@ -825,6 +813,7 @@
                             </div> <!-- </widgetcontent> -->
                         </div> <!-- <./rekam medis>
                         <?php endif; ?>
+
                         <!---- END VIEW REKAM MEDIS ---->
                 	</div><!--tabs-->
                 </div><!--span12-->

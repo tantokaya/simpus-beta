@@ -94,7 +94,7 @@ class M_lap_mingguan extends CI_Model {
 	}
 	
 	function get_mon_resep_by_icd($bln, $thn, $kd_penyakit){
-		$sql = $this->db->select('pelayanan.tgl_pelayanan, pelayanan.kd_trans_pelayanan, pasien.nm_lengkap, pelayanan.umur, pelayanan.anamnesa, satuan_kecil.sat_kecil_obat, GROUP_CONCAT(DISTINCT tindakan.produk SEPARATOR "; ") as tindakan, GROUP_CONCAT(DISTINCT pelayanan_obat.qty SEPARATOR "; ") as jml_obat, GROUP_CONCAT(DISTINCT obat.nama_obat SEPARATOR "; ") as obat, GROUP_CONCAT(DISTINCT pelayanan_obat.dosis SEPARATOR "; ") as dosis_obat, icd.penyakit, count(obat.nama_obat) AS jml_obat ');
+		$sql = $this->db->select('pelayanan.tgl_pelayanan, pelayanan.kd_trans_pelayanan, pasien.nm_lengkap, pelayanan.umur, pelayanan.anamnesa, satuan_kecil.sat_kecil_obat, GROUP_CONCAT(DISTINCT tindakan.produk SEPARATOR "; ") as tindakan, GROUP_CONCAT(pelayanan_obat.qty SEPARATOR "; ") as jml_obat, GROUP_CONCAT(obat.nama_obat SEPARATOR "; ") as obat, GROUP_CONCAT(pelayanan_obat.dosis SEPARATOR "; ") as dosis_obat, icd.penyakit, count(obat.nama_obat) AS jml_obat ');
 		//DATE_FORMAT(pelayanan.tgl_pelayanan, "%d-%m-%Y") as tgl_indo
 		$sql->from('pelayanan_penyakit');
 		$sql->join('pelayanan', 'pelayanan_penyakit.kd_trans_pelayanan = pelayanan.kd_trans_pelayanan');

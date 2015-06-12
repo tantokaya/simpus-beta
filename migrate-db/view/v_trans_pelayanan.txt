@@ -15,7 +15,7 @@ WHERE
 GROUP BY p.kd_trans_pelayanan
 
 CREATE VIEW v_trans_pelayanan AS
-SELECT p.kd_trans_pelayanan, p.kd_rekam_medis, p.tgl_pelayanan, up.nm_unit as unit_layanan, GROUP_CONCAT(DISTINCT pp.kd_penyakit SEPARATOR '; ') as kd_icd, GROUP_CONCAT(DISTINCT i.penyakit SEPARATOR '; ') as penyakit, GROUP_CONCAT(DISTINCT pt.kd_produk SEPARATOR ', ') as kd_tindakan, GROUP_CONCAT(DISTINCT t.produk SEPARATOR ', ') as tindakan, GROUP_CONCAT(DISTINCT po.kd_obat SEPARATOR ', ') as kd_obat, GROUP_CONCAT(DISTINCT o.nama_obat SEPARATOR ', ') as obat, d.nm_dokter as dokter, p.anamnesa, p.cat_fisik as catatan_fisik, p.cat_dokter as catatan_dokter, p.kd_puskesmas, pk.nm_puskesmas
+SELECT p.kd_trans_pelayanan, p.kd_rekam_medis, p.tgl_pelayanan, up.nm_unit as unit_layanan, GROUP_CONCAT(DISTINCT pp.kd_penyakit SEPARATOR '; ') as kd_icd, GROUP_CONCAT(DISTINCT i.penyakit SEPARATOR '; ') as penyakit, GROUP_CONCAT(DISTINCT pt.kd_produk SEPARATOR ', ') as kd_tindakan, GROUP_CONCAT(DISTINCT t.produk SEPARATOR ', ') as tindakan, GROUP_CONCAT(DISTINCT po.kd_obat SEPARATOR ', ') as kd_obat, GROUP_CONCAT(DISTINCT o.nama_obat SEPARATOR '; ') as obat, GROUP_CONCAT(po.dosis SEPARATOR "; ") as dosis, GROUP_CONCAT(po.qty SEPARATOR "; ") as jml_obat, d.nm_dokter as dokter, p.anamnesa, p.cat_fisik as catatan_fisik, p.cat_dokter as catatan_dokter, p.kd_puskesmas, pk.nm_puskesmas
 FROM pelayanan p 
 LEFT JOIN unit_pelayanan up ON p.kd_unit_pelayanan = up.kd_unit_pelayanan
 LEFT JOIN pelayanan_penyakit pp ON  p.kd_trans_pelayanan = pp.kd_trans_pelayanan

@@ -18,11 +18,12 @@ class M_rujukan extends CI_Model {
     }
 	
 	function get_data_rujukan ($kd_trans_pelayanan) {
-		$this->db->select('pelayanan.tempat_rujukan, pelayanan.umur, pasien.nm_lengkap, jenis_kelamin.jenis_kelamin, pasien.alamat, icd.penyakit, tindakan.produk, kelurahan.nm_kelurahan, kecamatan.nm_kecamatan, kota.nm_kota');
+		$this->db->select('pelayanan.no_rujukan, pelayanan.jenis_rujukan, pelayanan.tempat_rujukan, pelayanan.poli_rujukan, pelayanan.cat_fisik, pelayanan.cat_dokter, pelayanan.umur, pasien.nm_lengkap, jenis_kelamin.jenis_kelamin, pasien.alamat, icd.penyakit, tindakan.produk, kelurahan.nm_kelurahan, kecamatan.nm_kecamatan, kota.nm_kota, dokter.nm_dokter, dokter.nip_dokter');
         $this->db->from('pelayanan');
         $this->db->join('pasien','pelayanan.kd_rekam_medis = pasien.kd_rekam_medis','left');
 		$this->db->join('kelurahan','pasien.kd_kelurahan=kelurahan.kd_kelurahan','left');
 		$this->db->join('kecamatan','pasien.kd_kecamatan=kecamatan.kd_kecamatan','left');
+		$this->db->join('dokter','dokter.kd_dokter=pelayanan.kd_dokter','left');
 		$this->db->join('kota','pasien.kd_kota=kota.kd_kota','left');
 		$this->db->join('pelayanan_penyakit','pelayanan_penyakit.kd_trans_pelayanan=pelayanan.kd_trans_pelayanan','left');
 		$this->db->join('icd','icd.kd_penyakit=pelayanan_penyakit.kd_penyakit','left');

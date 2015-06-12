@@ -64,23 +64,6 @@ $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
-/*
-$db['obat']['hostname'] = 'localhost';
-$db['obat']['username'] = 'root';
-$db['obat']['password'] = '1pt3kn3t';
-$db['obat']['database'] = 'simpus_obat';
-$db['obat']['dbdriver'] = 'mysql';
-$db['obat']['dbprefix'] = '';
-$db['obat']['pconnect'] = TRUE;
-$db['obat']['db_debug'] = TRUE;
-$db['obat']['cache_on'] = FALSE;
-$db['obat']['cachedir'] = '';
-$db['obat']['char_set'] = 'utf8';
-$db['obat']['dbcollat'] = 'utf8_general_ci';
-$db['obat']['swap_pre'] = '';
-$db['obat']['autoinit'] = TRUE;
-$db['obat']['stricton'] = FALSE;
-*/
 
 /* End of file database.php */
 /* Location: ./application/config/database.php */

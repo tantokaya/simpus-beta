@@ -524,11 +524,27 @@
                                     	<h4>Rujukan</h4>
                                         <p>
                                             <label>No. Rujukan</label>
-                                            <span class="field"><input type="text" name="no_rujukan" id="no_rujukan2" value="<?php echo $row['no_rujukan']; ?>" class="input-large" /></span>
+                                            <span class="field"><input type="text" name="no_rujukan" id="no_rujukan2" value="<?php echo $row['no_rujukan']; ?>" readonly class="input-large" /></span>
                                         </p>  
-                                        <p>
+                                       <p>
+                                            <label>Jenis Rujukan</label>
+                                            <span class="field">
+                                            	<select name="jenis_rujukan" id="jenis_rujukan2" class="uniformselect">
+                                               		<option value="-">Pilih Jenis Rujukan</option>
+													
+                                                    	<option value="Umum"<?php if($row['jenis_rujukan'] == 'Umum'): ?> selected="selected"<?php endif; ?>>Umum</option>
+														<option value="Jamkesda"<?php if($row['jenis_rujukan'] == 'Jamkesda'): ?> selected="selected"<?php endif; ?>>Jamkesda</option>
+														<option value="SKTM"<?php if($row['jenis_rujukan'] == 'SKTM'): ?> selected="selected"<?php endif; ?>>SKTM</option>
+                            					</select>
+                                            </span>
+                                        </p> 
+										<p>
                                             <label>RS / Tempat Rujukan</label>
                                             <span class="field"><input type="text" name="tempat_rujukan" id="tempat_rujukan2" value="<?php echo $row['tempat_rujukan']; ?>" class="input-large" /></span>
+                                        </p>
+										<p>
+                                            <label>Nama Poli Rujukan</label>
+                                            <span class="field"><input type="text" name="poli_rujukan" id="poli_rujukan2" value="<?php echo $row['poli_rujukan']; ?>" class="input-large" /></span>
                                         </p>
                                     </div>
       							</div><!--#wizard-->                        
@@ -679,7 +695,18 @@
                                                     <td><?php echo $rs['anamnesa']; ?></td>
                                                     <td><?php echo $rs['kd_icd']; ?> - <?php echo $rs['penyakit']; ?></td>
                                                     <td><?php echo $rs['tindakan']; ?></td>
-                                                    <td><?php echo $rs['obat']; ?></td>
+													<?php 	$pecahObat = explode(';', $rs['obat']);
+														$pecahDosis = explode(';', $rs['dosis']);
+														$pecahJml = explode(';', $rs['jml_obat']);
+														$obatku = '';
+														for($z=0; $z < count($pecahObat); $z++){
+															$obatku .= $pecahObat[$z] . " (" . $pecahDosis[$z] . ") (" . $pecahJml[$z].")";
+															if($z != (count($pecahObat)-1))
+																$obatku .= " \n- ";
+														}
+
+														?>
+                                                    <td><?php echo $obatku; ?></td>
                                                     <!--
                                                     <td><?php echo $rs['catatan_fisik']; ?></td>
                                                     <td><?php echo $rs['catatan_dokter']; ?></td>

@@ -524,11 +524,27 @@
                                     	<h4>Rujukan</h4>
                                         <p>
                                             <label>No. Rujukan</label>
-                                            <span class="field"><input type="text" name="no_rujukan" id="no_rujukan2" value="<?php echo $row['no_rujukan']; ?>" class="input-large" /></span>
+                                            <span class="field"><input type="text" name="no_rujukan" id="no_rujukan2" value="<?php echo $row['no_rujukan']; ?>" readonly class="input-large" /></span>
                                         </p>  
-                                        <p>
+                                       <p>
+                                            <label>Jenis Rujukan</label>
+                                            <span class="field">
+                                            	<select name="jenis_rujukan" id="jenis_rujukan2" class="uniformselect">
+                                               		<option value="-">Pilih Jenis Rujukan</option>
+													
+                                                    	<option value="Umum"<?php if($row['jenis_rujukan'] == 'Umum'): ?> selected="selected"<?php endif; ?>>Umum</option>
+														<option value="Jamkesda"<?php if($row['jenis_rujukan'] == 'Jamkesda'): ?> selected="selected"<?php endif; ?>>Jamkesda</option>
+														<option value="SKTM"<?php if($row['jenis_rujukan'] == 'SKTM'): ?> selected="selected"<?php endif; ?>>SKTM</option>
+                            					</select>
+                                            </span>
+                                        </p> 
+										<p>
                                             <label>RS / Tempat Rujukan</label>
                                             <span class="field"><input type="text" name="tempat_rujukan" id="tempat_rujukan2" value="<?php echo $row['tempat_rujukan']; ?>" class="input-large" /></span>
+                                        </p>
+										<p>
+                                            <label>Nama Poli Rujukan</label>
+                                            <span class="field"><input type="text" name="poli_rujukan" id="poli_rujukan2" value="<?php echo $row['poli_rujukan']; ?>" class="input-large" /></span>
                                         </p>
                                     </div>
       							</div><!--#wizard-->                        
@@ -615,7 +631,10 @@
                                                     <td>
 													<?php 
 														$hitung = $this->functions->dateDifference($view_rekam_medis['tanggal_lahir'], date('Y-m-d'));
-	    												echo $hitung[0].' Tahun '.$hitung[1].' Bulan'; 
+														$umurku=$hitung[0].' Tahun '.$hitung[1].' Bulan '.$hitung[2].' Hari';
+														echo $umurku;
+	    												//echo $hitung[0].' Tahun '.$hitung[1].' Bulan '.$hitung[2].' Hari'; 
+														//print_r ($hitung); exit;
 													?> 
                                                    	</td>
                                                 </tr>
@@ -676,7 +695,18 @@
                                                     <td><?php echo $rs['anamnesa']; ?></td>
                                                     <td><?php echo $rs['kd_icd']; ?> - <?php echo $rs['penyakit']; ?></td>
                                                     <td><?php echo $rs['tindakan']; ?></td>
-                                                    <td><?php echo $rs['obat']; ?></td>
+													<?php 	$pecahObat = explode(';', $rs['obat']);
+														$pecahDosis = explode(';', $rs['dosis']);
+														$pecahJml = explode(';', $rs['jml_obat']);
+														$obatku = '';
+														for($z=0; $z < count($pecahObat); $z++){
+															$obatku .= $pecahObat[$z] . " (" . $pecahDosis[$z] . ") (" . $pecahJml[$z].")";
+															if($z != (count($pecahObat)-1))
+																$obatku .= " \n- ";
+														}
+
+														?>
+                                                    <td><?php echo $obatku; ?></td>
                                                     <!--
                                                     <td><?php echo $rs['catatan_fisik']; ?></td>
                                                     <td><?php echo $rs['catatan_dokter']; ?></td>
@@ -1428,7 +1458,9 @@ jQuery(function() { // Tambah Obat
 			jQuery('a#removeObat').removeAttr('disabled');
 		}
 			
-		var inputHTML = '<tr><td><div id="'+counter3+'">'+counter3+'</div><input type="hidden" name="kd_obat_'+counter3+'" id="kd_obat_'+counter3+'" class="kd_obat" /></td><td><input type="text" name="nama_obat_'+counter3+'" id="nama_obat_'+counter3+'" class="nama_obat input-large" /></td><td><select name="satuan_'+counter3+'" id="satuan_'+counter3+'" class="satuan uniformselect" style="width:100px;"><option name="-">Pilih Satuan</option><?php foreach($list_satuan_kecil as $lsk) : ?><option value="<?php echo $lsk['kd_sat_kecil_obat']; ?>"><?php echo $lsk['sat_kecil_obat']; ?></option><?php endforeach; ?></select></td><td><input type="text" name="dosis_'+counter3+'" id="dosis_'+counter3+'" class="dosis input-small" /></td><td><input type="text" name="apotek_stok_'+counter3+'" id="apotek_stok_'+counter3+'" class="apotek_stok input-small" readonly/></td><td><input type="text" name="jumlah_'+counter3+'" id="jumlah_'+counter3+'" class="jumlah input-small" /></td><td><select name="racikan_'+counter3+'" id="racikan_'+counter3+'" class="racikan uniformselect" style="width:100px;"><option value="0">Non Racikan</option><option value="1">Racikan</option></select></td></tr>';
+		//var inputHTML = '<tr><td><div id="'+counter3+'">'+counter3+'</div><input type="hidden" name="kd_obat_'+counter3+'" id="kd_obat_'+counter3+'" class="kd_obat" /></td><td><input type="text" name="nama_obat_'+counter3+'" id="nama_obat_'+counter3+'" class="nama_obat input-large" /></td><td><select name="satuan_'+counter3+'" id="satuan_'+counter3+'" class="satuan uniformselect" style="width:100px;"><option name="-">Pilih Satuan</option><?php foreach($list_satuan_kecil as $lsk) : ?><option value="<?php echo $lsk['kd_sat_kecil_obat']; ?>"><?php echo $lsk['sat_kecil_obat']; ?></option><?php endforeach; ?></select></td><td><input type="text" name="dosis_'+counter3+'" id="dosis_'+counter3+'" class="dosis input-small" /></td><td><input type="text" name="apotek_stok_'+counter3+'" id="apotek_stok_'+counter3+'" class="apotek_stok input-small" readonly/></td><td><input type="text" name="jumlah_'+counter3+'" id="jumlah_'+counter3+'" class="jumlah input-small" /></td><td><select name="racikan_'+counter3+'" id="racikan_'+counter3+'" class="racikan uniformselect" style="width:100px;"><option value="0">Non Racikan</option><option value="1">Racikan</option></select></td></tr>';
+		
+		var inputHTML = '<tr><td><div id="'+counter3+'">'+counter3+'</div><input type="hidden" name="kd_obat_'+counter3+'" id="kd_obat_'+counter3+'" class="kd_obat" /></td><td><input type="text" name="nama_obat_'+counter3+'" id="nama_obat_'+counter3+'" class="nama_obat input-large" /></td><td><input type="text" name="dosis_'+counter3+'" id="dosis_'+counter3+'" class="dosis input-small" /></td><td><input type="text" name="apotek_stok_'+counter3+'" id="apotek_stok_'+counter3+'" class="apotek_stok input-small" readonly/></td><td><input type="text" name="jumlah_'+counter3+'" id="jumlah_'+counter3+'" class="jumlah input-small" /></td><td><select name="racikan_'+counter3+'" id="racikan_'+counter3+'" class="racikan uniformselect" style="width:100px;"><option value="0">Non Racikan</option><option value="1">Racikan</option></select></td></tr>';
 		
 		jQuery(inputHTML).appendTo("table#tbl-obat tbody");
 		counter3++;
@@ -1525,7 +1557,9 @@ jQuery(function() { // Edit Obat
 			jQuery('a#removeObat2').removeAttr('disabled');
 		}
 			
-		var inputHTML = '<tr><td><div id="'+counter3+'">'+counter3+'</div><input type="hidden" name="kd_obat_'+counter3+'" id="kd_obat2_'+counter3+'" class="kd_obat2" /></td><td><input type="text" name="nama_obat_'+counter3+'" id="nama_obat2_'+counter3+'" class="nama_obat2 input-large" /></td><td><select name="satuan_'+counter3+'" id="satuan2_'+counter3+'" class="satuan2 uniformselect" style="width:100px;"><option name="-">Pilih Satuan</option><?php foreach($list_satuan_kecil as $lsk) : ?><option value="<?php echo $lsk['kd_sat_kecil_obat']; ?>"><?php echo $lsk['sat_kecil_obat']; ?></option><?php endforeach; ?></select></td><td><input type="text" name="dosis_'+counter3+'" id="dosis2_'+counter3+'" class="dosis2 input-small" /></td><td><input type="text" name="apotek_stok_'+counter3+'" id="apotek_stok2_'+counter3+'" class="apotek_stok2 input-small" /></td><td><input type="text" name="jumlah_'+counter3+'" id="jumlah2_'+counter3+'" class="jumlah2 input-small" /></td><td><select name="racikan_'+counter3+'" id="racikan2_'+counter3+'" class="racikan2 uniformselect" style="width:100px;"><option value="0">Non Racikan</option><option value="1">Racikan</option></select></tr>';
+		//var inputHTML = '<tr><td><div id="'+counter3+'">'+counter3+'</div><input type="hidden" name="kd_obat_'+counter3+'" id="kd_obat2_'+counter3+'" class="kd_obat2" /></td><td><input type="text" name="nama_obat_'+counter3+'" id="nama_obat2_'+counter3+'" class="nama_obat2 input-large" /></td><td><select name="satuan_'+counter3+'" id="satuan2_'+counter3+'" class="satuan2 uniformselect" style="width:100px;"><option name="-">Pilih Satuan</option><?php foreach($list_satuan_kecil as $lsk) : ?><option value="<?php echo $lsk['kd_sat_kecil_obat']; ?>"><?php echo $lsk['sat_kecil_obat']; ?></option><?php endforeach; ?></select></td><td><input type="text" name="dosis_'+counter3+'" id="dosis2_'+counter3+'" class="dosis2 input-small" /></td><td><input type="text" name="apotek_stok_'+counter3+'" id="apotek_stok2_'+counter3+'" class="apotek_stok2 input-small" /></td><td><input type="text" name="jumlah_'+counter3+'" id="jumlah2_'+counter3+'" class="jumlah2 input-small" /></td><td><select name="racikan_'+counter3+'" id="racikan2_'+counter3+'" class="racikan2 uniformselect" style="width:100px;"><option value="0">Non Racikan</option><option value="1">Racikan</option></select></tr>';
+		
+		var inputHTML = '<tr><td><div id="'+counter3+'">'+counter3+'</div><input type="hidden" name="kd_obat_'+counter3+'" id="kd_obat2_'+counter3+'" class="kd_obat2" /></td><td><input type="text" name="nama_obat_'+counter3+'" id="nama_obat2_'+counter3+'" class="nama_obat2 input-large" /></td><td><input type="text" name="dosis_'+counter3+'" id="dosis2_'+counter3+'" class="dosis2 input-small" /></td><td><input type="text" name="apotek_stok_'+counter3+'" id="apotek_stok2_'+counter3+'" class="apotek_stok2 input-small" /></td><td><input type="text" name="jumlah_'+counter3+'" id="jumlah2_'+counter3+'" class="jumlah2 input-small" /></td><td><select name="racikan_'+counter3+'" id="racikan2_'+counter3+'" class="racikan2 uniformselect" style="width:100px;"><option value="0">Non Racikan</option><option value="1">Racikan</option></select></tr>';
 		
 		jQuery(inputHTML).appendTo("table#tbl-obat2 tbody");
 		counter3++;

@@ -253,19 +253,21 @@ class M_crud extends CI_Model {
 	
 	
 	public function MaxKodeRujukan($date,$kd_pus){
-		$pecah = explode('-',$date);
-		
-		$text = "SELECT max(no_rujukan) as rjk FROM pelayanan";
+		$pecah = explode('-',$date);		
+		$text = "SELECT max(no_rujukan) as rjk FROM pelayanan WHERE MONTH(tgl_pelayanan)='$pecah[1]'";
 		$data = $this->m_crud->manualQuery($text);
 		if($data->num_rows() > 0 ){
 			foreach($data->result() as $t){
 				$rjk = $t->rjk; 
 				$tmp = ((int) substr($rjk,4,4))+1;
-				$hasil = 'RJK-'.sprintf("%04s", $tmp).'/'.$kd_pus.'/'.$this->generate_romawi($pecah[1]).'/'.$pecah[0];	
-			}
+				//$hasil = 'RJK-'.sprintf("%04s", $tmp).'/'.$kd_pus.'/'.$this->generate_romawi($pecah[1]).'/'.$pecah[0];	
+				$hasil = '440'.'/'.sprintf("%04s", $tmp).'/'.$this->generate_romawi($pecah[1]).'/ PkmBotim-'.$pecah[0];			
+			} 
 		}else{
-			$hasil = 'RJK-'.'0001/'.$kd_pus.'/'.$this->generate_romawi($pecah[1]).'/'.$pecah[0];
-		}
+			//$hasil = 'RJK-'.'0001/'.$kd_pus.'/'.$this->generate_romawi($pecah[1]).'/'.$pecah[0];
+			$hasil = '440'.'/'.'0001/'.$kd_pus.'/'.$this->generate_romawi($pecah[1]).'/'.$pecah[0];
+		} 
+		
 		return $hasil;
 	}
 	
@@ -2776,9 +2778,9 @@ public function ItemAwalApotek($id){
         return $query->result_array();
     }
 	
+	
 	function generate_queue($kd_unit){	//auto generate nomor antrian
-		$curr_date = gmdate("Y-m-d", time()+60*60*7);
-
+		$curr_date = date("Y-m-d");
 		$this->db->select('MAX(pelayanan.no_antrian) as no, unit_pelayanan.kd_antrian as kd_antrian');
 		$this->db->from('pelayanan');
 		$this->db->join('unit_pelayanan', 'unit_pelayanan.kd_unit_pelayanan=pelayanan.kd_unit_pelayanan');
@@ -2802,6 +2804,7 @@ public function ItemAwalApotek($id){
 		}
 		return $hasil;
 	}
+
 
 	
 }

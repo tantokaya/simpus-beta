@@ -58,13 +58,15 @@ class Cont_transaksi_pelayanan extends CI_Controller
 			$pelayanan['cat_dokter'] 			= $this->input->post('cat_dokter');
 						
 			//----------- cek no rujukan
-			if( $this->input->post('kd_status_pasien') == "SKP-3" || $this->input->post('kd_status_pasien') == "SKP-4")	{
+			if($this->input->post('kd_status_pasien') == "SKP-4")	{
 				$pelayanan['no_rujukan'] 			= $this->m_crud->MaxKodeRujukan(date('Y-m-d'),'P3271020101');
 			} else {
 				$pelayanan['no_rujukan'] 			= NULL;
-			}
+			} //no rujukan hanya untuk yang dirujuk ke luar puskesmas
 			
+			$pelayanan['jenis_rujukan'] 		= $this->input->post('jenis_rujukan');
 			$pelayanan['tempat_rujukan'] 		= $this->input->post('tempat_rujukan');
+			$pelayanan['poli_rujukan'] 			= $this->input->post('poli_rujukan');
 			$pelayanan['timestamps'] 			= date('Y-m-d H:i:s');
 			
 			
@@ -211,7 +213,9 @@ class Cont_transaksi_pelayanan extends CI_Controller
 			} 
 			$pelayanan['kd_status_pasien'] 	= $this->input->post('kd_status_pasien');
 			$pelayanan['no_rujukan'] 		= $this->input->post('no_rujukan');
+			$pelayanan['jenis_rujukan'] 	= $this->input->post('jenis_rujukan');
 			$pelayanan['tempat_rujukan'] 	= $this->input->post('tempat_rujukan');
+			$pelayanan['no_rujukan'] 	= $this->input->post('no_rujukan');
 			
 			} else { // jika bukan pendaftaran
 			$pelayanan['kd_jenis_layanan'] 	= $this->input->post('kd_jenis_layanan');
@@ -239,7 +243,7 @@ class Cont_transaksi_pelayanan extends CI_Controller
 			$pelayanan['cat_dokter'] 		= $this->input->post('cat_dokter');
 			
 			$pelayanan['kd_status_pasien'] 		= $this->input->post('kd_status_pasien'); // blm
-			$pelayanan['no_rujukan'] 		= $this->input->post('no_rujukan');
+			$pelayanan['no_rujukan'] 			= $this->input->post('no_rujukan');
 			$pelayanan['tempat_rujukan'] 		= $this->input->post('tempat_rujukan');
 			
 			
@@ -399,6 +403,7 @@ class Cont_transaksi_pelayanan extends CI_Controller
 			//exit;
 			//echo $par2;
 			#echo '<pre>'; print_r($data); exit;
+			#print_r($data['edit_pelayanan']).'\n';
 			
 			
 		}
@@ -1423,7 +1428,7 @@ class Cont_transaksi_pelayanan extends CI_Controller
 		$kueri = $this->m_crud->manualQuery($q);
 		$hasil = $kueri->row_array();
 		if ($hasil['kd_status_pasien'] != 'SKP-4' AND $hasil['tempat_rujukan']=='') {
-			echo "Pasien tidak dirujuk";
+			echo "Pasien tidak dirujuk ke luar puskesmas";
 		} 
 		
 		elseif ($hasil['kd_status_pasien'] == 'SKP-4' AND $hasil['tempat_rujukan']== '' ){
@@ -1432,7 +1437,7 @@ class Cont_transaksi_pelayanan extends CI_Controller
 		elseif (($hasil['kd_status_pasien'] == 'SKP-4' AND $hasil['tempat_rujukan']!= '') OR ($hasil['kd_status_pasien'] != 'SKP-4' AND $hasil['tempat_rujukan']!='') ){
 				
         $this->load->library('Pdf');
-        $pdf = new Pdf('P', 'mm', 'A4', true, 'UTF-8', false);
+        $pdf = new Pdf('P', 'mm', 'F4', true, 'UTF-8', false);
         // $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetPageOrientation('P');
@@ -1457,6 +1462,7 @@ class Cont_transaksi_pelayanan extends CI_Controller
         }
         $pdf->setFontSubsetting(true);
         $pdf->SetFont('dejavusans', '', 8, '', true);
+		$pdf->SetTopMargin(10);
         $pdf->AddPage();
         $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));
 
@@ -1470,94 +1476,221 @@ class Cont_transaksi_pelayanan extends CI_Controller
 		if ($surat['penyakit']=='') {$surat['penyakit']= "-";}
 		if ($surat['tindakan']=='') {$surat['tindakan']= "-";}
 		if ($surat['tempat_rujukan']=='') {$surat['tempat_rujukan']= "-";}
+		if ($surat['poli_rujukan']=='') {$surat['poli_rujukan']= "-";}
+		if ($surat['cat_dokter']=='') {$surat['cat_dokter']= "-";}
+		if ($surat['cat_fisik']=='') {$surat['cat_fisik']= "-";}
+		if ($surat['nip_dokter']=='') {$surat['nip_dokter']= "-";}
+		if ($surat['nm_dokter']=='') {$surat['nm_dokter']= "_____________________";}
+		$tgl=date('d-m-Y');
 		
 		#echo $this->db->last_query(); exit;
 		
-        $html     = '<table align="center" border="0" align="left">';
+        $html     = '<table width="100%" align="center" border="0">';
         $html    .= '<tr>
-                        <td width="30%" style="text-align: center;"><img src="'.base_url().'assets/img/logo.png" width="80" height="80"/></td>
-                        <td width="70%"><h3>PEMERINTAH KOTA BOGOR<br>DINAS KESEHATAN KOTA</h3>
-                        <h4>UPTD '.$puskesmas["nm_puskesmas"].'<br>'.$puskesmas["alamat"].'</h4>
+                        <td width="20%" style="text-align: center;"><img src="'.base_url().'assets/img/logo.png" width="80" height="80"/></td>
+                        <td width="80%" align="center"><h2>PEMERINTAH KOTA BOGOR<br>DINAS KESEHATAN KOTA</h2>
+                        <h1>UPTD '.$puskesmas["nm_puskesmas"].'</h1>
+						<h3>'.$puskesmas["alamat"].' Telp. '.$puskesmas["no_telp"].'</h3>
                         </td>
-                    </tr>';
-        $html    .= '</table>';
-        $html    .= '<p align="center"><b>SURAT RUJUKAN</b></p>';
-
-        $html   .= '<table align="center" cellpadding="2" cellspacing="0" border="0" width="100%">
-    <tr>
-        <td width="30%" style="text-align: left;">Kepada Yth. TS dr. Poli</td>
-        <td width="5%" style="text-align: left;">:</td>
-        <td width="65%" style="text-align: left;">................................</td>
-    </tr>
-    <tr>
-        <td style="text-align: left;">Di RS</td>
-        <td style="text-align: left;">:</td>
-        <td style="text-align: left;">'.$surat["tempat_rujukan"].'</td>
-    </tr>
-    <tr>
-        <td colspan="3">&nbsp;</td>
-    </tr>
-    <tr>
-        <td style="text-align: left;" colspan="3">Mohon untuk pemeriksaan dan penanganan selanjutnya, OS: </td>
-    </tr>
-    <tr>
-        <td style="text-align: left;">Nama</td>
-        <td style="text-align: left;">:</td>
-        <td style="text-align: left;">'.$surat["nm_lengkap"].'</td>
-    </tr>
-    <tr>
-        <td style="text-align: left;">Umur</td>
-        <td style="text-align: left;">:</td>
-        <td style="text-align: left;">'.$surat["umur"].' Tahun</td>
-    </tr>
-    <tr>
-        <td style="text-align: left;">Jenis Kelamin</td>
-        <td style="text-align: left;">:</td>
-        <td style="text-align: left;">'.$surat["jenis_kelamin"].'</td>
-    </tr>
-    <tr>
-        <td style="text-align: left;">Alamat</td>
-        <td style="text-align: left;">:</td>
-        <td style="text-align: left;">'.$surat["alamat"].', Kel. '.ucwords(strtolower($surat["nm_kelurahan"])).', Kec. '.ucwords(strtolower($surat["nm_kecamatan"])).' , '.ucwords(strtolower($surat["nm_kota"])).'</td>
-    </tr>
-    <tr>
-        <td style="text-align: left;">Diagnosa</td>
-        <td style="text-align: left;">:</td>
-        <td style="text-align: left;">'.$surat["penyakit"].'</td>
-    </tr>
-    <tr>
-        <td style="text-align: left;">Telah diberikan</td>
-        <td style="text-align: left;">:</td>
-        <td style="text-align: left;">'.$surat["tindakan"].'</td>
-    </tr>
-    <tr>
-        <td colspan="3">&nbsp;</td>
-    </tr>
-    <tr>
-        <td style="text-align: left;" colspan="3">Demikian atas bantuannya, kami ucapkan terima kasih.</td>
-    </tr>
-    <tr>
-        <td colspan="3">&nbsp;</td>
-    </tr>
-    <tr>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>Salam Sejawat,</td>
-     </tr>
-    <tr>
-        <td colspan="3">&nbsp;</td>
-    </tr>
-    <tr>
-        <td colspan="3">&nbsp;</td>
-    </tr>
-    <tr>
-        <td colspan="3">&nbsp;</td>
-    </tr>
-    <tr>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td><u>........................................... </u><br> <br>...........................................</td>
-    </tr>
+                    </tr>
+					<tr>
+              <td colspan="2" bordercolordark="#0A0A0A" style="text-align: center;">______________________________________________________________________________________________________________________________</td>
+              </tr>';
+        $html    .= '</table> <p> </p>';
+        
+        $html   .= '<table width="100%" border="0" >
+                      <tr>
+                        <td width="13%">Nomor</td>
+                        <td width="1%">:</td>
+                        <td width="86%">'.$surat["no_rujukan"].'</td>
+                      </tr>
+                      <tr>
+                        <td>Lampiran</td>
+                        <td>:</td>
+                        <td>-</td>
+                      </tr>
+                      <tr>
+                        <td>Perihal</td>
+                        <td>:</td>
+                        <td>Rujukan '.$surat["jenis_rujukan"].'</td>
+                      </tr>
+                    </table>';			
+            $html .='<table width="100%" border="0">
+                      <tr>
+					  <td width="70%"> </td>
+                        <td>Kepada Yth.</td>
+                      </tr>
+                      <tr>
+					   <td> </td>
+                        <td>'.$surat["tempat_rujukan"].'</td>
+                      </tr>
+                      <tr>
+					   <td> </td>
+                        <td>'.$surat["poli_rujukan"].'</td>
+                      </tr>
+                      <tr>
+					   <td> </td>
+                        <td>Di Bogor</td>
+                      </tr>
+                    </table>
+                    <p>&nbsp;</p>';
+                    
+             $html .='    
+                    <table cellpadding="2" cellspacing="0" border="0" width="100%">
+                      <tr>
+                        <td colspan="3" style="text-align: left;">Dengan Hormat,</td>
+                      </tr>
+                      <tr>
+                        <td colspan="3">Bersama surat ini mohon penatalaksanaan selanjutnya pasien :</td>
+                      </tr>
+                     
+                      <tr>
+                        <td width="30%" style="text-align: left;">Nama</td>
+                        <td width="5%" style="text-align: left;">:</td>
+                        <td width="65%" style="text-align: left;">'.$surat["nm_lengkap"].'</td>
+                      </tr>
+                      <tr>
+                        <td style="text-align: left;">Umur</td>
+                        <td style="text-align: left;">:</td>
+                        <td style="text-align: left;">'.$surat["umur"].' Tahun</td>
+                      </tr>
+                      <tr>
+                        <td style="text-align: left;">Nomer Kartu Jamkesda / SKTM *)</td>
+                        <td style="text-align: left;">:</td>
+                        <td style="text-align: left;">......................................................................................................</td>
+                      </tr>
+                      <tr>
+                        <td style="text-align: left;">Alamat</td>
+                        <td style="text-align: left;">:</td>
+                        <td style="text-align: left;">'.$surat["alamat"].', Kel. '.ucwords(strtolower($surat["nm_kelurahan"])).', Kec. '.ucwords(strtolower($surat["nm_kecamatan"])).' , '.ucwords(strtolower($surat["nm_kota"])).'</td>
+                      </tr>
+                      <tr>
+                        <td style="text-align: left;">Hasil Pemeriksaan</td>
+                        <td style="text-align: left;">:</td>
+                        <td style="text-align: left;">'.$surat["cat_fisik"].'</td>
+                      </tr>
+                      <tr>
+                        <td style="text-align: left;">Diagnosa</td>
+                        <td style="text-align: left;">:</td>
+                        <td style="text-align: left;">'.$surat["penyakit"].'</td>
+                      </tr>
+                      <tr>
+                        <td style="text-align: left;">Catatan</td>
+                        <td style="text-align: left;">:</td>
+                        <td style="text-align: left;">'.$surat["cat_dokter"].'</td>
+                      </tr>
+                      <tr>
+                        <td colspan="3">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td style="text-align: left;" colspan="3">Atas perhatian dan kerjasamanya, kami ucapkan terima kasih.</td>
+                      </tr>
+                      <tr>
+                        <td colspan="3">&nbsp;</td>
+                      </tr>
+                    </table>';
+					
+		if ($surat['jenis_rujukan'] == 'umum') {
+			$txt1 = ""; $txt2 = "";
+		} elseif ($surat['jenis_rujukan'] == 'sktm' OR $surat['jenis_rujukan'] == 'jamkesda') {
+			$txt1 ="Disetujui Dinas Kesehatan Kota Bogor";     
+			$txt2 = "..........................................."; }
+		
+		$html .= '<table cellpadding="2" cellspacing="0" border="0" width="100%">
+                     <tr>
+                        <td width="56%">&nbsp;</td>
+                        <td width="10%">&nbsp;</td>
+                        <td width="34%">Bogor,  '.$tgl.'</td>
+                      </tr>
+                      <tr>
+                        <td>'.$txt1.'</td>
+                        <td>&nbsp;</td>
+                        <td>Dokter Pemeriksa,</td>
+                      </tr>
+                      <tr>
+                        <td colspan="3">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td colspan="3">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td colspan="3">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td><u>'.$txt2.'</u><br>
+                          <br>
+						</td>
+                        <td>&nbsp;</td>
+                        <td><u>'.$surat["nm_dokter"].'</u><br>NIP: '.$surat["nip_dokter"].'</td>
+                      </tr>
+                      </table>';
+					  
+$html .= '<table width="100%" border="0">
+  <tr>
+    <td><strong>-------------------------------------------------------------------------------------------------------------------------------------------------------</strong></td>
+  </tr>
+</table>
+<table width="100%" border="1">
+  <tr> 
+    <td align="center"><h3><strong>RUJUKAN BALIK</strong></h3></td>
+  </tr>
+</table>';
+$html .='<table width="100%" border="0" cellpadding="3">
+  <tr>
+    <td colspan="5"><b>Yth. TS Dokter di  '.$puskesmas["nm_puskesmas"].'</b></td>
+  </tr>
+  <tr>
+    <td colspan="5">Mohon kontrol selanjutnya penderita:</td>
+  </tr>
+  <tr>
+    <td width="18%">Nama</td>
+    <td width="25%">: <span style="text-align: left;">'.$surat["nm_lengkap"].' </span></td>
+    <td width="21%"><span style="text-align: left;">['.$surat["jenis_kelamin"].'] </span></td>
+    <td width="6%">Umur</td>
+    <td width="30%">: <span style="text-align: left;">'.$surat["umur"].'</span></td>
+  </tr>
+  <tr>
+    <td>Diagnosis </td>
+    <td colspan="4">: <span style="text-align: left;">'.$surat["penyakit"].'</span></td>
+  </tr>
+  <tr>
+    <td colspan="5">Tindak lanjut yang dianjurkan :</td>
+  </tr>
+  <tr>
+    <td colspan="5">* Kontrol kembali ke RS tanggal : .............................................................................................................................................</td>
+  </tr>
+  <tr>
+    <td colspan="5">* Penatalaksanaan selanjutnya bisa di puskesmas dengan terapi: ...........................................................................................</td>
+  </tr>
+  <tr>
+    <td colspan="5">..................................................................................................................................................................................................</td>
+  </tr>
+  <tr>
+    <td colspan="5">* Lain-lain : .................................................................................................................................................................................</td>
+  </tr>
+  <tr>
+    <td colspan="5">....................................................................................................................................................................................................</td>
+  </tr>
+  <tr>
+    <td colspan="4">&nbsp;</td>
+    <td>Bogor,  '.$tgl.'</td>
+  </tr>
+  <tr>
+    <td colspan="4">&nbsp;</td>
+    <td>'.$surat["tempat_rujukan"].'</td>
+  </tr>
+  <tr>
+    <td colspan="4">&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="4">&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="4">&nbsp;</td>
+    <td text-align="right">_____________________________ </td>
+  </tr>	
 </table>';
 
         $pdf->SetTitle('Judul');
