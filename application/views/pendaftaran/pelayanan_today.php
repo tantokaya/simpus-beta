@@ -246,16 +246,18 @@
                                             <label>No. Rujukan</label>
                                             <span class="field"><input type="text" name="no_rujukan" id="no_rujukan2" value="<?php echo $row['no_rujukan']; ?>" readonly class="input-large" /></span>
                                         </p>  
+										
 										<p>
                                             <label>Jenis Rujukan</label>
                                             <span class="field">
                                             	<select name="jenis_rujukan" id="jenis_rujukan2" class="uniformselect">
                                                		<option value="-">Pilih Jenis Rujukan</option>
-													
                                                     	<option value="Umum"<?php if($row['jenis_rujukan'] == 'Umum'): ?> selected="selected"<?php endif; ?>>Umum</option>
 														<option value="Jamkesda"<?php if($row['jenis_rujukan'] == 'Jamkesda'): ?> selected="selected"<?php endif; ?>>Jamkesda</option>
 														<option value="SKTM"<?php if($row['jenis_rujukan'] == 'SKTM'): ?> selected="selected"<?php endif; ?>>SKTM</option>
+														<option value="BPJS"<?php if($row['jenis_rujukan'] == 'BPJS'): ?> selected="selected"<?php endif; ?>>BPJS</option>
                             					</select>
+												
                                             </span>
                                         </p> 
 										 
@@ -478,6 +480,7 @@
                                                     	<option value="Umum">Umum</option>
 														<option value="Jamkesda">Jamkesda</option>
 														<option value="SKTM">SKTM</option>
+														<option value="BPJS">BPJS</option>
                             					</select>
                                             </span>
                                         </p>
@@ -657,10 +660,14 @@ jQuery(document).ready(function(){
 	// flag form rujukan disabled or not
 	jQuery('#no_rujukan').attr('readonly','readonly');
 	jQuery('#tempat_rujukan').attr('readonly','readonly');
+	jQuery('#jenis_rujukan').attr('readonly','readonly');
+	jQuery('#poli_rujukan').attr('readonly','readonly');
 	
 	<?php if(!isset($row['no_rujukan']) or $row['no_rujukan'] == ''): ?>
    		jQuery('#no_rujukan2').attr('readonly','readonly');
 		jQuery('#tempat_rujukan2').attr('readonly','readonly');
+		jQuery('#jenis_rujukan2').attr('readonly','readonly');
+		jQuery('#poli_rujukan2').attr('readonly','readonly');
     <?php endif; ?>
 	
 	jQuery('#kd_status_pasien').change(function () {
@@ -668,16 +675,24 @@ jQuery(document).ready(function(){
 		{
 			jQuery('#no_rujukan').attr('readonly','readonly');
 			jQuery('#tempat_rujukan').attr('readonly','readonly');
+			//jQuery('#jenis_rujukan').attr('readonly','readonly');
+			jQuery('#poli_rujukan').attr('readonly','readonly');
+			$('$jenis_rujukan2').attr('disabled',true);
 		} 
 		else if(jQuery(this).val() == 'SKP-3' || jQuery(this).val() == 'SKP-4') // Di rujuk
 		{
 			jQuery('#no_rujukan').removeAttr('readonly');
 			jQuery('#tempat_rujukan').removeAttr('readonly');
+			jQuery('#jenis_rujukan').removeAttr('readonly');
+			jQuery('#poli_rujukan').removeAttr('readonly');
 		}
 		else
 		{
 			jQuery('#no_rujukan').attr('readonly','readonly');
 			jQuery('#tempat_rujukan').attr('readonly','readonly');
+			//jQuery('#jenis_rujukan').attr('readonly','readonly');
+			$('$jenis_rujukan2').attr('disabled',true)
+			jQuery('#poli_rujukan').attr('readonly','readonly');
 		}
 	});
 	
@@ -686,16 +701,22 @@ jQuery(document).ready(function(){
 		{
 			jQuery('#no_rujukan2').attr('readonly','readonly');
 			jQuery('#tempat_rujukan2').attr('readonly','readonly');
+			jQuery('#jenis_rujukan2').attr('readonly','readonly');
+			jQuery('#poli_rujukan2').attr('readonly','readonly');
 		} 
 		else if(jQuery(this).val() == 'SKP-3' || jQuery(this).val() == 'SKP-4') // Di rujuk
 		{
 			jQuery('#no_rujukan2').removeAttr('readonly');
 			jQuery('#tempat_rujukan2').removeAttr('readonly');
+			jQuery('#jenis_rujukan2').removeAttr('readonly');
+			jQuery('#poli_rujukan2').removeAttr('readonly');
 		}
 		else
 		{
 			jQuery('#no_rujukan2').attr('readonly','readonly');
 			jQuery('#tempat_rujukan2').attr('readonly','readonly');
+			jQuery('#jenis_rujukan2').attr('readonly','readonly');
+			jQuery('#poli_rujukan2').attr('readonly','readonly');
 		}
 	});
 	

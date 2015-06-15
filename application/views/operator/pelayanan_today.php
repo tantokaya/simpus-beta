@@ -528,6 +528,7 @@
                                                     	<option value="Umum"<?php if($row['jenis_rujukan'] == 'Umum'): ?> selected="selected"<?php endif; ?>>Umum</option>
 														<option value="Jamkesda"<?php if($row['jenis_rujukan'] == 'Jamkesda'): ?> selected="selected"<?php endif; ?>>Jamkesda</option>
 														<option value="SKTM"<?php if($row['jenis_rujukan'] == 'SKTM'): ?> selected="selected"<?php endif; ?>>SKTM</option>
+														<option value="BPJS"<?php if($row['jenis_rujukan'] == 'BPJS'): ?> selected="selected"<?php endif; ?>>BPJS</option>
                             					</select>
                                             </span>
                                         </p> 
@@ -902,6 +903,7 @@
                                                     	<option value="Umum">Umum</option>
 														<option value="Jamkesda">Jamkesda</option>
 														<option value="SKTM">SKTM</option>
+														<option value="BPJS">BPJS</option>
                             					</select>
                                             </span>
                                         </p>

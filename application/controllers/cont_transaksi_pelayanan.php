@@ -59,12 +59,15 @@ class Cont_transaksi_pelayanan extends CI_Controller
 						
 			//----------- cek no rujukan
 			if($this->input->post('kd_status_pasien') == "SKP-4")	{
-				$pelayanan['no_rujukan'] 			= $this->m_crud->MaxKodeRujukan(date('Y-m-d'),'P3271020101');
+				$pelayanan['no_rujukan'] 			= $this->m_crud->MaxKodeRujukan(date('Y-m-d'));
 			} else {
 				$pelayanan['no_rujukan'] 			= NULL;
 			} //no rujukan hanya untuk yang dirujuk ke luar puskesmas
 			
-			$pelayanan['jenis_rujukan'] 		= $this->input->post('jenis_rujukan');
+			if ($this->input->post('kd_status_pasien') == "SKP-1" || $this->input->post('kd_status_pasien') == "SKP-2")
+			{ $pelayanan['jenis_rujukan'] = "";
+			} else { $pelayanan['jenis_rujukan'] 		= $this->input->post('jenis_rujukan');
+			}
 			$pelayanan['tempat_rujukan'] 		= $this->input->post('tempat_rujukan');
 			$pelayanan['poli_rujukan'] 			= $this->input->post('poli_rujukan');
 			$pelayanan['timestamps'] 			= date('Y-m-d H:i:s');
@@ -195,43 +198,57 @@ class Cont_transaksi_pelayanan extends CI_Controller
 		}
 		
 		if ($par1 == 'ubah' && $par2 == 'do_update') {
+			$kd_trans_pelayanan 	= $par3;
+			$data_lama = $this->m_crud->get_pelayanan_by_id($kd_trans_pelayanan);
+			#print_r($data_lama[0]).'\n'; exit;
+			
 			if ($this->session->userdata('id_akses') == 2) // pendaftaran hanya update 3 field 
 			{
 			$pelayanan['kd_jenis_layanan'] 	= $this->input->post('kd_jenis_layanan');
 			$pelayanan['kd_petugas'] 	= $this->input->post('kd_petugas');
-
 			$pelayanan['kd_bayar'] 		= $this->input->post('kd_bayar');
-
-
 			$pelayanan['kd_unit_pelayanan'] 	= $this->input->post('kd_unit_pelayanan');
 			
-			if($pelayanan['kd_jenis_layanan'] == 3){
-				$pelayanan['kd_bed']		 		= $this->input->post('kd_bed');
-				
-			} else {
-				$pelayanan['kd_bed']		 		= NULL;
-			} 
+					if($pelayanan['kd_jenis_layanan'] == 3){
+						$pelayanan['kd_bed']		 		= $this->input->post('kd_bed');
+						
+					} else {
+						$pelayanan['kd_bed']		 		= NULL;
+					} 
 			$pelayanan['kd_status_pasien'] 	= $this->input->post('kd_status_pasien');
-			$pelayanan['no_rujukan'] 		= $this->input->post('no_rujukan');
-			$pelayanan['jenis_rujukan'] 	= $this->input->post('jenis_rujukan');
-			$pelayanan['tempat_rujukan'] 	= $this->input->post('tempat_rujukan');
-			$pelayanan['no_rujukan'] 	= $this->input->post('no_rujukan');
-			
+					
+					if (($this->input->post('kd_status_pasien') == "SKP-4") && ($data_lama[0]['kd_status_pasien'] == "SKP-4"))	{
+						$pelayanan['no_rujukan'] 		= $this->input->post('no_rujukan');
+						$pelayanan['poli_rujukan'] 		= $this->input->post('poli_rujukan');
+						$pelayanan['tempat_rujukan'] 	= $this->input->post('tempat_rujukan');
+						$pelayanan['jenis_rujukan'] 	= $this->input->post('jenis_rujukan');
+					} elseif (($this->input->post('kd_status_pasien') == "SKP-4") && ($data_lama[0]['kd_status_pasien'] != "SKP-4")) {
+						$pelayanan['no_rujukan'] 		= $this->m_crud->MaxKodeRujukan(date('Y-m-d'));
+						$pelayanan['poli_rujukan'] 		= $this->input->post('poli_rujukan');
+						$pelayanan['tempat_rujukan'] 	= $this->input->post('tempat_rujukan');
+						$pelayanan['jenis_rujukan'] 	= $this->input->post('jenis_rujukan');
+					} elseif (($this->input->post('kd_status_pasien') != "SKP-4") && ($data_lama[0]['kd_status_pasien'] == "SKP-4")) {
+						$pelayanan['no_rujukan'] 		= NULL;
+						$pelayanan['poli_rujukan'] 		= NULL;
+						$pelayanan['tempat_rujukan'] 	= NULL;
+						$pelayanan['jenis_rujukan'] 	= NULL;
+					} 
+				
+						
 			} else { // jika bukan pendaftaran
+			#print_r($data_lama).'\n'; exit;
+			
 			$pelayanan['kd_jenis_layanan'] 	= $this->input->post('kd_jenis_layanan');
 			$pelayanan['kd_petugas'] 	= $this->input->post('kd_petugas');
-
 			$pelayanan['kd_bayar'] 		= $this->input->post('kd_bayar');
-
-
 			$pelayanan['kd_unit_pelayanan'] 	= $this->input->post('kd_unit_pelayanan');
 			
-			if($pelayanan['kd_jenis_layanan'] == 3){
-				$pelayanan['kd_bed']		 		= $this->input->post('kd_bed');
-				
-			} else {
-				$pelayanan['kd_bed']		 		= NULL;
-			}
+					if($pelayanan['kd_jenis_layanan'] == 3){
+						$pelayanan['kd_bed']		 		= $this->input->post('kd_bed');
+						
+					} else {
+						$pelayanan['kd_bed']		 		= NULL;
+					}
 			
 			$pelayanan['kd_rekam_medis'] 		= $this->input->post('kd_rekam_medis');
 			$pelayanan['kd_trans_pelayanan']	= $this->input->post('kodepelayanan');
@@ -243,9 +260,23 @@ class Cont_transaksi_pelayanan extends CI_Controller
 			$pelayanan['cat_dokter'] 		= $this->input->post('cat_dokter');
 			
 			$pelayanan['kd_status_pasien'] 		= $this->input->post('kd_status_pasien'); // blm
-			$pelayanan['no_rujukan'] 			= $this->input->post('no_rujukan');
-			$pelayanan['tempat_rujukan'] 		= $this->input->post('tempat_rujukan');
-			
+			$pelayanan['kd_status_pasien'] 	= $this->input->post('kd_status_pasien');
+						if (($this->input->post('kd_status_pasien') == "SKP-4") && ($data_lama[0]['kd_status_pasien'] == "SKP-4"))	{
+						$pelayanan['no_rujukan'] 		= $this->input->post('no_rujukan');
+						$pelayanan['poli_rujukan'] 		= $this->input->post('poli_rujukan');
+						$pelayanan['tempat_rujukan'] 	= $this->input->post('tempat_rujukan');
+						$pelayanan['jenis_rujukan'] 	= $this->input->post('jenis_rujukan');
+					} elseif (($this->input->post('kd_status_pasien') == "SKP-4") && ($data_lama[0]['kd_status_pasien'] != "SKP-4")) {
+						$pelayanan['no_rujukan'] 		= $this->m_crud->MaxKodeRujukan(date('Y-m-d'));
+						$pelayanan['poli_rujukan'] 		= $this->input->post('poli_rujukan');
+						$pelayanan['tempat_rujukan'] 	= $this->input->post('tempat_rujukan');
+						$pelayanan['jenis_rujukan'] 	= $this->input->post('jenis_rujukan');
+					} elseif (($this->input->post('kd_status_pasien') != "SKP-4") && ($data_lama[0]['kd_status_pasien'] == "SKP-4")) {
+						$pelayanan['no_rujukan'] 		= NULL;
+						$pelayanan['poli_rujukan'] 		= NULL;
+						$pelayanan['tempat_rujukan'] 	= NULL;
+						$pelayanan['jenis_rujukan'] 	= NULL;
+					} 
 			
 			// calculate age in days (in category)
 			//-------------------------------------
@@ -371,7 +402,7 @@ class Cont_transaksi_pelayanan extends CI_Controller
 				$this->db->trans_commit();
 				$this->session->set_flashdata('flash_message', 'Data transaksi pelayanan berhasil diperbaharui!');
 			}
-			
+			#print_r($pelayanan).'\n'; exit;
 			redirect('cont_transaksi_pelayanan/pelayanan_today', 'refresh');
 			
 		} else if ($par1 == 'ubah') {
@@ -1590,7 +1621,7 @@ class Cont_transaksi_pelayanan extends CI_Controller
                       </tr>
                     </table>';
 					
-		if ($surat['jenis_rujukan'] == 'umum') {
+		if ($surat['jenis_rujukan'] == 'umum' OR $surat['jenis_rujukan'] == 'BPJS') {
 			$txt1 = ""; $txt2 = "";
 		} elseif ($surat['jenis_rujukan'] == 'sktm' OR $surat['jenis_rujukan'] == 'jamkesda') {
 			$txt1 ="Disetujui Dinas Kesehatan Kota Bogor";     
