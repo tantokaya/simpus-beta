@@ -2673,7 +2673,7 @@ public function ItemAwalApotek($id){
 	}
 	function get_pasien_by_id($rm, $sess = NULL)
 	{
-		$this->db->select('pasien.nm_lengkap,pasien.nik,pasien.tempat_lahir,pasien.tanggal_lahir,jenis_kelamin.jenis_kelamin,pasien.no_kk,pasien.nm_kk');
+		$this->db->select('pasien.nm_lengkap,pasien.nik,pasien.tempat_lahir,pasien.tanggal_lahir,pasien.alamat,jenis_kelamin.jenis_kelamin,pasien.no_kk,pasien.nm_kk');
 		$this->db->from('pasien');
 		//$this->db->join('golongan_darah', 'pasien.kd_gol_darah = golongan_darah.kd_gol_darah');
 		$this->db->join('jenis_kelamin', 'pasien.kd_jenis_kelamin = jenis_kelamin.kd_jenis_kelamin');
@@ -2691,8 +2691,9 @@ public function ItemAwalApotek($id){
 				$data['nik']			= $t->nik;
 				$data['tempat_lahir']	= $t->tempat_lahir;
 				$data['tanggal_lahir']	= convert_date_indo($t->tanggal_lahir);
+				//$data['tanggal_lahir']	= $t->tanggal_lahir;
 				$data['jenis_kelamin']	= $t->jenis_kelamin;
-				//$data['gol_darah']		= $t->gol_darah;	
+				$data['alamat']		= $t->alamat;	
 				$data['no_kk']			= $t->no_kk;
 				$data['nm_kk']			= $t->nm_kk;
 				//$data['cara_bayar']		= $t->cara_bayar;
@@ -2702,7 +2703,7 @@ public function ItemAwalApotek($id){
 			$data['nik']			= '';
 			$data['tempat_lahir']	= '';
 			$data['tanggal_lahir']	= '';
-			//$data['gol_darah']		= '';
+			$data['alamat']		= '';
 			$data['no_kk']			= '';
 			$data['nm_kk']			= '';
 			//$data['cara_bayar']		= '';

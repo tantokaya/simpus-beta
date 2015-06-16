@@ -100,16 +100,29 @@
                             </div>
                             <div class="span6">
                             	<table class="table table-bordered table-invoice">
-                                	<tr>
-                                        <td class="width30">Tanggal Transaksi</td>
-                                        <td class="width70"><input type="text" name="tgl_pelayanan" id="tgl_pelayanan2" readonly class="input-small" value="<?php echo $this->functions->convert_date_indo(array("datetime" => $row['tgl_pelayanan'])); ?>" /></td>
-                                    </tr>
-                                    <tr>
+                                        <input type="hidden" name="tgl_pelayanan" id="tgl_pelayanan2" readonly class="input-small" value="<?php echo $this->functions->convert_date_indo(array("datetime" => $row['tgl_pelayanan'])); ?>" />
+                             <!--         <tr>
                                         <td>NIK</td>
                                         <td><input type="text" name="nik" id="nik2" class="input-medium" value="<?php echo $edit_pasien['nik']; ?>" readonly /></td>
                                     </tr>
                                     <input type="hidden" name="no_kk" id="no_kk2" class="input-large" value="<?php echo $edit_pasien['no_kk']; ?>" readonly />
-                                    <input type="hidden" name="nm_kk" id="nm_kk2" class="input-large" value="<?php echo $edit_pasien['nm_kk']; ?>" readonly />
+                                    <input type="hidden" name="nm_kk" id="nm_kk2" class="input-large" value="<?php echo $edit_pasien['nm_kk']; ?>" readonly />	-->
+									<tr>
+                                        <td>Alamat</td>
+                                        <td><input type="text" name="alamat" id="alamat2" class="input-medium" value="<?php echo $edit_pasien['alamat']; ?>" readonly /></td>
+                                    </tr>
+                                    <tr>
+                                                    <td>Umur</td>
+                                                    <td>
+													<?php 
+														$hitung = $this->functions->CalcAge($edit_pasien['tanggal_lahir'], date('Y-m-d'));
+														$umurku=$hitung[0].' Tahun '.$hitung[1].' Bulan '.$hitung[2].' Hari';
+														echo $umurku;
+	    												//echo $hitung[0].' Tahun '.$hitung[1].' Bulan '.$hitung[2].' Hari'; 
+														//print_r ($hitung); exit;
+													?> 
+                                                   	</td>
+                                                </tr>
                                     
 				</table>
 				
@@ -348,21 +361,29 @@
                                         <td><input type="text" name="nm_lengkap" id="nm_lengkap" class="input-large" readonly /></td>
                                     </tr>
                                     
-                                    <input type="hidden" name="tanggal_lahir" id="tanggal_lahir" class="input-small" readonly />
+                                    
                                     <input type="hidden" name="jenis_kelamin" id="jenis_kelamin" class="input-large" readonly />
                                     
                                 </table>
                             </div>
                             <div class="span6">
-                            	<table class="table table-bordered table-invoice">
-				    <tr>
-                                        <td class="width30">Tanggal Transaksi</td>
-                                        <td class="width70"><input type="text" name="tgl_pelayanan" id="tgl_pelayanan" readonly class="input-small" value="<?php echo date('d-m-Y'); ?>" /></td>
-                                    </tr>
-				    <tr>
+                            	<table class="table table-bordered table-invoice">	
+                                <input type="hidden" name="tgl_pelayanan" id="tgl_pelayanan" readonly class="input-small" value="<?php echo date('d-m-Y'); ?>" />
+	                                   
+			<!--	    <tr>
                                         <td>NIK</td>
                                         <td><input type="text" name="nik" id="nik" class="input-medium" readonly /></td>
+                                    </tr>	-->
+									<tr>
+                                        <td class="width30">Alamat</td>
+                                        <td><input type="text" name="alamat" id="alamat" class="input-medium" readonly /></td>
                                     </tr>
+									<tr>
+                                                    <td>Umur</td>
+                                                    <td>
+													<input type="text" name="tanggal_lahir" id="tanggal_lahir" class="input-small" readonly /> 
+                                                   	</td>
+                                                </tr>
                                     <input type="hidden" name="no_kk" id="no_kk" class="input-large" readonly />
 				    <input type="hidden" name="nm_kk" id="nm_kk" class="input-large" readonly />
                                 </table>
@@ -552,7 +573,7 @@ jQuery(document).ready(function(){
 				jQuery("#tempat_lahir").val(data.tempat_lahir);
 				jQuery("#tanggal_lahir").val(data.tanggal_lahir);
 				jQuery("#jenis_kelamin").val(data.jenis_kelamin);
-				//jQuery("#gol_darah").val(data.gol_darah);
+				jQuery("#alamat").val(data.alamat);
 				jQuery("#no_kk").val(data.no_kk);
 				jQuery("#nm_kk").val(data.nm_kk);
 				//jQuery("#cara_bayar").val(data.cara_bayar);

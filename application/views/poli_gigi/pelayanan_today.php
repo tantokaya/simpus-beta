@@ -86,29 +86,33 @@
                                         <td>
 						<input type="text" name="kd_rekam_medis" id="kd_rekam_medis2" class="input-medium" value="<?php echo $row['kd_rekam_medis']; ?>" readonly />
 						<input type="hidden" name="kodepelayanan" id="kodepelayanan" class="input-medium" value="<?php echo $row['kd_trans_pelayanan']; ?>" readonly />
-					</td>
+						</td>
                                     </tr>
                                     <tr>
                                     	<td>Nama Lengkap</td>
                                         <td><input type="text" name="nm_lengkap" id="nm_lengkap2" class="input-large" value="<?php echo $edit_pasien['nm_lengkap']; ?>" readonly /></td>
-                                    </tr>
-                                    
-					
-                                       
+                                    </tr>        
                                 </table>
                             </div>
                             <div class="span6">
                             	<table class="table table-bordered table-invoice">
-                                	<tr>
+                    <!--            	<tr>
                                         <td class="width30">Tanggal Transaksi</td>
                                         <td class="width70"><input type="text" name="tgl_pelayanan" id="tgl_pelayanan2" readonly class="input-small" value="<?php echo $this->functions->convert_date_indo(array("datetime" => $row['tgl_pelayanan'])); ?>" /></td>
                                     </tr>
                                     <tr>
                                         <td>NIK</td>
                                         <td><input type="text" name="nik" id="nik2" class="input-medium" value="<?php echo $edit_pasien['nik']; ?>" readonly /></td>
-                                    </tr>
+                                    </tr>	-->
                                    
-                                    
+                                    <tr>
+                                        <td>Alamat</td>
+                                        <td><input type="text" name="alamat" id="alamat2" class="input-medium" value="<?php echo $edit_pasien['alamat']; ?>" readonly /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Umur</td>
+                                        <td><input type="text" name="umur" id="umur2" class="input-medium" value="<?php echo $row['umur']; ?>" readonly /></td>
+                                    </tr>
 				</table>
 				
                             </div>
@@ -631,7 +635,8 @@
                                                     <td>Umur</td>
                                                     <td>
 													<?php 
-														$hitung = $this->functions->dateDifference($view_rekam_medis['tanggal_lahir'], date('Y-m-d'));
+														$hitung = $this->functions->CalcAge($view_rekam_medis['tanggal_lahir'], date('Y-m-d'));
+														//$hitung = $this->functions->dateDifference($view_rekam_medis['tanggal_lahir'], date('Y-m-d'));
 														$umurku=$hitung[0].' Tahun '.$hitung[1].' Bulan '.$hitung[2].' Hari';
 														echo $umurku;
 	    												//echo $hitung[0].' Tahun '.$hitung[1].' Bulan '.$hitung[2].' Hari'; 
@@ -675,18 +680,21 @@
                                                     <th>Poli</th>
                                                     <th>Dokter</th>
                                                     <th>Anamnesa</th>
+													<th>Cat.Fisik</th>
                                                     <th>Penyakit</th>
                                                     <th>Tindakan</th>
-                                                    <th>Obat</th>
-                                                    <!--
-                                                    <th>Catatan Fisik</th>
-                                                    <th>Catatan Dokter</th>
-                                                    -->
-                                                 </tr>
+                                                    <th>Obat (Dosis) (Jml)</th>
+                                                   </tr>
                                             </thead>
                                             <tbody>
                                             <?php if(isset($view_trans_pelayanan) && !empty($view_trans_pelayanan)): ?>
-                                            	<?php $i=1; foreach($view_trans_pelayanan as $rs): ?>
+                                            	<?php $i=1; foreach($view_trans_pelayanan as $rs): 
+													if ($rs['anamnesa'] == '0') { $rs['anamnesa']="-";}
+													if ($rs['catatan_fisik'] == '0') { $rs['catatan_fisik']="-";}
+													if ($rs['tindakan'] == '') { $rs['tindakan']="-";}
+													if ($rs['dokter'] == '') { $rs['dokter']="-";}
+													
+												?>
                                             	<tr>
                                                 	<td><?php echo $i; ?></td>
                                                     <td><?php echo $this->functions->convert_date_indo(array("datetime" => $rs['tgl_pelayanan'])); ?></td>
@@ -694,9 +702,12 @@
                                                     <td><?php echo $rs['unit_layanan']; ?></td>
                                                     <td><?php echo $rs['dokter']; ?></td>
                                                     <td><?php echo $rs['anamnesa']; ?></td>
+													<td><?php echo $rs['catatan_fisik']; ?></td>
                                                     <td><?php echo $rs['kd_icd']; ?> - <?php echo $rs['penyakit']; ?></td>
                                                     <td><?php echo $rs['tindakan']; ?></td>
-													<?php 	$pecahObat = explode(';', $rs['obat']);
+													<?php 	
+														
+														$pecahObat = explode(';', $rs['obat']);
 														$pecahDosis = explode(';', $rs['dosis']);
 														$pecahJml = explode(';', $rs['jml_obat']);
 														$obatku = '';
@@ -704,14 +715,11 @@
 															$obatku .= $pecahObat[$z] . " (" . $pecahDosis[$z] . ") (" . $pecahJml[$z].")";
 															if($z != (count($pecahObat)-1))
 																$obatku .= " \n- ";
-														}
+														}	
 
 														?>
                                                     <td><?php echo $obatku; ?></td>
-                                                    <!--
-                                                    <td><?php echo $rs['catatan_fisik']; ?></td>
-                                                    <td><?php echo $rs['catatan_dokter']; ?></td>
-                                                    -->
+                                                  
                                                 </tr>
                                                 <?php $i++; ?>
                                             	<?php endforeach; ?>
