@@ -131,24 +131,31 @@
                                                 <span class="label">Unit Pelayanan</span>
                                             </a>
                             			</li>
+										<li>
+                                            <a href="#wiz1step1_5" class="disabled" isdone="0" rel="4">
+                                                <span class="h2">STEP 2</span>
+                                                <span class="label">Riwayat Penyakit</span>
+                                            </a>
+                                        </li>
                             			<li>
                                             <a href="#wiz1step1_2" class="disabled" isdone="0" rel="2">
-                                                <span class="h2">STEP 2</span>
+                                                <span class="h2">STEP 3</span>
                                                 <span class="label">Rekam Medis</span>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#wiz1step1_3" class="disabled" isdone="0" rel="3">
-                                                <span class="h2">STEP 3</span>
+                                                <span class="h2">STEP 4</span>
                                                 <span class="label">Obat</span>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#wiz1step1_4" class="disabled" isdone="0" rel="4">
-                                                <span class="h2">STEP 4</span>
+                                                <span class="h2">STEP 5</span>
                                                 <span class="label">Rujukan</span>
                                             </a>
                                         </li>
+										
                         			</ul>
                                     
                         			<div id="wiz1step1_1" class="formwiz content" style="display: block;">
@@ -235,8 +242,70 @@
                                         </div> <!-- end Rawat Inap -->
                                         
                         			</div>
+									<div id="wiz1step1_5" class="content" style="display: none;">
+                                    	<h4>Step 2: Riwayat Rekam Medis</h4>
+                                    	<table class="table table-bordered table-stripped table-hover">
+                                        	<thead>
+                                            	<tr>
+                                                	<th>No.</th>
+                                                    <th>Tanggal</th>
+                                                    <th>Puskesmas</th>
+                                                    <th>Poli</th>
+                                                    <th>Dokter</th>
+                                                    <th>Anamnesa</th>
+													<th>Cat.Fisik</th>
+                                                    <th>Penyakit</th>
+                                                    <th>Tindakan</th>
+                                                    <th>Obat (Dosis) (Jml)</th>
+                                                   </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php if(isset($view_trans_pelayanan) && !empty($view_trans_pelayanan)): ?>
+                                            	<?php $i=1; foreach($view_trans_pelayanan as $rs): 
+													if ($rs['anamnesa'] == '0') { $rs['anamnesa']="-";}
+													if ($rs['catatan_fisik'] == '0') { $rs['catatan_fisik']="-";}
+													if ($rs['tindakan'] == '') { $rs['tindakan']="-";}
+													if ($rs['dokter'] == '') { $rs['dokter']="-";}
+													
+												?>
+                                            	<tr>
+                                                	<td><?php echo $i; ?></td>
+                                                    <td><?php echo $this->functions->convert_date_indo(array("datetime" => $rs['tgl_pelayanan'])); ?></td>
+                                                    <td><?php echo $rs['nm_puskesmas']; ?></td> <!-- jenis layanan diganti poli mana -->
+                                                    <td><?php echo $rs['unit_layanan']; ?></td>
+                                                    <td><?php echo $rs['dokter']; ?></td>
+                                                    <td><?php echo $rs['anamnesa']; ?></td>
+													<td><?php echo $rs['catatan_fisik']; ?></td>
+                                                    <td><?php echo $rs['kd_icd']; ?> - <?php echo $rs['penyakit']; ?></td>
+                                                    <td><?php echo $rs['tindakan']; ?></td>
+													<?php 	
+														
+														$pecahObat = explode(';', $rs['obat']);
+														$pecahDosis = explode(';', $rs['dosis']);
+														$pecahJml = explode(';', $rs['jml_obat']);
+														$obatku = '';
+														for($z=0; $z < count($pecahObat); $z++){
+															$obatku .= $pecahObat[$z] . " (" . $pecahDosis[$z] . ") (" . $pecahJml[$z].")";
+															if($z != (count($pecahObat)-1))
+																$obatku .= " \n- ";
+														}	
+
+														?>
+                                                    <td><?php echo $obatku; ?></td>
+                                                  
+                                                </tr>
+                                                <?php $i++; ?>
+                                            	<?php endforeach; ?>
+                                            <?php else: ?>
+                                            	<tr>
+                                                	<td colspan="11"><center>Tidak ada riwayat kunjungan</center></td>
+                                                </tr>
+                                            <?php endif; ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
                             		<div id="wiz1step1_2" class="formwiz content" style="display: none;">
-                                        <h4>Step 2: Rekam Medis</h4> 
+                                        <h4>Step 3: Rekam Medis</h4> 
                                         <p>
                                             <label>Dokter</label>
                                             <span class="field">
@@ -432,7 +501,7 @@
                                         </p>												
                                     </div>
                             		<div id="wiz1step1_3" class="content" style="display: none;">
-                                        <h4>Step 3: Obat</h4>
+                                        <h4>Step 4: Obat</h4>
                                         <p>
                                             <table class="table table-stripped table-bordered" id="tbl-obat2">
                                                 <colgroup>
@@ -508,7 +577,7 @@
 					</p>
                         			</div>
                                     <div id="wiz1step1_4" class="content" style="display: none;">
-                                    	<h4>Step 4: Status Keluar Pasien</h4>
+                                    	<h4>Step 5: Status Keluar Pasien</h4>
                                     	<p>
                                             <label>Status Keluar Pasien</label>
                                             <span class="field">
@@ -552,6 +621,7 @@
                                             <span class="field"><input type="text" name="poli_rujukan" id="poli_rujukan2" value="<?php echo $row['poli_rujukan']; ?>" class="input-large" /></span>
                                         </p>
                                     </div>
+									
       							</div><!--#wizard-->                        
                 			<!-- END OF TABBED WIZARD -->
       						</div>

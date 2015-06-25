@@ -94,19 +94,23 @@ class Cont_cetak_lap_harian extends CI_Controller
 				if ($rs['jns_kasus']=='') {$rs['jns_kasus']= "-";}
 				if ($rs['keterangan']=='') {$rs['keterangan']= "-";}
 				if ($rs['nm_dokter']=='') {$rs['nm_dokter']= "-";}
-				
+				if ($rs['no_asuransi']=='') {$rs['no_asuransi']= "-";}
+				$teks =  $rs['cara_bayar'].' ('. $rs['no_asuransi'].')';
+				$asuransi = ' '.$rs["no_asuransi"];
                 $objPHPExcel->getActiveSheet()->setCellValue('D'.$i, $jk);
                 $objPHPExcel->getActiveSheet()->setCellValue('E'.$i, $rs['alamat']);
 				$objPHPExcel->getActiveSheet()->setCellValue('F'.$i, $rs['nm_kelurahan']);
 				$objPHPExcel->getActiveSheet()->setCellValue('G'.$i, $rs['nm_kota']);
                 $objPHPExcel->getActiveSheet()->setCellValue('H'.$i, $rs['gol_umur']);
                 $objPHPExcel->getActiveSheet()->setCellValue('I'.$i, $rs['cara_bayar']);
-				$objPHPExcel->getActiveSheet()->setCellValue('J'.$i, $rs['penyakit']);
-				$objPHPExcel->getActiveSheet()->setCellValue('K'.$i, $rs['tindakan']);
-				$objPHPExcel->getActiveSheet()->setCellValue('L'.$i, $rs['jns_kasus']);
-                $objPHPExcel->getActiveSheet()->setCellValue('M'.$i, $rs['keterangan']);
-                $objPHPExcel->getActiveSheet()->setCellValue('N'.$i, $rs['nm_dokter']);
-				$objPHPExcel->getActiveSheet()->setCellValue('O'.$i, $rs['nm_unit']);
+				$objPHPExcel->getActiveSheet()->setCellValue('J'.$i, $asuransi);
+				//$objPHPExcel->getActiveSheet()->setCellValue('J'.$i, $teks);
+				$objPHPExcel->getActiveSheet()->setCellValue('K'.$i, $rs['penyakit']);
+				$objPHPExcel->getActiveSheet()->setCellValue('L'.$i, $rs['tindakan']);
+				$objPHPExcel->getActiveSheet()->setCellValue('M'.$i, $rs['jns_kasus']);
+                $objPHPExcel->getActiveSheet()->setCellValue('N'.$i, $rs['keterangan']);
+                $objPHPExcel->getActiveSheet()->setCellValue('O'.$i, $rs['nm_dokter']);
+				$objPHPExcel->getActiveSheet()->setCellValue('P'.$i, $rs['nm_unit']);
                 $i++;
                 $no++;
             }

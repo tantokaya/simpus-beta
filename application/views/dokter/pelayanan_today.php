@@ -86,29 +86,33 @@
                                         <td>
 						<input type="text" name="kd_rekam_medis" id="kd_rekam_medis2" class="input-medium" value="<?php echo $row['kd_rekam_medis']; ?>" readonly />
 						<input type="hidden" name="kodepelayanan" id="kodepelayanan" class="input-medium" value="<?php echo $row['kd_trans_pelayanan']; ?>" readonly />
-					</td>
+						</td>
                                     </tr>
                                     <tr>
                                     	<td>Nama Lengkap</td>
                                         <td><input type="text" name="nm_lengkap" id="nm_lengkap2" class="input-large" value="<?php echo $edit_pasien['nm_lengkap']; ?>" readonly /></td>
-                                    </tr>
-                                    
-					
-                                       
+                                    </tr>        
                                 </table>
                             </div>
                             <div class="span6">
                             	<table class="table table-bordered table-invoice">
-                                	<tr>
+                    <!--            	<tr>
                                         <td class="width30">Tanggal Transaksi</td>
                                         <td class="width70"><input type="text" name="tgl_pelayanan" id="tgl_pelayanan2" readonly class="input-small" value="<?php echo $this->functions->convert_date_indo(array("datetime" => $row['tgl_pelayanan'])); ?>" /></td>
                                     </tr>
                                     <tr>
                                         <td>NIK</td>
                                         <td><input type="text" name="nik" id="nik2" class="input-medium" value="<?php echo $edit_pasien['nik']; ?>" readonly /></td>
+                                    </tr>	-->
+                                    <input type="hidden" name="tgl_pelayanan" id="tgl_pelayanan2" readonly class="input-small" value="<?php echo $this->functions->convert_date_indo(array("datetime" => $row['tgl_pelayanan'])); ?>" />
+                                    <tr>
+                                        <td>Alamat</td>
+                                        <td><input type="text" name="alamat" id="alamat2" class="input-medium" value="<?php echo $edit_pasien['alamat']; ?>" readonly /></td>
                                     </tr>
-                                   
-                                    
+                                    <tr>
+                                        <td>Umur</td>
+                                        <td><input type="text" name="umur" id="umur2" class="input-medium" value="<?php echo $row['umur']; ?>" readonly /></td>
+                                    </tr>
 				</table>
 				
                             </div>
@@ -127,24 +131,31 @@
                                                 <span class="label">Unit Pelayanan</span>
                                             </a>
                             			</li>
+										<li>
+                                            <a href="#wiz1step1_5" class="disabled" isdone="0" rel="4">
+                                                <span class="h2">STEP 2</span>
+                                                <span class="label">Riwayat Penyakit</span>
+                                            </a>
+                                        </li>
                             			<li>
                                             <a href="#wiz1step1_2" class="disabled" isdone="0" rel="2">
-                                                <span class="h2">STEP 2</span>
+                                                <span class="h2">STEP 3</span>
                                                 <span class="label">Rekam Medis</span>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#wiz1step1_3" class="disabled" isdone="0" rel="3">
-                                                <span class="h2">STEP 3</span>
+                                                <span class="h2">STEP 4</span>
                                                 <span class="label">Obat</span>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#wiz1step1_4" class="disabled" isdone="0" rel="4">
-                                                <span class="h2">STEP 4</span>
+                                                <span class="h2">STEP 5</span>
                                                 <span class="label">Rujukan</span>
                                             </a>
                                         </li>
+										
                         			</ul>
                                     
                         			<div id="wiz1step1_1" class="formwiz content" style="display: block;">
@@ -231,8 +242,70 @@
                                         </div> <!-- end Rawat Inap -->
                                         
                         			</div>
+									<div id="wiz1step1_5" class="content" style="display: none;">
+                                    	<h4>Step 2: Riwayat Rekam Medis</h4>
+                                    	<table class="table table-bordered table-stripped table-hover">
+                                        	<thead>
+                                            	<tr>
+                                                	<th>No.</th>
+                                                    <th>Tanggal</th>
+                                                    <th>Puskesmas</th>
+                                                    <th>Poli</th>
+                                                    <th>Dokter</th>
+                                                    <th>Anamnesa</th>
+													<th>Cat.Fisik</th>
+                                                    <th>Penyakit</th>
+                                                    <th>Tindakan</th>
+                                                    <th>Obat (Dosis) (Jml)</th>
+                                                   </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php if(isset($view_trans_pelayanan) && !empty($view_trans_pelayanan)): ?>
+                                            	<?php $i=1; foreach($view_trans_pelayanan as $rs): 
+													if ($rs['anamnesa'] == '0') { $rs['anamnesa']="-";}
+													if ($rs['catatan_fisik'] == '0') { $rs['catatan_fisik']="-";}
+													if ($rs['tindakan'] == '') { $rs['tindakan']="-";}
+													if ($rs['dokter'] == '') { $rs['dokter']="-";}
+													
+												?>
+                                            	<tr>
+                                                	<td><?php echo $i; ?></td>
+                                                    <td><?php echo $this->functions->convert_date_indo(array("datetime" => $rs['tgl_pelayanan'])); ?></td>
+                                                    <td><?php echo $rs['nm_puskesmas']; ?></td> <!-- jenis layanan diganti poli mana -->
+                                                    <td><?php echo $rs['unit_layanan']; ?></td>
+                                                    <td><?php echo $rs['dokter']; ?></td>
+                                                    <td><?php echo $rs['anamnesa']; ?></td>
+													<td><?php echo $rs['catatan_fisik']; ?></td>
+                                                    <td><?php echo $rs['kd_icd']; ?> - <?php echo $rs['penyakit']; ?></td>
+                                                    <td><?php echo $rs['tindakan']; ?></td>
+													<?php 	
+														
+														$pecahObat = explode(';', $rs['obat']);
+														$pecahDosis = explode(';', $rs['dosis']);
+														$pecahJml = explode(';', $rs['jml_obat']);
+														$obatku = '';
+														for($z=0; $z < count($pecahObat); $z++){
+															$obatku .= $pecahObat[$z] . " (" . $pecahDosis[$z] . ") (" . $pecahJml[$z].")";
+															if($z != (count($pecahObat)-1))
+																$obatku .= " \n- ";
+														}	
+
+														?>
+                                                    <td><?php echo $obatku; ?></td>
+                                                  
+                                                </tr>
+                                                <?php $i++; ?>
+                                            	<?php endforeach; ?>
+                                            <?php else: ?>
+                                            	<tr>
+                                                	<td colspan="11"><center>Tidak ada riwayat kunjungan</center></td>
+                                                </tr>
+                                            <?php endif; ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
                             		<div id="wiz1step1_2" class="formwiz content" style="display: none;">
-                                        <h4>Step 2: Rekam Medis</h4> 
+                                        <h4>Step 3: Rekam Medis</h4> 
                                         <p>
                                             <label>Dokter</label>
                                             <span class="field">
@@ -428,7 +501,7 @@
                                         </p>												
                                     </div>
                             		<div id="wiz1step1_3" class="content" style="display: none;">
-                                        <h4>Step 3: Obat</h4>
+                                        <h4>Step 4: Obat</h4>
                                         <p>
                                             <table class="table table-stripped table-bordered" id="tbl-obat2">
                                                 <colgroup>
@@ -504,7 +577,7 @@
 					</p>
                         			</div>
                                     <div id="wiz1step1_4" class="content" style="display: none;">
-                                    	<h4>Step 4: Status Keluar Pasien</h4>
+                                    	<h4>Step 5: Status Keluar Pasien</h4>
                                     	<p>
                                             <label>Status Keluar Pasien</label>
                                             <span class="field">
@@ -526,15 +599,16 @@
                                             <label>No. Rujukan</label>
                                             <span class="field"><input type="text" name="no_rujukan" id="no_rujukan2" value="<?php echo $row['no_rujukan']; ?>" readonly class="input-large" /></span>
                                         </p>  
-                                        <p>
+                                       <p>
                                             <label>Jenis Rujukan</label>
                                             <span class="field">
                                             	<select name="jenis_rujukan" id="jenis_rujukan2" class="uniformselect">
                                                		<option value="-">Pilih Jenis Rujukan</option>
 													
-                                                    	<option value="umum"<?php if($row['jenis_rujukan'] == 'umum'): ?> selected="selected"<?php endif; ?>>Umum</option>
-														<option value="jamkesda"<?php if($row['jenis_rujukan'] == 'jamkesda'): ?> selected="selected"<?php endif; ?>>Jamkesda</option>
-														<option value="sktm"<?php if($row['jenis_rujukan'] == 'sktm'): ?> selected="selected"<?php endif; ?>>SKTM</option>
+                                                    	<option value="Umum"<?php if($row['jenis_rujukan'] == 'Umum'): ?> selected="selected"<?php endif; ?>>Umum</option>
+														<option value="Jamkesda"<?php if($row['jenis_rujukan'] == 'Jamkesda'): ?> selected="selected"<?php endif; ?>>Jamkesda</option>
+														<option value="SKTM"<?php if($row['jenis_rujukan'] == 'SKTM'): ?> selected="selected"<?php endif; ?>>SKTM</option>
+														<option value="BPJS"<?php if($row['jenis_rujukan'] == 'BPJS'): ?> selected="selected"<?php endif; ?>>BPJS</option>
                             					</select>
                                             </span>
                                         </p> 
@@ -547,6 +621,7 @@
                                             <span class="field"><input type="text" name="poli_rujukan" id="poli_rujukan2" value="<?php echo $row['poli_rujukan']; ?>" class="input-large" /></span>
                                         </p>
                                     </div>
+									
       							</div><!--#wizard-->                        
                 			<!-- END OF TABBED WIZARD -->
       						</div>
@@ -630,7 +705,8 @@
                                                     <td>Umur</td>
                                                     <td>
 													<?php 
-														$hitung = $this->functions->dateDifference($view_rekam_medis['tanggal_lahir'], date('Y-m-d'));
+														$hitung = $this->functions->CalcAge($view_rekam_medis['tanggal_lahir'], date('Y-m-d'));
+														//$hitung = $this->functions->dateDifference($view_rekam_medis['tanggal_lahir'], date('Y-m-d'));
 														$umurku=$hitung[0].' Tahun '.$hitung[1].' Bulan '.$hitung[2].' Hari';
 														echo $umurku;
 	    												//echo $hitung[0].' Tahun '.$hitung[1].' Bulan '.$hitung[2].' Hari'; 
@@ -674,18 +750,21 @@
                                                     <th>Poli</th>
                                                     <th>Dokter</th>
                                                     <th>Anamnesa</th>
+													<th>Cat.Fisik</th>
                                                     <th>Penyakit</th>
                                                     <th>Tindakan</th>
-                                                    <th>Obat</th>
-                                                    <!--
-                                                    <th>Catatan Fisik</th>
-                                                    <th>Catatan Dokter</th>
-                                                    -->
-                                                 </tr>
+                                                    <th>Obat (Dosis) (Jml)</th>
+                                                   </tr>
                                             </thead>
                                             <tbody>
                                             <?php if(isset($view_trans_pelayanan) && !empty($view_trans_pelayanan)): ?>
-                                            	<?php $i=1; foreach($view_trans_pelayanan as $rs): ?>
+                                            	<?php $i=1; foreach($view_trans_pelayanan as $rs): 
+													if ($rs['anamnesa'] == '0') { $rs['anamnesa']="-";}
+													if ($rs['catatan_fisik'] == '0') { $rs['catatan_fisik']="-";}
+													if ($rs['tindakan'] == '') { $rs['tindakan']="-";}
+													if ($rs['dokter'] == '') { $rs['dokter']="-";}
+													
+												?>
                                             	<tr>
                                                 	<td><?php echo $i; ?></td>
                                                     <td><?php echo $this->functions->convert_date_indo(array("datetime" => $rs['tgl_pelayanan'])); ?></td>
@@ -693,9 +772,12 @@
                                                     <td><?php echo $rs['unit_layanan']; ?></td>
                                                     <td><?php echo $rs['dokter']; ?></td>
                                                     <td><?php echo $rs['anamnesa']; ?></td>
+													<td><?php echo $rs['catatan_fisik']; ?></td>
                                                     <td><?php echo $rs['kd_icd']; ?> - <?php echo $rs['penyakit']; ?></td>
                                                     <td><?php echo $rs['tindakan']; ?></td>
-													<?php 	$pecahObat = explode(';', $rs['obat']);
+													<?php 	
+														
+														$pecahObat = explode(';', $rs['obat']);
 														$pecahDosis = explode(';', $rs['dosis']);
 														$pecahJml = explode(';', $rs['jml_obat']);
 														$obatku = '';
@@ -703,14 +785,11 @@
 															$obatku .= $pecahObat[$z] . " (" . $pecahDosis[$z] . ") (" . $pecahJml[$z].")";
 															if($z != (count($pecahObat)-1))
 																$obatku .= " \n- ";
-														}
+														}	
 
 														?>
                                                     <td><?php echo $obatku; ?></td>
-                                                    <!--
-                                                    <td><?php echo $rs['catatan_fisik']; ?></td>
-                                                    <td><?php echo $rs['catatan_dokter']; ?></td>
-                                                    -->
+                                                  
                                                 </tr>
                                                 <?php $i++; ?>
                                             	<?php endforeach; ?>

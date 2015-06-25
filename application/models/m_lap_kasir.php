@@ -33,7 +33,22 @@ class M_lap_kasir extends CI_Model {
 	
 	function get_total_uang($tgl_mulai, $tgl_akhir){
 
-        $sql = $this->db->select('jenis_tindakan.jenis_tindakan,SUM(btindakan_detail.jml*tindakan.harga) as total_uang');
+        $sql = $this->db->select('jenis_tindakan.jenis_tindakan,tindakan.produk, SUM(btindakan_detail.jml*tindakan.harga) as total_uang');
+        $sql->from('btindakan_detail ');
+		$sql->join('tindakan','btindakan_detail.kd_produk=tindakan.kd_produk','left');
+		$sql->join('jenis_tindakan','jenis_tindakan.kd_jenis_tindakan=tindakan.kd_jenis_tindakan','left');
+        $sql->where('btindakan_detail.tgl_bayar >=', $tgl_mulai);
+		$sql->where('btindakan_detail.tgl_bayar <=', $tgl_akhir);
+		$sql->order_by('tindakan.kd_jenis_tindakan');
+		$sql->group_by('tindakan.kd_produk');
+		//$sql->order_by('tindakan.kd_jenis_tindakan');
+		
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+	function get_total_uang_rekap($tgl_mulai, $tgl_akhir){
+
+        $sql = $this->db->select('jenis_tindakan.jenis_tindakan,tindakan.produk, SUM(btindakan_detail.jml*tindakan.harga) as total_uang');
         $sql->from('btindakan_detail ');
 		$sql->join('tindakan','btindakan_detail.kd_produk=tindakan.kd_produk','left');
 		$sql->join('jenis_tindakan','jenis_tindakan.kd_jenis_tindakan=tindakan.kd_jenis_tindakan','left');
@@ -47,17 +62,18 @@ class M_lap_kasir extends CI_Model {
 	
 	function get_detail_uang($tgl_mulai, $tgl_akhir, $kd_jenis_tindakan){
 
-        $sql = $this->db->select('jenis_tindakan.jenis_tindakan, btindakan_detail.tgl_bayar, btindakan_detail.kd_bayar, tindakan.produk, btindakan_detail.jml, tindakan.harga, (btindakan_detail.jml*tindakan.harga) as sub_total');
+        $sql = $this->db->select('jenis_tindakan.jenis_tindakan, btindakan_detail.tgl_bayar, btindakan_detail.kd_bayar, tindakan.produk, btindakan_detail.jml, tindakan.harga, (btindakan_detail.jml*tindakan.harga) as sub_total, btindakan_header.nama_pasien');
         $sql->from('btindakan_detail ');
 		$sql->join('tindakan','btindakan_detail.kd_produk=tindakan.kd_produk','left');
 		$sql->join('jenis_tindakan','jenis_tindakan.kd_jenis_tindakan=tindakan.kd_jenis_tindakan','left');
+		$sql->join('btindakan_header','btindakan_header.kd_bayar=btindakan_detail.kd_bayar','left');
         $sql->where('btindakan_detail.tgl_bayar >=', $tgl_mulai);
 		$sql->where('btindakan_detail.tgl_bayar <=', $tgl_akhir);
 		if ($kd_jenis_tindakan != '') {
 			$sql->where('tindakan.kd_jenis_tindakan', $kd_unit_pelayanan);
 		}
 		//$sql->where('tindakan.kd_jenis_tindakan', $kd_jenis_tindakan);
-		$sql->order_by('btindakan_detail.kd_bayar');
+		$sql->order_by('jenis_tindakan.jenis_tindakan, btindakan_detail.kd_bayar');
 		
         $query = $this->db->get();
         return $query->result_array();

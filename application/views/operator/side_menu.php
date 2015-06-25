@@ -121,6 +121,8 @@
 						<li><a href="<?php echo base_url(); ?>c_form_monitoring/monitor">Form Monitoring Indikator Peresepan</a></li>
 						<li><a href="<?php echo base_url(); ?>cont_cetak_lap_mingguan/rekap_obat_out_apotek">Rekap Pengeluaran Obat Di Apotek</a></li>
 						<li><a href="<?php echo base_url(); ?>cont_cetak_lap_harian/rekap_stok_obat">Rekap Stok Obat</a></li>
+						<li><a href="<?php echo base_url(); ?>cont_cetak_lap_kasir/rekap_pembayaran">Rekap Pembayaran per Jenis Layanan</a></li>
+						<li><a href="<?php echo base_url(); ?>cont_cetak_lap_kasir/detail_pembayaran">Daftar Transaksi Pembayaran</a></li>
                 	</ul>
                 </li>		
             </ul>

@@ -403,12 +403,15 @@ class Cont_transaksi_pelayanan extends CI_Controller
 				$this->session->set_flashdata('flash_message', 'Data transaksi pelayanan berhasil diperbaharui!');
 			}
 			#print_r($pelayanan).'\n'; exit;
+			
 			redirect('cont_transaksi_pelayanan/pelayanan_today', 'refresh');
 			
 		} else if ($par1 == 'ubah') {
 			$data['edit_pelayanan'] = $this->m_crud->get_pelayanan_by_id($par2);
 			$data['edit_pasien'] = $this->m_crud->get_list_pasien($data['edit_pelayanan'][0]['kd_rekam_medis']);
-		
+			$data['view_rekam_medis'] = $this->m_crud->get_list_pasien($data['edit_pelayanan'][0]['kd_rekam_medis']); 
+			$data['view_trans_pelayanan'] = $this->m_crud->get_pasien_rekam_medis($data['edit_pelayanan'][0]['kd_rekam_medis']);//rekam medis
+			#print $this->db->last_query(); exit;
 			if(!empty($data['edit_pelayanan'][0]['kd_bed'])){
 				$data['edit_bed'] = $this->m_crud->get_list_bed_by_id($data['edit_pelayanan'][0]['kd_bed']);				
 				//$data['list_bed_all'] = $this->m_crud->get_list_kamar($data['edit_bed']['kd_ruangan']);	
@@ -428,13 +431,13 @@ class Cont_transaksi_pelayanan extends CI_Controller
 			$data['counter3']	   	= $this->m_crud->get_total_pelayanan_obat_by_id($par2);
 			
 			//print_r($data['edit_penyakit']).'\n'; print_r($data['list_bed']); exit;	
-			//print $this->db->last_query();
+			#print $this->db->last_query(); exit;
 			//exit;
 			//print_r($data['list_bed']);
 			//exit;
 			//echo $par2;
 			#echo '<pre>'; print_r($data); exit;
-			#print_r($data['edit_pelayanan']).'\n';
+			#print_r($data['view_trans_pelayanan']); exit;
 			
 			
 		}
@@ -1528,7 +1531,7 @@ class Cont_transaksi_pelayanan extends CI_Controller
               <td colspan="2" bordercolordark="#0A0A0A" style="text-align: center;">______________________________________________________________________________________________________________________________</td>
               </tr>';
         $html    .= '</table> <p> </p>';
-        
+       
         $html   .= '<table width="100%" border="0" >
                       <tr>
                         <td width="13%">Nomor</td>

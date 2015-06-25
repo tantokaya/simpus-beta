@@ -25,8 +25,7 @@
                 	<ul style="<?php if($page_name == 'harian1' || $page_name== 'harian2'  )echo 'display: block'; ?>">
 						<li><a href="<?php echo base_url(); ?>cont_cetak_lap_kasir/rekap_pembayaran">Rekap Pembayaran per Jenis Layanan</a></li>
 						<li><a href="<?php echo base_url(); ?>cont_cetak_lap_kasir/detail_pembayaran">Daftar Transaksi Pembayaran</a></li>
-						<li><a href="<?php echo base_url(); ?>cont_cetak_lap_harian/register_harian">Register Pasien Harian</a></li>
-						<li><a href="<?php echo base_url(); ?>cont_cetak_lap_harian/rekap_pasien">Rekap Pasien per Jenis Pembayaran</a></li>	
+						
 				<!--	<li><a href="<?php echo base_url(); ?>cont_cetak_lap_mingguan/rekap_penyakit">Rekap Penyakit Mingguan</a></li>
 						<li><a href="<?php echo base_url(); ?>cont_cetak_lap_mingguan/rekap_pasien_penyakit">Rekap Pasien per Penyakit </a></li>
 						<li><a href="<?php echo base_url(); ?>c_form_monitoring/monitor">Form Monitoring Indikator Peresepan</a></li>
