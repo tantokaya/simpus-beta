@@ -62,11 +62,12 @@ class M_lap_kasir extends CI_Model {
 	
 	function get_detail_uang($tgl_mulai, $tgl_akhir, $kd_jenis_tindakan){
 
-        $sql = $this->db->select('jenis_tindakan.jenis_tindakan, btindakan_detail.tgl_bayar, btindakan_detail.kd_bayar, tindakan.produk, btindakan_detail.jml, tindakan.harga, (btindakan_detail.jml*tindakan.harga) as sub_total, btindakan_header.nama_pasien');
+        $sql = $this->db->select('jenis_tindakan.jenis_tindakan, btindakan_detail.tgl_bayar, btindakan_detail.kd_bayar, tindakan.produk, btindakan_detail.jml, tindakan.harga, (btindakan_detail.jml*tindakan.harga) as sub_total, pasien.nm_lengkap');
         $sql->from('btindakan_detail ');
 		$sql->join('tindakan','btindakan_detail.kd_produk=tindakan.kd_produk','left');
 		$sql->join('jenis_tindakan','jenis_tindakan.kd_jenis_tindakan=tindakan.kd_jenis_tindakan','left');
 		$sql->join('btindakan_header','btindakan_header.kd_bayar=btindakan_detail.kd_bayar','left');
+		$sql->join('pasien','btindakan_header.kd_rekam_medis = pasien.kd_rekam_medis','left');
         $sql->where('btindakan_detail.tgl_bayar >=', $tgl_mulai);
 		$sql->where('btindakan_detail.tgl_bayar <=', $tgl_akhir);
 		if ($kd_jenis_tindakan != '') {

@@ -50,9 +50,10 @@ class Cont_cetak_lap_harian extends CI_Controller
 			$tgl_mulai	= $this->input->post('tgl_mulai');
 			$tgl_akhir	= $this->input->post('tgl_akhir');
 			$kd_unit_pelayanan = $this->input->post('kd_unit_pelayanan');
+			$kd_bayar = $this->input->post('kd_bayar');
 			$unit = $this->m_register_harian->get_unit_pelayanan_info($kd_unit_pelayanan);
-			
-			$pasien = $this->m_register_harian->get_pasien_rawat_umum_by_date($this->functions->convert_date_sql($tgl_mulai), $this->functions->convert_date_sql($tgl_akhir), $kd_unit_pelayanan);
+			$cara_bayar = $this->m_register_harian->get_cara_bayar_info($kd_bayar);
+			$pasien = $this->m_register_harian->get_pasien_rawat_umum_by_date($this->functions->convert_date_sql($tgl_mulai), $this->functions->convert_date_sql($tgl_akhir), $kd_unit_pelayanan, $kd_bayar);
 			
 			#echo $this->db->last_query(); exit;  //untuk menampilkan sintaks query trakir
 			
@@ -68,11 +69,16 @@ class Cont_cetak_lap_harian extends CI_Controller
 			} else {$unitnya = $unit['nm_unit'];}
 			
 			$judul = "REGISTER RAWAT JALAN $unitnya ";
+			if ($kd_bayar =='') {
+				$caraku = " - ";
+			} else {$caraku = $cara_bayar['cara_bayar'];}
+			
+			$cr_byr = "Pasien $caraku ";
 			
 			$objPHPExcel->getActiveSheet()->setCellValue('A1', $judul);
 			$objPHPExcel->getActiveSheet()->setCellValue('A2', $puskesmas['nm_puskesmas']);
             $objPHPExcel->getActiveSheet()->setCellValue('A3', $tgl_mulai.' sd '.$tgl_akhir);
-			//$objPHPExcel->getActiveSheet()->setCellValue('I3', $tgl_akhir);
+			$objPHPExcel->getActiveSheet()->setCellValue('A4', $cr_byr);
 
             $i=7;
             $no=1;
@@ -127,6 +133,7 @@ class Cont_cetak_lap_harian extends CI_Controller
 		
 		}
 		$data['list_unit_pelayanan']		= $this->m_crud->get_list_unit_pelayanan('1');
+		$data['list_kd_bayar']		= $this->m_crud->get_list_cara_bayar('1');
 		$data['page_name']  = 'RegisterHarian';
 		$data['page_title'] = 'Register Harian';
 		$this->template->display('form_register', $data);
@@ -156,9 +163,10 @@ class Cont_cetak_lap_harian extends CI_Controller
 			$objPHPExcel->setActiveSheetIndex(0);
 			
 
-			$tgl	= $this->input->post('tgl');
-			$unit = $this->m_register_harian->get_unit_pelayanan_info($kd_unit_pelayanan);
-			$rekap = $this->m_register_harian->get_rekap_cara_bayar($this->functions->convert_date_sql($tgl));
+			$tgl_mulai	= $this->input->post('tgl_mulai');
+			$tgl_akhir	= $this->input->post('tgl_akhir');
+			//$unit = $this->m_register_harian->get_unit_pelayanan_info($kd_unit_pelayanan);
+			$rekap = $this->m_register_harian->get_rekap_cara_bayar($this->functions->convert_date_sql($tgl_mulai), $this->functions->convert_date_sql($tgl_akhir));
 			
 			#echo $this->db->last_query(); exit;  //untuk menampilkan sintaks query trakir
 			
@@ -171,7 +179,8 @@ class Cont_cetak_lap_harian extends CI_Controller
 			/****************************************************************************************/
 			
 			$objPHPExcel->getActiveSheet()->setCellValue('B3', $puskesmas['nm_puskesmas']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B4', $tgl);
+			$tanggalnya	= $tgl_mulai.' sd '.$tgl_akhir;
+            $objPHPExcel->getActiveSheet()->setCellValue('B4', $tanggalnya);
 
             $i=7;
             $no=1;

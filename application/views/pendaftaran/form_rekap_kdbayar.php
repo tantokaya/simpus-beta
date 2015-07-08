@@ -32,9 +32,13 @@
                                        
                                      <table style="border:0px solid grey; color:black; font-size:10pt;" width="67.5%">
 		<tr>
-		  <td width="50" style="padding:15px;"><strong>Dari Tanggal: </strong></td>
-		  <td width="120" > <input type="text" name="tgl" id="tgl"  style="width:80px; font-size: 13px; background-color:#FFFFE0; font-weight: bold; text-align:center;"></td>
-		</tr>
+		  <td width="131" style="padding:15px;"><strong>Dari Tanggal</strong></td>
+		  <td width="32" align="center" style="padding:15px;"><strong>:</strong></td>
+		  <td width="116" style="padding:15px;"><input type="text" name="tgl_mulai" id="tgl_mulai"  style="width:80px; font-size: 13px; background-color:#FFFFE0; font-weight: bold; text-align:center;"></td>
+		  <td width="44" style="padding:15px;"><strong>s/d</strong></td>
+		  <td width="532" ><input type="text"  name="tgl_akhir" id="tgl_akhir" style="width:80px; font-size: 13px; background-color:#FFFFE0; font-weight: bold; text-align:center;"></td>
+		  
+	    </tr>
 	  </table>   
                                        
                                                            

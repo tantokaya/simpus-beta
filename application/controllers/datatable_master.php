@@ -573,7 +573,7 @@ DATE_FORMAT(pelayanan.tgl_pelayanan, "%d-%m-%Y") as tgl_format, pelayanan.kd_rek
             $sql->join('status_keluar_pasien', 'pelayanan.kd_status_pasien=status_keluar_pasien.kd_status_pasien');
 			
 			$sql->where('pelayanan.tgl_pelayanan',date ('Y-m-d'));
-			//$sql->order_by('pelayanan.kd_trans_pelayanan','desc');
+			//$sql->order_by('pelayanan.kd_status_pasien','Asc');
 
 			if ($this->session->userdata('id_akses') == 2) // pendaftaran, tanpa status keluar pasien
 				{	
@@ -622,6 +622,7 @@ DATE_FORMAT(pelayanan.tgl_pelayanan, "%d-%m-%Y") as tgl_format, pelayanan.kd_rek
                                             </ul>
                                           </div>			 
                         ','pelayanan.kd_trans_pelayanan, pelayanan.kd_rekam_medis');
+						
 				}  
 				//filter aksi untuk admin, operator, nambah bayar
 				else if($this->session->userdata('id_akses') == 1  || $this->session->userdata('id_akses') == 7 )

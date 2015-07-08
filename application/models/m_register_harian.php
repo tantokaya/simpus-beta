@@ -23,8 +23,15 @@ class M_register_harian extends CI_Model {
 		$query = $this->db->get();
 		return $query->row_array();
 	}
+	function get_cara_bayar_info($kd_bayar) {
+		$this->db->select('cara_bayar');
+		$this->db->from('cara_bayar');
+		$this->db->where('kd_bayar',$kd_bayar);
+		$query = $this->db->get();
+		return $query->row_array();
+	}
 	
-	function get_pasien_rawat_umum_by_date($tgl_mulai, $tgl_akhir, $kd_unit_pelayanan){
+	function get_pasien_rawat_umum_by_date($tgl_mulai, $tgl_akhir, $kd_unit_pelayanan, $kd_bayar){
 		
         $sql = $this->db->select('pelayanan.kd_rekam_medis, dokter.nm_dokter,pelayanan.kd_trans_pelayanan, pelayanan.tgl_pelayanan, pasien.no_reg, pelayanan.kd_rekam_medis, pasien.nm_lengkap, pasien.kd_jenis_kelamin, golongan_umur.gol_umur,cara_bayar.cara_bayar, pasien.no_asuransi, unit_pelayanan.nm_unit, pasien.alamat, kelurahan.nm_kelurahan, kota.nm_kota, pelayanan_penyakit.kd_penyakit,jenis_kasus.jenis_kasus, GROUP_CONCAT(DISTINCT jenis_kasus.jenis_kasus SEPARATOR "; ") as jns_kasus, pelayanan_tindakan.kd_produk, GROUP_CONCAT(DISTINCT tindakan.produk SEPARATOR "; ") as tindakan, status_keluar_pasien.keterangan,GROUP_CONCAT(DISTINCT pelayanan_penyakit.kd_penyakit SEPARATOR "; ") as kd_icd, GROUP_CONCAT(DISTINCT icd.penyakit SEPARATOR "; ") as penyakit', false);
         $sql->from('pelayanan');
@@ -47,7 +54,9 @@ class M_register_harian extends CI_Model {
 		if ($kd_unit_pelayanan != '') {
 			$sql->where('pelayanan.kd_unit_pelayanan', $kd_unit_pelayanan);
 		}	
-		
+		if ($kd_bayar != '') {
+			$sql->where('pelayanan.kd_bayar', $kd_bayar);
+		}	
 		$sql->group_by('pelayanan.tgl_pelayanan, pelayanan.kd_trans_pelayanan');
         $sql->order_by('unit_pelayanan.nm_unit, dokter.nm_dokter','ASC');
 
@@ -55,12 +64,13 @@ class M_register_harian extends CI_Model {
         return $query->result_array();
     }
 	
-	function get_rekap_cara_bayar($tgl){
+	function get_rekap_cara_bayar($tgl_mulai, $tgl_akhir){
 
         $this->db->select('pelayanan.kd_bayar,unit_pelayanan.nm_unit, count(*) AS jml');
         $this->db->from('pelayanan');
         $this->db->join('unit_pelayanan','pelayanan.kd_unit_pelayanan = unit_pelayanan.kd_unit_pelayanan');	
-        $this->db->where('pelayanan.tgl_pelayanan', $tgl);
+        $this->db->where('pelayanan.tgl_pelayanan >=', $tgl_mulai);
+		$this->db->where('pelayanan.tgl_pelayanan <=', $tgl_akhir);
 		$this->db->group_by('unit_pelayanan.nm_unit, pelayanan.kd_bayar');
         $this->db->order_by('pelayanan.kd_bayar','ASC');
 

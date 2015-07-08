@@ -1556,11 +1556,11 @@ class Cont_transaksi_pelayanan extends CI_Controller
                       </tr>
                       <tr>
 					   <td> </td>
-                        <td>'.$surat["tempat_rujukan"].'</td>
+                        <td>'.strtoupper($surat["tempat_rujukan"]).'</td>
                       </tr>
                       <tr>
 					   <td> </td>
-                        <td>'.$surat["poli_rujukan"].'</td>
+                        <td>'.ucwords(strtolower($surat["poli_rujukan"])).'</td>
                       </tr>
                       <tr>
 					   <td> </td>
@@ -1711,7 +1711,7 @@ $html .='<table width="100%" border="0" cellpadding="3">
   </tr>
   <tr>
     <td colspan="4">&nbsp;</td>
-    <td>'.$surat["tempat_rujukan"].'</td>
+    <td>'.strtoupper($surat["tempat_rujukan"]).'</td>
   </tr>
   <tr>
     <td colspan="4">&nbsp;</td>

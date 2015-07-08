@@ -49,6 +49,17 @@
         <?php endforeach; ?>
       </select></td>
        </tr>
+	   <tr>
+      <td width="168" style="padding:15px;"><strong>Metode Pembayaran</strong></td>
+      <td width="32" align="center" style="padding:15px;"><strong>:</strong></td>
+      <td colspan="3"><select name="kd_bayar" id="kd_bayar" class="uniformselect">
+        
+        <option value="">SEMUA</option>
+        <?php foreach($list_kd_bayar as $lup) : ?>
+        <option value="<?php echo $lup['kd_bayar']; ?>"><?php echo $lup['cara_bayar']; ?></option>
+        <?php endforeach; ?>
+      </select></td>
+       </tr>
   </table>  
                                        
                                                            

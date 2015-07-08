@@ -160,7 +160,7 @@ class Cont_cetak_lap_kasir extends CI_Controller
                 $objPHPExcel->getActiveSheet()->setCellValue('B'.$i, $rs['jenis_tindakan']);				
                 $objPHPExcel->getActiveSheet()->setCellValue('C'.$i, $rs['kd_bayar']);
 				$objPHPExcel->getActiveSheet()->setCellValue('D'.$i, $rs['tgl_bayar']);
-				$objPHPExcel->getActiveSheet()->setCellValue('E'.$i, $rs['nama_pasien']);
+				$objPHPExcel->getActiveSheet()->setCellValue('E'.$i, $rs['nm_lengkap']);
 				$objPHPExcel->getActiveSheet()->setCellValue('F'.$i, $rs['produk']);
 				$objPHPExcel->getActiveSheet()->setCellValue('G'.$i, $rs['harga']);
 				$objPHPExcel->getActiveSheet()->setCellValue('H'.$i, $rs['jml']);
