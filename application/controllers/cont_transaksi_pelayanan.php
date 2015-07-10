@@ -1473,6 +1473,8 @@ class Cont_transaksi_pelayanan extends CI_Controller
         $this->load->library('Pdf');
         $pdf = new Pdf('P', 'mm', 'F4', true, 'UTF-8', false);
         // $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+		$pdf->SetPrintHeader(false);
+		$pdf->SetPrintFooter(false);
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetPageOrientation('P');
         $pdf->SetAuthor('Pemerintah Kota Bogor');
@@ -1480,22 +1482,22 @@ class Cont_transaksi_pelayanan extends CI_Controller
         $pdf->SetSubject('Surat Rujukan Rumah Sakit');
         $pdf->SetKeywords('Surat Rujukan');
         // $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 001', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
-        $pdf->setFooterData(array(0,64,0), array(0,64,128));
-        $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-        $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        //$pdf->setFooterData(array(0,64,0), array(0,64,128));
+		$pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+		$pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
         $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
         $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
         $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+       $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
         if (@file_exists(dirname(__FILE__).'/lang/eng.php'))
         {
             require_once(dirname(__FILE__).'/lang/eng.php');
             $pdf->setLanguageArray($l);
         }
         $pdf->setFontSubsetting(true);
-        $pdf->SetFont('dejavusans', '', 8, '', true);
+        $pdf->SetFont('helvetica', '', 9, '', true);
 		$pdf->SetTopMargin(10);
         $pdf->AddPage();
         $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));
@@ -1528,9 +1530,9 @@ class Cont_transaksi_pelayanan extends CI_Controller
                         </td>
                     </tr>
 					<tr>
-              <td colspan="2" bordercolordark="#0A0A0A" style="text-align: center;">______________________________________________________________________________________________________________________________</td>
+              <td colspan="" bordercolordark="#0A0A0A" style="text-align: center;">____________________________________________________________________________________________________</td>
               </tr>';
-        $html    .= '</table> <p> </p>';
+        $html    .= '</table><p></p>';
        
         $html   .= '<table width="100%" border="0" >
                       <tr>
@@ -1567,8 +1569,7 @@ class Cont_transaksi_pelayanan extends CI_Controller
                         <td>Di Bogor</td>
                       </tr>
                     </table>
-                    <p>&nbsp;</p>';
-                    
+                    ';                  
              $html .='    
                     <table cellpadding="2" cellspacing="0" border="0" width="100%">
                       <tr>
@@ -1613,9 +1614,7 @@ class Cont_transaksi_pelayanan extends CI_Controller
                         <td style="text-align: left;">:</td>
                         <td style="text-align: left;">'.$surat["cat_dokter"].'</td>
                       </tr>
-                      <tr>
-                        <td colspan="3">&nbsp;</td>
-                      </tr>
+                      
                       <tr>
                         <td style="text-align: left;" colspan="3">Atas perhatian dan kerjasamanya, kami ucapkan terima kasih.</td>
                       </tr>
@@ -1660,8 +1659,7 @@ class Cont_transaksi_pelayanan extends CI_Controller
                       </table>';
 					  
 $html .= '<table width="100%" border="0">
-  <tr>
-    <td><strong>-------------------------------------------------------------------------------------------------------------------------------------------------------</strong></td>
+  <tr> <td><strong>------------------------------------------------------------------------------------------------------------------------------------------------------------------------</strong></td>
   </tr>
 </table>
 <table width="100%" border="1">
@@ -1717,10 +1715,7 @@ $html .='<table width="100%" border="0" cellpadding="3">
     <td colspan="4">&nbsp;</td>
     <td>&nbsp;</td>
   </tr>
-  <tr>
-    <td colspan="4">&nbsp;</td>
-    <td>&nbsp;</td>
-  </tr>
+  <tr><td> </td> <td> </td> </tr>
   <tr>
     <td colspan="4">&nbsp;</td>
     <td text-align="right">_____________________________ </td>
@@ -1740,11 +1735,12 @@ $html .='<table width="100%" border="0" cellpadding="3">
 	}
 	
 	//_______ Cetak Kerta Resep Kosong __________//
-	public function cetak_kertas_resep() {
-       
+	public function cetak_kertas_resep() {   
         $this->load->library('Pdf');
+		
 		$pdf = new Pdf('P', 'mm','A5', true, 'UTF-8', false);
         // $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+		
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetPageOrientation('P');
         $pdf->SetAuthor('Pemerintah Kota Bogor');
@@ -1761,13 +1757,15 @@ $html .='<table width="100%" border="0" cellpadding="3">
         $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
         $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+		
         if (@file_exists(dirname(__FILE__).'/lang/eng.php'))
         {
             require_once(dirname(__FILE__).'/lang/eng.php');
             $pdf->setLanguageArray($l);
         }
         $pdf->setFontSubsetting(true);
-        $pdf->SetFont('dejavusans', '', 12, '', true);
+        $pdf->SetFont('helvetica', '', 11, '', true);
+		
         $pdf->AddPage();
         $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));
 
@@ -1787,10 +1785,11 @@ $html .='<table width="100%" border="0" cellpadding="3">
 		#echo $this->db->last_query(); exit;
 		
         $html     = '<table align="center" border="0" align="left">';
-        $html    .= '<tr>
+        $html    .= '
+						<tr>
                         <td width="20%" style="text-align: center;"><img src="'.base_url().'assets/img/logo.png" width="80" height="80"/></td>
 						
-                        <td width="80%" style="text-align: center;"><h5>00/DOK IN PKM - USI/01/PKM/151/2011</h5><br><h3>PEMERINTAH KOTA BOGOR<br>DINAS KESEHATAN</h3>
+                        <td width="80%" style="text-align: center;"><h4>00/DOK IN PKM - USI/01/PKM/151/2011</h4><br><h3>PEMERINTAH KOTA BOGOR<br>DINAS KESEHATAN</h3>
                         <h4>UPTD '.$puskesmas["nm_puskesmas"].'<br>'.$puskesmas["alamat"].'<br>'.$puskesmas["no_telp"].'</h4>
 					    </td>
                     </tr>';
@@ -1818,7 +1817,7 @@ $html .='<table width="100%" border="0" cellpadding="3">
     <p>&nbsp;</p>
     <p>&nbsp;</p>
     <p>&nbsp;</p>
-	<p>&nbsp;</p>
+	<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
     <p>&nbsp;</p></td>
   </tr>
     <tr>
@@ -1832,14 +1831,14 @@ $html .='<table width="100%" border="0" cellpadding="3">
         <td style="text-align: right;" colspan="3">'.$surat["nm_dokter"].'</td>
     </tr>
 	<tr>
-        <td width="15%" style="text-align: left;">No. Antrian</td>
+        <td width="17%" style="text-align: left;">No. Antrian</td>
         <td width="2%" style="text-align: left;">:</td>
-        <td width="83%" style="text-align: left;">'.$surat["no_antrian"].'</td>
+        <td width="81%" style="text-align: left;">'.$surat["no_antrian"].'</td>
     </tr>
     <tr>
-        <td width="15%" style="text-align: left;">Nama</td>
+        <td width="17%" style="text-align: left;">Nama</td>
         <td width="2%" style="text-align: left;">:</td>
-        <td width="83%" style="text-align: left;">'.$surat["nm_lengkap"].'</td>
+        <td width="81%" style="text-align: left;">'.$surat["nm_lengkap"].'</td>
     </tr>
     <tr>
         <td style="text-align: left;">Umur</td>
