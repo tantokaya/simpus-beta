@@ -35,7 +35,7 @@ table {
       <td width="50"><center><?php echo $no; ?></center></td>
       <td><center><?php echo $dp['kd_bayar']; ?></center></td>
       <td><center><?php echo $tgl; ?></center></td>
-      <td><?php echo $dp['nama_pasien']; ?></td>
+      <td><?php echo $dp['nm_lengkap']; ?></td>
       <td align="right"><?php echo number_format($dp['total_harga']); ?></td>
       
     </tr>

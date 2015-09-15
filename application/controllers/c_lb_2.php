@@ -46,7 +46,7 @@ class C_lb_2 extends CI_Controller
 			$objPHPExcel->setActiveSheetIndex(0);
 			
 			//get puskesmas info from session
-			$data['puskesmas'] = $this->m_crud->get_info_puskesmas($kd_puskesmas);
+			$data['puskesmas'] = $this->m_crud->get_info_puskesmas();
 			$bln	= $this->input->post('bulan');
 			$thn	= $this->input->post('tahun');
 			
@@ -85,6 +85,8 @@ class C_lb_2 extends CI_Controller
 			
 			$objPHPExcel->getActiveSheet()->setCellValue('C4', ': '. $data['puskesmas'][0]['nm_puskesmas']);
 			$objPHPExcel->getActiveSheet()->setCellValue('C5', ': '. $data['puskesmas'][0]['nm_kecamatan']);
+			$objPHPExcel->getActiveSheet()->setCellValue('C6', ': '. $data['puskesmas'][0]['nm_kota']);
+			$objPHPExcel->getActiveSheet()->setCellValue('C7', ': '. $data['puskesmas'][0]['nm_propinsi']);
 			$objPHPExcel->getActiveSheet()->setCellValue('J4', $bulan);
 			$objPHPExcel->getActiveSheet()->setCellValue('J5', $thn);
 				

@@ -82,19 +82,20 @@ font-size:12px;
 if($data->num_rows()>0){
 
     $kop 	= "<h2>$nm_puskesmas</h2>";
-    $kop 	.= "<p>$alamat, $nm_kecamatan</p>";
-    $kop 	.= "<p>$nm_kota - $nm_propinsi</p>";
+    $kop 	.= "<p>$alamat, $nm_kelurahan, $nm_kecamatan, <br> $nm_kota - $nm_propinsi</p>";
+    $logo_pus	.= "$logo";
 
 $kop_kanan= '';
 
 $judul_H = "LAPORAN SUMMARY BARANG KELUAR - APOTEK";
 $judul_H .= "<p> Tanggal ".$tgl1." s/d ".$tgl2."</p>";
 
-function myheader($kop,$kop_kanan,$judul_H){
+function myheader($kop,$logo_pus,$kop_kanan,$judul_H){
 ?>
 <div class="kop">
 	<table width="100%">
     <tr>
+        <td style="width:85;"><img src='<?php echo base_url();?>assets/img/thumbs/<?php echo $logo_pus; ?>' width="75" height="91"> </td>
     	<td><?php echo $kop;?></td>
         <td><?php echo $kop_kanan;?></td>
    	</tr>
@@ -110,7 +111,6 @@ function myheader($kop,$kop_kanan,$judul_H){
       <th>No Keluar</th>
       <th>Tanggal</th>
       <th>Nama Pasien</th>
-      <th>Umur</th>
       <th>Alamat</th>
     </tr>
 </tr>
@@ -137,26 +137,22 @@ function myfooter(){
         $page++;
 
     }
-   	myheader($kop,$kop_kanan,$judul_H);
+   	myheader($kop,$logo_pus,$kop_kanan,$judul_H);
 	}
 	?>
     <tr>
       <td style="width: 20px;text-align: center;"><?php echo $no; ?></td>
       <td style="width: 50px; text-align: center;"><?php echo $dp['kd_keluar']; ?></td>
-      <td style="width: 80px; text-align: center;"><?php echo $tgl; ?></td>
-      <td style="width: 250px; text-align: left;"><?php echo $dp['nm_lengkap']; ?></td>
-      <td style="width: 50px; text-align: center;"><?php echo $dp['umur'].' Thn'; ?></td>
-      <td><?php echo 'Jl.'.$dp['alamat'].', '.$dp['nm_kecamatan']; ?></td>
+      <td style="width: 130px; text-align: center;"><?php echo $tgl; ?></td>
+      <td style="width: 200px; text-align: left;"><?php echo $dp['nm_lengkap']; ?></td>
+      <td><?php echo $dp['alamat'].', '.$dp['nm_kecamatan']; ?></td>
     </tr>
     <?php
 	$g_total = $g_total+$total;
 	$no++;
 	}
 ?>
-	<tr>
-    	<td colspan="3" align="right">Jumlah</td>
-        <td align="right"><?php echo number_format($g_total);?></td>
-    </tr>
+
 <?php    
 myfooter();	
 ?>   

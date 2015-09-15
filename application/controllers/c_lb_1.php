@@ -34,6 +34,7 @@ class C_lb_1 extends CI_Controller
 		}
 		
 		if ($par1 == 'cetak') {
+            //error_reporting(1);
 			$this->load->library('excel');
 			require APPPATH."libraries/PHPExcel/IOFactory.php";
 	
@@ -48,7 +49,7 @@ class C_lb_1 extends CI_Controller
 			$objPHPExcel->setActiveSheetIndex(0);
 			
 			//get puskesmas info from session
-			$data['puskesmas'] = $this->m_crud->get_info_puskesmas($kd_puskesmas);
+			$data['puskesmas'] = $this->m_crud->get_info_puskesmas();
 			$bln	= $this->input->post('bulan');
 			$thn	= $this->input->post('tahun');
 			
@@ -81,8 +82,11 @@ class C_lb_1 extends CI_Controller
 			}
 			
 			$objPHPExcel->getActiveSheet()->setCellValue('F1', $data['puskesmas'][0]['kd_puskesmas']);
+			$objPHPExcel->getActiveSheet()->setCellValue('F2', $data['puskesmas'][0]['nm_kelurahan']);
 			$objPHPExcel->getActiveSheet()->setCellValue('F3', $data['puskesmas'][0]['nm_puskesmas']);
 			$objPHPExcel->getActiveSheet()->setCellValue('F4', $data['puskesmas'][0]['nm_kecamatan']);
+			$objPHPExcel->getActiveSheet()->setCellValue('F5', $data['puskesmas'][0]['nm_kota']);
+			$objPHPExcel->getActiveSheet()->setCellValue('F6', $data['puskesmas'][0]['nm_propinsi']);
 			$objPHPExcel->getActiveSheet()->setCellValue('AH5', $bulan);
 			$objPHPExcel->getActiveSheet()->setCellValue('AH6', $thn);
             $objPHPExcel->getActiveSheet()->setCellValue('B291', 'Kepala Puskesmas '.$data['puskesmas'][0]['nm_puskesmas']);

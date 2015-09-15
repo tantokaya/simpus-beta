@@ -317,13 +317,26 @@ class Barang extends CI_Controller
 					WHERE kd_masuk='$id'";
 
 			$d['data'] = $this->m_crud->manualQuery($text);
-			
-			$text = "SELECT * FROM puskesmas";
-			$hasil = $this->m_crud->manualQuery($text);
-			foreach($hasil ->result() as $t){
-				$d['nm_puskesmas'] = $t->nm_puskesmas;
-				$d['alamat']	   = $t->alamat;
-			}
+
+        $text = "SELECT set_puskesmas.`status`,set_puskesmas.kd_puskesmas,set_puskesmas.nm_puskesmas,set_puskesmas.alamat,
+                    set_puskesmas.puskesmas_induk,set_puskesmas.jns_puskesmas,set_puskesmas.nip_kpl,set_puskesmas.kpl_puskesmas,
+                    set_puskesmas.kd_propinsi,set_puskesmas.kd_kota,set_puskesmas.kd_kecamatan,set_puskesmas.kd_kelurahan,
+                    set_puskesmas.telp,set_puskesmas.logo,kecamatan.nm_kecamatan,kota.nm_kota,kelurahan.nm_kelurahan,propinsi.nm_propinsi
+                    FROM set_puskesmas
+                    INNER JOIN kecamatan ON kecamatan.kd_kecamatan = set_puskesmas.kd_kecamatan
+                    INNER JOIN kota ON kota.kd_kota = set_puskesmas.kd_kota
+                    INNER JOIN kelurahan ON kelurahan.kd_kelurahan = set_puskesmas.kd_kelurahan
+                    INNER JOIN propinsi ON propinsi.kd_propinsi = set_puskesmas.kd_propinsi";
+        $hasil = $this->m_crud->manualQuery($text);
+        foreach($hasil ->result() as $t){
+            $d['nm_puskesmas']  = $t->nm_puskesmas;
+            $d['alamat']	    = $t->alamat;
+            $d['nm_kelurahan']  = $t->nm_kelurahan;
+            $d['nm_kecamatan']  = $t->nm_kecamatan;
+            $d['nm_kota']       = $t->nm_kota;
+            $d['nm_propinsi']   = $t->nm_propinsi;
+            $d['logo']	        = $t->logo;
+        }
 			
 			
 			$this->template->tampil_cetak_barang_masuk('cetak_barang_masuk',$d);
@@ -543,13 +556,26 @@ class Barang extends CI_Controller
 					WHERE kd_keluar='$id'";
 
 			$d['data'] = $this->m_crud->manualQuery($text);
-			
-			$text = "SELECT * FROM puskesmas";
-			$hasil = $this->m_crud->manualQuery($text);
-			foreach($hasil ->result() as $t){
-				$d['nm_puskesmas'] = $t->nm_puskesmas;
-				$d['alamat']	   = $t->alamat;
-			}
+
+        $text = "SELECT set_puskesmas.`status`,set_puskesmas.kd_puskesmas,set_puskesmas.nm_puskesmas,set_puskesmas.alamat,
+                    set_puskesmas.puskesmas_induk,set_puskesmas.jns_puskesmas,set_puskesmas.nip_kpl,set_puskesmas.kpl_puskesmas,
+                    set_puskesmas.kd_propinsi,set_puskesmas.kd_kota,set_puskesmas.kd_kecamatan,set_puskesmas.kd_kelurahan,
+                    set_puskesmas.telp,set_puskesmas.logo,kecamatan.nm_kecamatan,kota.nm_kota,kelurahan.nm_kelurahan,propinsi.nm_propinsi
+                    FROM set_puskesmas
+                    INNER JOIN kecamatan ON kecamatan.kd_kecamatan = set_puskesmas.kd_kecamatan
+                    INNER JOIN kota ON kota.kd_kota = set_puskesmas.kd_kota
+                    INNER JOIN kelurahan ON kelurahan.kd_kelurahan = set_puskesmas.kd_kelurahan
+                    INNER JOIN propinsi ON propinsi.kd_propinsi = set_puskesmas.kd_propinsi";
+        $hasil = $this->m_crud->manualQuery($text);
+        foreach($hasil ->result() as $t){
+            $d['nm_puskesmas']  = $t->nm_puskesmas;
+            $d['alamat']	    = $t->alamat;
+            $d['nm_kelurahan']  = $t->nm_kelurahan;
+            $d['nm_kecamatan']  = $t->nm_kecamatan;
+            $d['nm_kota']       = $t->nm_kota;
+            $d['nm_propinsi']   = $t->nm_propinsi;
+            $d['logo']          = $t->logo;
+        }
 			
 			
 			$this->template->tampil_cetak_keluar('cetak_barang_keluar',$d);
@@ -962,15 +988,29 @@ class Barang extends CI_Controller
 					WHERE kd_masuk='$id'";
 
 			$d['data'] = $this->m_crud->manualQuery($text);
-			
-			$text = "SELECT * FROM puskesmas";
-			$hasil = $this->m_crud->manualQuery($text);
-			foreach($hasil ->result() as $t){
-				$d['nm_puskesmas'] = $t->nm_puskesmas;
-				$d['alamat']	   = $t->alamat;
-			}
-			
-			$this->template->tampil_cetak_apotek('cetak_nota_apotek',$d);
+
+        $text = "SELECT set_puskesmas.`status`,set_puskesmas.kd_puskesmas,set_puskesmas.nm_puskesmas,set_puskesmas.alamat,
+                    set_puskesmas.puskesmas_induk,set_puskesmas.jns_puskesmas,set_puskesmas.nip_kpl,set_puskesmas.kpl_puskesmas,
+                    set_puskesmas.kd_propinsi,set_puskesmas.kd_kota,set_puskesmas.kd_kecamatan,set_puskesmas.kd_kelurahan,
+                    set_puskesmas.telp,set_puskesmas.logo,kecamatan.nm_kecamatan,kota.nm_kota,kelurahan.nm_kelurahan,propinsi.nm_propinsi
+                    FROM set_puskesmas
+                    INNER JOIN kecamatan ON kecamatan.kd_kecamatan = set_puskesmas.kd_kecamatan
+                    INNER JOIN kota ON kota.kd_kota = set_puskesmas.kd_kota
+                    INNER JOIN kelurahan ON kelurahan.kd_kelurahan = set_puskesmas.kd_kelurahan
+                    INNER JOIN propinsi ON propinsi.kd_propinsi = set_puskesmas.kd_propinsi";
+        $hasil = $this->m_crud->manualQuery($text);
+        foreach($hasil ->result() as $t){
+            $d['nm_puskesmas']  = $t->nm_puskesmas;
+            $d['alamat']	    = $t->alamat;
+            $d['nm_kelurahan']  = $t->nm_kelurahan;
+            $d['nm_kecamatan']  = $t->nm_kecamatan;
+            $d['nm_kota']       = $t->nm_kota;
+            $d['nm_propinsi']   = $t->nm_propinsi;
+            $d['logo']	        = $t->logo;
+        }
+
+
+        $this->template->tampil_cetak_apotek('cetak_nota_apotek',$d);
 							
 			
 	}
@@ -1220,42 +1260,27 @@ class Barang extends CI_Controller
 					WHERE brg_apotek_keluar_detail.kd_keluar='$id'";
 			
 			$d['data'] = $this->m_crud->manualQuery($text);
-			
-			$text = "SELECT
-                    set_puskesmas.`status`,
-                    set_puskesmas.kd_puskesmas,
-                    set_puskesmas.nm_puskesmas,
-                    set_puskesmas.alamat,
-                    set_puskesmas.id_jenis_puskesmas,
-                    set_puskesmas.kd_kecamatan,
-                    set_puskesmas.puskesmas_induk,
-                    set_puskesmas.obat_prev,
-                    set_puskesmas.jns_puskesmas,
-                    set_puskesmas.nip_kpl,
-                    set_puskesmas.kpl_puskesmas,
-                    set_puskesmas.kd_propinsi,
-                    set_puskesmas.kd_kota,
-                    set_puskesmas.kd_kelurahan,
-                    set_puskesmas.telp,
-                    kecamatan.nm_kecamatan,
-                    propinsi.nm_propinsi,
-                    kota.nm_kota,
-                    kelurahan.nm_kelurahan
+
+        $text = "SELECT set_puskesmas.`status`,set_puskesmas.kd_puskesmas,set_puskesmas.nm_puskesmas,set_puskesmas.alamat,
+                    set_puskesmas.puskesmas_induk,set_puskesmas.jns_puskesmas,set_puskesmas.nip_kpl,set_puskesmas.kpl_puskesmas,
+                    set_puskesmas.kd_propinsi,set_puskesmas.kd_kota,set_puskesmas.kd_kecamatan,set_puskesmas.kd_kelurahan,
+                    set_puskesmas.telp,set_puskesmas.logo,kecamatan.nm_kecamatan,kota.nm_kota,kelurahan.nm_kelurahan,propinsi.nm_propinsi
                     FROM set_puskesmas
-                    LEFT JOIN propinsi ON set_puskesmas.kd_propinsi = propinsi.kd_propinsi
-                    LEFT JOIN kecamatan ON set_puskesmas.kd_kecamatan = kecamatan.kd_kecamatan
-                    LEFT JOIN kota ON set_puskesmas.kd_kota = kota.kd_kota
-                    LEFT JOIN kelurahan ON set_puskesmas.kd_kelurahan = kelurahan.kd_kelurahan";
-			$hasil = $this->m_crud->manualQuery($text);
-			foreach($hasil ->result() as $t){
-				$d['nm_puskesmas']  = $t->nm_puskesmas;
-				$d['alamat']	    = $t->alamat;
-				$d['nm_propinsi']   = $t->nm_propinsi;
-				$d['nm_kota']       = $t->nm_kota;
-				$d['nm_kecamatan']  = $t->nm_kecamatan;
-				$d['nm_kelurahan']  = $t->nm_kelurahan;
-				$d['telp']          = $t->telp;
-			}
+                    INNER JOIN kecamatan ON kecamatan.kd_kecamatan = set_puskesmas.kd_kecamatan
+                    INNER JOIN kota ON kota.kd_kota = set_puskesmas.kd_kota
+                    INNER JOIN kelurahan ON kelurahan.kd_kelurahan = set_puskesmas.kd_kelurahan
+                    INNER JOIN propinsi ON propinsi.kd_propinsi = set_puskesmas.kd_propinsi";
+        $hasil = $this->m_crud->manualQuery($text);
+        foreach($hasil ->result() as $t){
+            $d['nm_puskesmas']  = $t->nm_puskesmas;
+            $d['alamat']	    = $t->alamat;
+            $d['nm_kelurahan']  = $t->nm_kelurahan;
+            $d['nm_kecamatan']  = $t->nm_kecamatan;
+            $d['nm_kota']       = $t->nm_kota;
+            $d['nm_propinsi']   = $t->nm_propinsi;
+            $d['logo']          = $t->logo;
+            $d['telp']          = $t->telp;
+        }
 			
 			
 			$this->template->tampil_cetak_apotek_keluar('cetak_nota_apotek_keluar',$d);
@@ -1321,12 +1346,25 @@ class Barang extends CI_Controller
 			$d['data'] = $this->db->query($text);
 			$d['tgl1'] = $this->uri->segment(3);
 			$d['tgl2'] = $this->uri->segment(4);
-			
-			$text = "SELECT * FROM puskesmas";
+
+            $text = "SELECT set_puskesmas.`status`,set_puskesmas.kd_puskesmas,set_puskesmas.nm_puskesmas,set_puskesmas.alamat,
+                    set_puskesmas.puskesmas_induk,set_puskesmas.jns_puskesmas,set_puskesmas.nip_kpl,set_puskesmas.kpl_puskesmas,
+                    set_puskesmas.kd_propinsi,set_puskesmas.kd_kota,set_puskesmas.kd_kecamatan,set_puskesmas.kd_kelurahan,
+                    set_puskesmas.telp,set_puskesmas.logo,kecamatan.nm_kecamatan,kota.nm_kota,kelurahan.nm_kelurahan,propinsi.nm_propinsi
+                    FROM set_puskesmas
+                    INNER JOIN kecamatan ON kecamatan.kd_kecamatan = set_puskesmas.kd_kecamatan
+                    INNER JOIN kota ON kota.kd_kota = set_puskesmas.kd_kota
+                    INNER JOIN kelurahan ON kelurahan.kd_kelurahan = set_puskesmas.kd_kelurahan
+                    INNER JOIN propinsi ON propinsi.kd_propinsi = set_puskesmas.kd_propinsi";
 			$hasil = $this->m_crud->manualQuery($text);
 			foreach($hasil ->result() as $t){
-				$d['nm_puskesmas'] = $t->nm_puskesmas;
-				$d['alamat']	   = $t->alamat;
+                $d['nm_puskesmas']  = $t->nm_puskesmas;
+                $d['alamat']	    = $t->alamat;
+                $d['nm_kelurahan']  = $t->nm_kelurahan;
+                $d['nm_kecamatan']  = $t->nm_kecamatan;
+                $d['nm_kota']       = $t->nm_kota;
+                $d['nm_propinsi']   = $t->nm_propinsi;
+                $d['logo']          = $t->logo;
 			}
 
 			$this->template->tampil_cetak_lap_brg_masuk('cetak_lap_brg_masuk',$d);
@@ -1393,13 +1431,26 @@ class Barang extends CI_Controller
 			$d['data'] = $this->db->query($text);
 			$d['tgl1'] = $this->uri->segment(3);
 			$d['tgl2'] = $this->uri->segment(4);
-			
-			$text = "SELECT * FROM puskesmas";
-			$hasil = $this->m_crud->manualQuery($text);
-			foreach($hasil ->result() as $t){
-				$d['nm_puskesmas'] = $t->nm_puskesmas;
-				$d['alamat']	   = $t->alamat;
-			}
+
+            $text = "SELECT set_puskesmas.`status`,set_puskesmas.kd_puskesmas,set_puskesmas.nm_puskesmas,set_puskesmas.alamat,
+                    set_puskesmas.puskesmas_induk,set_puskesmas.jns_puskesmas,set_puskesmas.nip_kpl,set_puskesmas.kpl_puskesmas,
+                    set_puskesmas.kd_propinsi,set_puskesmas.kd_kota,set_puskesmas.kd_kecamatan,set_puskesmas.kd_kelurahan,
+                    set_puskesmas.telp,set_puskesmas.logo,kecamatan.nm_kecamatan,kota.nm_kota,kelurahan.nm_kelurahan,propinsi.nm_propinsi
+                    FROM set_puskesmas
+                    INNER JOIN kecamatan ON kecamatan.kd_kecamatan = set_puskesmas.kd_kecamatan
+                    INNER JOIN kota ON kota.kd_kota = set_puskesmas.kd_kota
+                    INNER JOIN kelurahan ON kelurahan.kd_kelurahan = set_puskesmas.kd_kelurahan
+                    INNER JOIN propinsi ON propinsi.kd_propinsi = set_puskesmas.kd_propinsi";
+            $hasil = $this->m_crud->manualQuery($text);
+            foreach($hasil ->result() as $t){
+                $d['nm_puskesmas']  = $t->nm_puskesmas;
+                $d['alamat']	    = $t->alamat;
+                $d['nm_kelurahan']  = $t->nm_kelurahan;
+                $d['nm_kecamatan']  = $t->nm_kecamatan;
+                $d['nm_kota']       = $t->nm_kota;
+                $d['nm_propinsi']   = $t->nm_propinsi;
+                $d['logo']          = $t->logo;
+            }
 
 			$this->template->tampil_cetak_lap_summary_gudang_in('cetak_lap_summary_gudang_in',$d);
 		}
@@ -1457,24 +1508,37 @@ class Barang extends CI_Controller
 			
 			$tgl1 = $this->m_crud->tgl_sql($this->uri->segment(3));
 			$tgl2 = $this->m_crud->tgl_sql($this->uri->segment(4));
-			
-			$where = " WHERE a.tgl_keluar BETWEEN '$tgl1' AND '$tgl2'";
-			$text = "select a.kd_keluar,a.tgl_keluar, a.kd_unit_farmasi,
-			b.kd_obat,b.nama_obat,b.jml
-			FROM barang_keluar_header as a
-			JOIN barang_keluar_detail as b
-			ON a.kd_keluar=b.kd_keluar
-			$where ORDER BY a.kd_keluar";
+
+            $where = " WHERE barang_keluar_header.tgl_keluar BETWEEN '$tgl1' AND '$tgl2'";
+            $text = "SELECT barang_keluar_header.kd_keluar,barang_keluar_header.tgl_keluar,barang_keluar_header.kd_unit_farmasi,
+                barang_keluar_detail.jml,unit_farmasi.nama_unit_farmasi,barang_keluar_detail.kd_obat,barang_keluar_detail.nama_obat
+                FROM barang_keluar_header
+                LEFT JOIN barang_keluar_detail ON barang_keluar_detail.kd_keluar = barang_keluar_header.kd_keluar
+                INNER JOIN unit_farmasi ON unit_farmasi.kd_unit_farmasi = barang_keluar_header.kd_unit_farmasi
+			$where";
 			$d['data'] = $this->db->query($text);
 			$d['tgl1'] = $this->uri->segment(3);
 			$d['tgl2'] = $this->uri->segment(4);
-			
-			$text = "SELECT * FROM puskesmas";
-			$hasil = $this->m_crud->manualQuery($text);
-			foreach($hasil ->result() as $t){
-				$d['nm_puskesmas'] = $t->nm_puskesmas;
-				$d['alamat']	   = $t->alamat;
-			}
+
+            $text = "SELECT set_puskesmas.`status`,set_puskesmas.kd_puskesmas,set_puskesmas.nm_puskesmas,set_puskesmas.alamat,
+                    set_puskesmas.puskesmas_induk,set_puskesmas.jns_puskesmas,set_puskesmas.nip_kpl,set_puskesmas.kpl_puskesmas,
+                    set_puskesmas.kd_propinsi,set_puskesmas.kd_kota,set_puskesmas.kd_kecamatan,set_puskesmas.kd_kelurahan,
+                    set_puskesmas.telp,set_puskesmas.logo,kecamatan.nm_kecamatan,kota.nm_kota,kelurahan.nm_kelurahan,propinsi.nm_propinsi
+                    FROM set_puskesmas
+                    INNER JOIN kecamatan ON kecamatan.kd_kecamatan = set_puskesmas.kd_kecamatan
+                    INNER JOIN kota ON kota.kd_kota = set_puskesmas.kd_kota
+                    INNER JOIN kelurahan ON kelurahan.kd_kelurahan = set_puskesmas.kd_kelurahan
+                    INNER JOIN propinsi ON propinsi.kd_propinsi = set_puskesmas.kd_propinsi";
+            $hasil = $this->m_crud->manualQuery($text);
+            foreach($hasil ->result() as $t){
+                $d['nm_puskesmas']  = $t->nm_puskesmas;
+                $d['alamat']	    = $t->alamat;
+                $d['nm_kelurahan']  = $t->nm_kelurahan;
+                $d['nm_kecamatan']  = $t->nm_kecamatan;
+                $d['nm_kota']       = $t->nm_kota;
+                $d['nm_propinsi']   = $t->nm_propinsi;
+                $d['logo']	        = $t->logo;
+            }
 
 			$this->template->tampil_cetak_lap_brg_keluar('cetak_lap_brg_keluar',$d);
 		}
@@ -1533,22 +1597,35 @@ class Barang extends CI_Controller
 			$tgl1 = $this->m_crud->tgl_sql($this->uri->segment(3));
 			$tgl2 = $this->m_crud->tgl_sql($this->uri->segment(4));
 			
-			$where = " WHERE a.tgl_keluar BETWEEN '$tgl1' AND '$tgl2'";
-			$text = "select a.kd_keluar,a.tgl_keluar,a.kd_unit_farmasi, b.jml
-			FROM barang_keluar_header as a
-			JOIN barang_keluar_detail as b
-			ON a.kd_keluar=b.kd_keluar
-			$where GROUP BY a.kd_keluar";
+			$where = " WHERE barang_keluar_header.tgl_keluar BETWEEN '$tgl1' AND '$tgl2'";
+			$text = "SELECT barang_keluar_header.kd_keluar,barang_keluar_header.tgl_keluar,barang_keluar_header.kd_unit_farmasi,
+                barang_keluar_detail.jml,unit_farmasi.nama_unit_farmasi FROM barang_keluar_header
+                LEFT JOIN barang_keluar_detail ON barang_keluar_detail.kd_keluar = barang_keluar_header.kd_keluar
+                INNER JOIN unit_farmasi ON unit_farmasi.kd_unit_farmasi = barang_keluar_header.kd_unit_farmasi
+			$where GROUP BY barang_keluar_header.kd_keluar";
 			$d['data'] = $this->db->query($text);
 			$d['tgl1'] = $this->uri->segment(3);
 			$d['tgl2'] = $this->uri->segment(4);
-			
-			$text = "SELECT * FROM puskesmas";
-			$hasil = $this->m_crud->manualQuery($text);
-			foreach($hasil ->result() as $t){
-				$d['nm_puskesmas'] = $t->nm_puskesmas;
-				$d['alamat']	   = $t->alamat;
-			}
+
+            $text = "SELECT set_puskesmas.`status`,set_puskesmas.kd_puskesmas,set_puskesmas.nm_puskesmas,set_puskesmas.alamat,
+                    set_puskesmas.puskesmas_induk,set_puskesmas.jns_puskesmas,set_puskesmas.nip_kpl,set_puskesmas.kpl_puskesmas,
+                    set_puskesmas.kd_propinsi,set_puskesmas.kd_kota,set_puskesmas.kd_kecamatan,set_puskesmas.kd_kelurahan,
+                    set_puskesmas.telp,set_puskesmas.logo,kecamatan.nm_kecamatan,kota.nm_kota,kelurahan.nm_kelurahan,propinsi.nm_propinsi
+                    FROM set_puskesmas
+                    INNER JOIN kecamatan ON kecamatan.kd_kecamatan = set_puskesmas.kd_kecamatan
+                    INNER JOIN kota ON kota.kd_kota = set_puskesmas.kd_kota
+                    INNER JOIN kelurahan ON kelurahan.kd_kelurahan = set_puskesmas.kd_kelurahan
+                    INNER JOIN propinsi ON propinsi.kd_propinsi = set_puskesmas.kd_propinsi";
+            $hasil = $this->m_crud->manualQuery($text);
+            foreach($hasil ->result() as $t){
+                $d['nm_puskesmas']  = $t->nm_puskesmas;
+                $d['alamat']	    = $t->alamat;
+                $d['nm_kelurahan']  = $t->nm_kelurahan;
+                $d['nm_kecamatan']  = $t->nm_kecamatan;
+                $d['nm_kota']       = $t->nm_kota;
+                $d['nm_propinsi']   = $t->nm_propinsi;
+                $d['logo']	        = $t->logo;
+            }
 
 			$this->template->tampil_cetak_lap_summary_gudang_out('cetak_lap_summary_gudang_out',$d);
 		}
@@ -1644,38 +1721,24 @@ class Barang extends CI_Controller
 			$d['tgl1'] = $this->uri->segment(3);
 			$d['tgl2'] = $this->uri->segment(4);
 
-            	        $text = "SELECT
-                        set_puskesmas.kd_puskesmas,
-                        set_puskesmas.nm_puskesmas,
-                        set_puskesmas.alamat,
-                        set_puskesmas.id_jenis_puskesmas,
-                        set_puskesmas.kd_kecamatan,
-                        set_puskesmas.puskesmas_induk,
-                        set_puskesmas.obat_prev,
-                        set_puskesmas.jns_puskesmas,
-                        set_puskesmas.nip_kpl,
-                        set_puskesmas.kpl_puskesmas,
-                        set_puskesmas.kd_propinsi,
-                        set_puskesmas.kd_kota,
-                        set_puskesmas.kd_kelurahan,
-                        propinsi.nm_propinsi,
-                        kecamatan.nm_kecamatan,
-                        kelurahan.nm_kelurahan,
-                        kota.nm_kota
-                        FROM
-                        set_puskesmas
-                        LEFT JOIN propinsi ON set_puskesmas.kd_propinsi = propinsi.kd_propinsi
-                        LEFT JOIN kecamatan ON set_puskesmas.kd_kecamatan = kecamatan.kd_kecamatan
-                        LEFT JOIN kelurahan ON set_puskesmas.kd_kelurahan = kelurahan.kd_kelurahan
-                        LEFT JOIN kota ON set_puskesmas.kd_kota = kota.kd_kota ";
+            $text = "SELECT set_puskesmas.`status`,set_puskesmas.kd_puskesmas,set_puskesmas.nm_puskesmas,set_puskesmas.alamat,
+                    set_puskesmas.puskesmas_induk,set_puskesmas.jns_puskesmas,set_puskesmas.nip_kpl,set_puskesmas.kpl_puskesmas,
+                    set_puskesmas.kd_propinsi,set_puskesmas.kd_kota,set_puskesmas.kd_kecamatan,set_puskesmas.kd_kelurahan,
+                    set_puskesmas.telp,set_puskesmas.logo,kecamatan.nm_kecamatan,kota.nm_kota,kelurahan.nm_kelurahan,propinsi.nm_propinsi
+                    FROM set_puskesmas
+                    INNER JOIN kecamatan ON kecamatan.kd_kecamatan = set_puskesmas.kd_kecamatan
+                    INNER JOIN kota ON kota.kd_kota = set_puskesmas.kd_kota
+                    INNER JOIN kelurahan ON kelurahan.kd_kelurahan = set_puskesmas.kd_kelurahan
+                    INNER JOIN propinsi ON propinsi.kd_propinsi = set_puskesmas.kd_propinsi";
             $hasil = $this->m_crud->manualQuery($text);
             foreach($hasil ->result() as $t){
                 $d['nm_puskesmas']  = $t->nm_puskesmas;
                 $d['alamat']	    = $t->alamat;
-                $d['nm_kota']       = $t->nm_kota;
-                $d['nm_kecamatan']  = $t->nm_kecamatan;
                 $d['nm_kelurahan']  = $t->nm_kelurahan;
+                $d['nm_kecamatan']  = $t->nm_kecamatan;
+                $d['nm_kota']       = $t->nm_kota;
                 $d['nm_propinsi']   = $t->nm_propinsi;
+                $d['logo']	        = $t->logo;
             }
 
 			$this->template->tampil_cetak_lap_apotek_masuk('cetak_lap_apotek_masuk',$d);
@@ -1770,40 +1833,25 @@ class Barang extends CI_Controller
 			$d['tgl1'] = $this->uri->segment(3);
 			$d['tgl2'] = $this->uri->segment(4);
 
-            $text = "SELECT
-                        set_puskesmas.kd_puskesmas,
-                        set_puskesmas.nm_puskesmas,
-                        set_puskesmas.alamat,
-                        set_puskesmas.id_jenis_puskesmas,
-                        set_puskesmas.kd_kecamatan,
-                        set_puskesmas.puskesmas_induk,
-                        set_puskesmas.obat_prev,
-                        set_puskesmas.jns_puskesmas,
-                        set_puskesmas.nip_kpl,
-                        set_puskesmas.kpl_puskesmas,
-                        set_puskesmas.kd_propinsi,
-                        set_puskesmas.kd_kota,
-                        set_puskesmas.kd_kelurahan,
-                        propinsi.nm_propinsi,
-                        kecamatan.nm_kecamatan,
-                        kelurahan.nm_kelurahan,
-                        kota.nm_kota
-                        FROM
-                        set_puskesmas
-                        LEFT JOIN propinsi ON set_puskesmas.kd_propinsi = propinsi.kd_propinsi
-                        LEFT JOIN kecamatan ON set_puskesmas.kd_kecamatan = kecamatan.kd_kecamatan
-                        LEFT JOIN kelurahan ON set_puskesmas.kd_kelurahan = kelurahan.kd_kelurahan
-                        LEFT JOIN kota ON set_puskesmas.kd_kota = kota.kd_kota ";
+            $text = "SELECT set_puskesmas.`status`,set_puskesmas.kd_puskesmas,set_puskesmas.nm_puskesmas,set_puskesmas.alamat,
+                    set_puskesmas.puskesmas_induk,set_puskesmas.jns_puskesmas,set_puskesmas.nip_kpl,set_puskesmas.kpl_puskesmas,
+                    set_puskesmas.kd_propinsi,set_puskesmas.kd_kota,set_puskesmas.kd_kecamatan,set_puskesmas.kd_kelurahan,
+                    set_puskesmas.telp,set_puskesmas.logo,kecamatan.nm_kecamatan,kota.nm_kota,kelurahan.nm_kelurahan,propinsi.nm_propinsi
+                    FROM set_puskesmas
+                    INNER JOIN kecamatan ON kecamatan.kd_kecamatan = set_puskesmas.kd_kecamatan
+                    INNER JOIN kota ON kota.kd_kota = set_puskesmas.kd_kota
+                    INNER JOIN kelurahan ON kelurahan.kd_kelurahan = set_puskesmas.kd_kelurahan
+                    INNER JOIN propinsi ON propinsi.kd_propinsi = set_puskesmas.kd_propinsi";
             $hasil = $this->m_crud->manualQuery($text);
             foreach($hasil ->result() as $t){
                 $d['nm_puskesmas']  = $t->nm_puskesmas;
                 $d['alamat']	    = $t->alamat;
-                $d['nm_kota']       = $t->nm_kota;
-                $d['nm_kecamatan']  = $t->nm_kecamatan;
                 $d['nm_kelurahan']  = $t->nm_kelurahan;
+                $d['nm_kecamatan']  = $t->nm_kecamatan;
+                $d['nm_kota']       = $t->nm_kota;
                 $d['nm_propinsi']   = $t->nm_propinsi;
+                $d['logo']	        = $t->logo;
             }
-
 			$this->template->tampil_cetak_lap_summary_apotek_in('cetak_lap_summary_apotek_in',$d);
 		}
 		else
@@ -1889,40 +1937,26 @@ class Barang extends CI_Controller
 			$d['data'] = $this->db->query($text);
 			$d['tgl1'] = $this->uri->segment(3);
 			$d['tgl2'] = $this->uri->segment(4);
-			
-			$text = "SELECT
-                        set_puskesmas.kd_puskesmas,
-                        set_puskesmas.nm_puskesmas,
-                        set_puskesmas.alamat,
-                        set_puskesmas.id_jenis_puskesmas,
-                        set_puskesmas.kd_kecamatan,
-                        set_puskesmas.puskesmas_induk,
-                        set_puskesmas.obat_prev,
-                        set_puskesmas.jns_puskesmas,
-                        set_puskesmas.nip_kpl,
-                        set_puskesmas.kpl_puskesmas,
-                        set_puskesmas.kd_propinsi,
-                        set_puskesmas.kd_kota,
-                        set_puskesmas.kd_kelurahan,
-                        propinsi.nm_propinsi,
-                        kecamatan.nm_kecamatan,
-                        kelurahan.nm_kelurahan,
-                        kota.nm_kota
-                        FROM
-                        set_puskesmas
-                        LEFT JOIN propinsi ON set_puskesmas.kd_propinsi = propinsi.kd_propinsi
-                        LEFT JOIN kecamatan ON set_puskesmas.kd_kecamatan = kecamatan.kd_kecamatan
-                        LEFT JOIN kelurahan ON set_puskesmas.kd_kelurahan = kelurahan.kd_kelurahan
-                        LEFT JOIN kota ON set_puskesmas.kd_kota = kota.kd_kota ";
-			$hasil = $this->m_crud->manualQuery($text);
-			foreach($hasil ->result() as $t){
-				$d['nm_puskesmas']  = $t->nm_puskesmas;
-				$d['alamat']	    = $t->alamat;
-                		$d['nm_kota']       = $t->nm_kota;
-                		$d['nm_kecamatan']  = $t->nm_kecamatan;
-                		$d['nm_kelurahan']  = $t->nm_kelurahan;
-                		$d['nm_propinsi']   = $t->nm_propinsi;
-			}
+
+            $text = "SELECT set_puskesmas.`status`,set_puskesmas.kd_puskesmas,set_puskesmas.nm_puskesmas,set_puskesmas.alamat,
+                    set_puskesmas.puskesmas_induk,set_puskesmas.jns_puskesmas,set_puskesmas.nip_kpl,set_puskesmas.kpl_puskesmas,
+                    set_puskesmas.kd_propinsi,set_puskesmas.kd_kota,set_puskesmas.kd_kecamatan,set_puskesmas.kd_kelurahan,
+                    set_puskesmas.telp,set_puskesmas.logo,kecamatan.nm_kecamatan,kota.nm_kota,kelurahan.nm_kelurahan,propinsi.nm_propinsi
+                    FROM set_puskesmas
+                    INNER JOIN kecamatan ON kecamatan.kd_kecamatan = set_puskesmas.kd_kecamatan
+                    INNER JOIN kota ON kota.kd_kota = set_puskesmas.kd_kota
+                    INNER JOIN kelurahan ON kelurahan.kd_kelurahan = set_puskesmas.kd_kelurahan
+                    INNER JOIN propinsi ON propinsi.kd_propinsi = set_puskesmas.kd_propinsi";
+            $hasil = $this->m_crud->manualQuery($text);
+            foreach($hasil ->result() as $t){
+                $d['nm_puskesmas']  = $t->nm_puskesmas;
+                $d['alamat']	    = $t->alamat;
+                $d['nm_kelurahan']  = $t->nm_kelurahan;
+                $d['nm_kecamatan']  = $t->nm_kecamatan;
+                $d['nm_kota']       = $t->nm_kota;
+                $d['nm_propinsi']   = $t->nm_propinsi;
+                $d['logo']	        = $t->logo;
+            }
 			$this->template->tampil_cetak_lap_apotek_keluar('cetak_lap_apotek_keluar',$d);
 		}
 		else
@@ -1953,34 +1987,13 @@ class Barang extends CI_Controller
 		{
 			$tgl_mulai= $this->m_crud->tgl_sql($this->input->post('tgl_mulai'));
 			$tgl_akhir = $this->m_crud->tgl_sql($this->input->post('tgl_akhir'));
-			
-			$where = " WHERE brg_apotek_keluar_header.tgl_keluar BETWEEN '$tgl_mulai' AND '$tgl_akhir'";
-            $text = "SELECT
-                    brg_apotek_keluar_header.id_keluar,
-                    brg_apotek_keluar_header.kd_keluar,
-                    brg_apotek_keluar_header.tgl_keluar,
-                    brg_apotek_keluar_detail.kd_obat,
-                    brg_apotek_keluar_detail.jml,
-                    obat.nama_obat,
-                    obat.kd_sat_kecil_obat,
-                    satuan_kecil.sat_kecil_obat,
-                    brg_apotek_keluar_detail.kd_trans_pelayanan,
-                    pelayanan.kd_rekam_medis,
-                    pasien.nm_lengkap,
-                    pasien.alamat,
-                    pasien.kd_kecamatan,
-                    pasien.umur,
-                    kecamatan.nm_kecamatan
-                    FROM
-                    brg_apotek_keluar_header
-                    LEFT JOIN brg_apotek_keluar_detail ON brg_apotek_keluar_header.kd_keluar = brg_apotek_keluar_detail.kd_keluar
-                    LEFT JOIN obat ON brg_apotek_keluar_detail.kd_obat = obat.kd_obat
-                    LEFT JOIN satuan_kecil ON obat.kd_sat_kecil_obat = satuan_kecil.kd_sat_kecil_obat
-                    INNER JOIN pelayanan ON brg_apotek_keluar_detail.kd_trans_pelayanan = pelayanan.kd_trans_pelayanan
-                    INNER JOIN pasien ON pelayanan.kd_rekam_medis = pasien.kd_rekam_medis
-                    INNER JOIN kecamatan ON pasien.kd_kecamatan = kecamatan.kd_kecamatan
-                    $where GROUP BY brg_apotek_keluar_header.kd_keluar";			
 
+            $where = " WHERE a.tgl_keluar BETWEEN '$tgl_mulai' AND '$tgl_akhir'";
+            $text = "select a.kd_keluar,a.tgl_keluar,a.kd_unit_farmasi
+			FROM brg_apotek_keluar_header as a
+			JOIN brg_apotek_keluar_detail as b
+			ON a.kd_keluar=b.kd_keluar
+			$where GROUP BY a.kd_keluar";
 		    $d['data'] = $this->db->query($text);
 			
 			
@@ -2001,69 +2014,34 @@ class Barang extends CI_Controller
 			$tgl2 = $this->m_crud->tgl_sql($this->uri->segment(4));
 			
 			$where = " WHERE brg_apotek_keluar_header.tgl_keluar BETWEEN '$tgl1' AND '$tgl2'";
-            	    $text = "SELECT
-                    brg_apotek_keluar_header.id_keluar,
-                    brg_apotek_keluar_header.kd_keluar,
-                    brg_apotek_keluar_header.tgl_keluar,
-                    brg_apotek_keluar_detail.kd_obat,
-                    brg_apotek_keluar_detail.jml,
-                    obat.nama_obat,
-                    obat.kd_sat_kecil_obat,
-                    satuan_kecil.sat_kecil_obat,
-                    brg_apotek_keluar_detail.kd_trans_pelayanan,
-                    pelayanan.kd_rekam_medis,
-                    pasien.nm_lengkap,
-                    pasien.alamat,
-                    pasien.kd_kecamatan,
-                    pasien.umur,
-                    kecamatan.nm_kecamatan
-                    FROM
-                    brg_apotek_keluar_header
-                    LEFT JOIN brg_apotek_keluar_detail ON brg_apotek_keluar_header.kd_keluar = brg_apotek_keluar_detail.kd_keluar
-                    LEFT JOIN obat ON brg_apotek_keluar_detail.kd_obat = obat.kd_obat
-                    LEFT JOIN satuan_kecil ON obat.kd_sat_kecil_obat = satuan_kecil.kd_sat_kecil_obat
-                    INNER JOIN pelayanan ON brg_apotek_keluar_detail.kd_trans_pelayanan = pelayanan.kd_trans_pelayanan
-                    INNER JOIN pasien ON pelayanan.kd_rekam_medis = pasien.kd_rekam_medis
-                    INNER JOIN kecamatan ON pasien.kd_kecamatan = kecamatan.kd_kecamatan
-                    $where GROUP BY brg_apotek_keluar_header.kd_keluar";
+            	    $text = "SELECT brg_apotek_keluar_header.kd_keluar,brg_apotek_keluar_header.tgl_keluar,brg_apotek_keluar_detail.jml
+                      FROM brg_apotek_keluar_header
+                      INNER JOIN brg_apotek_keluar_detail ON brg_apotek_keluar_header.kd_keluar = brg_apotek_keluar_detail.kd_keluar
+                      $where GROUP BY brg_apotek_keluar_header.kd_keluar";
 
 			$d['data'] = $this->db->query($text);
 			$d['tgl1'] = $this->uri->segment(3);
 			$d['tgl2'] = $this->uri->segment(4);
-			
-			$text = "SELECT
-                        set_puskesmas.kd_puskesmas,
-                        set_puskesmas.nm_puskesmas,
-                        set_puskesmas.alamat,
-                        set_puskesmas.id_jenis_puskesmas,
-                        set_puskesmas.kd_kecamatan,
-                        set_puskesmas.puskesmas_induk,
-                        set_puskesmas.obat_prev,
-                        set_puskesmas.jns_puskesmas,
-                        set_puskesmas.nip_kpl,
-                        set_puskesmas.kpl_puskesmas,
-                        set_puskesmas.kd_propinsi,
-                        set_puskesmas.kd_kota,
-                        set_puskesmas.kd_kelurahan,
-                        propinsi.nm_propinsi,
-                        kecamatan.nm_kecamatan,
-                        kelurahan.nm_kelurahan,
-                        kota.nm_kota
-                        FROM
-                        set_puskesmas
-                        LEFT JOIN propinsi ON set_puskesmas.kd_propinsi = propinsi.kd_propinsi
-                        LEFT JOIN kecamatan ON set_puskesmas.kd_kecamatan = kecamatan.kd_kecamatan
-                        LEFT JOIN kelurahan ON set_puskesmas.kd_kelurahan = kelurahan.kd_kelurahan
-                        LEFT JOIN kota ON set_puskesmas.kd_kota = kota.kd_kota ";
-            		$hasil = $this->m_crud->manualQuery($text);
-            		foreach($hasil ->result() as $t){
-                		$d['nm_puskesmas']  = $t->nm_puskesmas;
-                		$d['alamat']	    = $t->alamat;
-                		$d['nm_kota']       = $t->nm_kota;
-                		$d['nm_kecamatan']  = $t->nm_kecamatan;
-                		$d['nm_kelurahan']  = $t->nm_kelurahan;
-                		$d['nm_propinsi']   = $t->nm_propinsi;
-            		}
+
+            $text = "SELECT set_puskesmas.`status`,set_puskesmas.kd_puskesmas,set_puskesmas.nm_puskesmas,set_puskesmas.alamat,
+                    set_puskesmas.puskesmas_induk,set_puskesmas.jns_puskesmas,set_puskesmas.nip_kpl,set_puskesmas.kpl_puskesmas,
+                    set_puskesmas.kd_propinsi,set_puskesmas.kd_kota,set_puskesmas.kd_kecamatan,set_puskesmas.kd_kelurahan,
+                    set_puskesmas.telp,set_puskesmas.logo,kecamatan.nm_kecamatan,kota.nm_kota,kelurahan.nm_kelurahan,propinsi.nm_propinsi
+                    FROM set_puskesmas
+                    INNER JOIN kecamatan ON kecamatan.kd_kecamatan = set_puskesmas.kd_kecamatan
+                    INNER JOIN kota ON kota.kd_kota = set_puskesmas.kd_kota
+                    INNER JOIN kelurahan ON kelurahan.kd_kelurahan = set_puskesmas.kd_kelurahan
+                    INNER JOIN propinsi ON propinsi.kd_propinsi = set_puskesmas.kd_propinsi";
+            $hasil = $this->m_crud->manualQuery($text);
+            foreach($hasil ->result() as $t){
+                $d['nm_puskesmas']  = $t->nm_puskesmas;
+                $d['alamat']	    = $t->alamat;
+                $d['nm_kelurahan']  = $t->nm_kelurahan;
+                $d['nm_kecamatan']  = $t->nm_kecamatan;
+                $d['nm_kota']       = $t->nm_kota;
+                $d['nm_propinsi']   = $t->nm_propinsi;
+                $d['logo']	        = $t->logo;
+            }
 
 			$this->template->tampil_cetak_lap_summary_apotek_out('cetak_lap_summary_apotek_out',$d);
 		}
@@ -2130,16 +2108,29 @@ class Barang extends CI_Controller
 
 			$d['judul']="Laporan Data OBAT";
 			
-			$text = "SELECT * FROM obat  
+			$text = "SELECT * FROM obat
 					ORDER BY kd_obat ASC ";
 			$d['data'] = $this->m_crud->manualQuery($text);
 			$d['obat']	= $this->m_crud->get_all_obat();
 			
-			$text = "SELECT * FROM puskesmas";
+			$text = "SELECT set_puskesmas.`status`,set_puskesmas.kd_puskesmas,set_puskesmas.nm_puskesmas,set_puskesmas.alamat,
+                    set_puskesmas.puskesmas_induk,set_puskesmas.jns_puskesmas,set_puskesmas.nip_kpl,set_puskesmas.kpl_puskesmas,
+                    set_puskesmas.kd_propinsi,set_puskesmas.kd_kota,set_puskesmas.kd_kecamatan,set_puskesmas.kd_kelurahan,
+                    set_puskesmas.telp,set_puskesmas.logo,kecamatan.nm_kecamatan,kota.nm_kota,kelurahan.nm_kelurahan,propinsi.nm_propinsi
+                    FROM set_puskesmas
+                    INNER JOIN kecamatan ON kecamatan.kd_kecamatan = set_puskesmas.kd_kecamatan
+                    INNER JOIN kota ON kota.kd_kota = set_puskesmas.kd_kota
+                    INNER JOIN kelurahan ON kelurahan.kd_kelurahan = set_puskesmas.kd_kelurahan
+                    INNER JOIN propinsi ON propinsi.kd_propinsi = set_puskesmas.kd_propinsi";
 			$hasil = $this->m_crud->manualQuery($text);
 			foreach($hasil ->result() as $t){
-				$d['nm_puskesmas'] = $t->nm_puskesmas;
-				$d['alamat']	   = $t->alamat;
+				$d['nm_puskesmas']  = $t->nm_puskesmas;
+				$d['alamat']	    = $t->alamat;
+				$d['nm_kelurahan']  = $t->nm_kelurahan;
+				$d['nm_kecamatan']  = $t->nm_kecamatan;
+				$d['nm_kota']       = $t->nm_kota;
+				$d['nm_propinsi']   = $t->nm_propinsi;
+				$d['logo']	        = $t->logo;
 			}
 			
 			$this->load->view('laporan/cetak',$d);
@@ -2222,12 +2213,25 @@ class Barang extends CI_Controller
                     INNER JOIN satuan_kecil ON obat.kd_sat_kecil_obat = satuan_kecil.kd_sat_kecil_obat
                     WHERE obat.obat_stok <> 0 ORDER BY selisih";
 			$d['data'] = $this->m_crud->manualQuery($text);
-			
-			$text = "SELECT * FROM puskesmas";
+
+            $text = "SELECT set_puskesmas.`status`,set_puskesmas.kd_puskesmas,set_puskesmas.nm_puskesmas,set_puskesmas.alamat,
+                    set_puskesmas.puskesmas_induk,set_puskesmas.jns_puskesmas,set_puskesmas.nip_kpl,set_puskesmas.kpl_puskesmas,
+                    set_puskesmas.kd_propinsi,set_puskesmas.kd_kota,set_puskesmas.kd_kecamatan,set_puskesmas.kd_kelurahan,
+                    set_puskesmas.telp,set_puskesmas.logo,kecamatan.nm_kecamatan,kota.nm_kota,kelurahan.nm_kelurahan,propinsi.nm_propinsi
+                    FROM set_puskesmas
+                    INNER JOIN kecamatan ON kecamatan.kd_kecamatan = set_puskesmas.kd_kecamatan
+                    INNER JOIN kota ON kota.kd_kota = set_puskesmas.kd_kota
+                    INNER JOIN kelurahan ON kelurahan.kd_kelurahan = set_puskesmas.kd_kelurahan
+                    INNER JOIN propinsi ON propinsi.kd_propinsi = set_puskesmas.kd_propinsi";
 			$hasil = $this->m_crud->manualQuery($text);
 			foreach($hasil ->result() as $t){
-				$d['nm_puskesmas'] = $t->nm_puskesmas;
-				$d['alamat']	   = $t->alamat;
+				$d['nm_puskesmas']  = $t->nm_puskesmas;
+				$d['alamat']	    = $t->alamat;
+				$d['nm_kelurahan']  = $t->nm_kelurahan;
+				$d['nm_kecamatan']  = $t->nm_kecamatan;
+				$d['nm_kota']       = $t->nm_kota;
+				$d['nm_propinsi']   = $t->nm_propinsi;
+				$d['logo']          = $t->logo;
 			}
 			
 			$this->load->view('laporan/cetak_gudang_expired',$d);
@@ -2311,11 +2315,24 @@ class Barang extends CI_Controller
                     WHERE obat.apotek_stok <> 0 ORDER BY selisih";
             $d['data'] = $this->m_crud->manualQuery($text);
 
-            $text = "SELECT * FROM puskesmas";
+            $text = "SELECT set_puskesmas.`status`,set_puskesmas.kd_puskesmas,set_puskesmas.nm_puskesmas,set_puskesmas.alamat,
+                    set_puskesmas.puskesmas_induk,set_puskesmas.jns_puskesmas,set_puskesmas.nip_kpl,set_puskesmas.kpl_puskesmas,
+                    set_puskesmas.kd_propinsi,set_puskesmas.kd_kota,set_puskesmas.kd_kecamatan,set_puskesmas.kd_kelurahan,
+                    set_puskesmas.telp,set_puskesmas.logo,kecamatan.nm_kecamatan,kota.nm_kota,kelurahan.nm_kelurahan,propinsi.nm_propinsi
+                    FROM set_puskesmas
+                    INNER JOIN kecamatan ON kecamatan.kd_kecamatan = set_puskesmas.kd_kecamatan
+                    INNER JOIN kota ON kota.kd_kota = set_puskesmas.kd_kota
+                    INNER JOIN kelurahan ON kelurahan.kd_kelurahan = set_puskesmas.kd_kelurahan
+                    INNER JOIN propinsi ON propinsi.kd_propinsi = set_puskesmas.kd_propinsi";
             $hasil = $this->m_crud->manualQuery($text);
             foreach($hasil ->result() as $t){
-                $d['nm_puskesmas'] = $t->nm_puskesmas;
-                $d['alamat']	   = $t->alamat;
+                $d['nm_puskesmas']  = $t->nm_puskesmas;
+                $d['alamat']	    = $t->alamat;
+                $d['nm_kelurahan']  = $t->nm_kelurahan;
+                $d['nm_kecamatan']  = $t->nm_kecamatan;
+                $d['nm_kota']       = $t->nm_kota;
+                $d['nm_propinsi']   = $t->nm_propinsi;
+                $d['logo']	        = $t->logo;
             }
 
             $this->load->view('laporan/cetak_apotek_expired',$d);
@@ -2386,15 +2403,29 @@ class Barang extends CI_Controller
 					ORDER BY kd_obat ASC ";
 			$d['data'] = $this->m_crud->manualQuery($text);
 			$d['obat']	= $this->m_crud->get_all_obat();
-			
-			$text = "SELECT * FROM puskesmas";
-			$hasil = $this->m_crud->manualQuery($text);
-			foreach($hasil ->result() as $t){
-				$d['nm_puskesmas'] = $t->nm_puskesmas;
-				$d['alamat']	   = $t->alamat;
-			}
-			
-			$this->load->view('laporan/cetak_apotek',$d);
+
+            $text = "SELECT set_puskesmas.`status`,set_puskesmas.kd_puskesmas,set_puskesmas.nm_puskesmas,set_puskesmas.alamat,
+                    set_puskesmas.puskesmas_induk,set_puskesmas.jns_puskesmas,set_puskesmas.nip_kpl,set_puskesmas.kpl_puskesmas,
+                    set_puskesmas.kd_propinsi,set_puskesmas.kd_kota,set_puskesmas.kd_kecamatan,set_puskesmas.kd_kelurahan,
+                    set_puskesmas.telp,set_puskesmas.logo,kecamatan.nm_kecamatan,kota.nm_kota,kelurahan.nm_kelurahan,propinsi.nm_propinsi
+                    FROM set_puskesmas
+                    INNER JOIN kecamatan ON kecamatan.kd_kecamatan = set_puskesmas.kd_kecamatan
+                    INNER JOIN kota ON kota.kd_kota = set_puskesmas.kd_kota
+                    INNER JOIN kelurahan ON kelurahan.kd_kelurahan = set_puskesmas.kd_kelurahan
+                    INNER JOIN propinsi ON propinsi.kd_propinsi = set_puskesmas.kd_propinsi";
+            $hasil = $this->m_crud->manualQuery($text);
+            foreach($hasil ->result() as $t){
+                $d['nm_puskesmas']  = $t->nm_puskesmas;
+                $d['alamat']	    = $t->alamat;
+                $d['nm_kelurahan']  = $t->nm_kelurahan;
+                $d['nm_kecamatan']  = $t->nm_kecamatan;
+                $d['nm_kota']       = $t->nm_kota;
+                $d['nm_propinsi']   = $t->nm_propinsi;
+                $d['logo']	        = $t->logo;
+            }
+
+
+            $this->load->view('laporan/cetak_apotek',$d);
 		}else{
 			header('location:'.base_url());
 		}

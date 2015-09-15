@@ -31,10 +31,7 @@
     <?php echo $_footer; ?>
 </div><!--mainwrapper-->
 
-<!--highcharts-->
-<script type="text/javascript" src="<?php echo base_url();?>assets/js/highcharts.js"></script>
-<script src="http://code.highcharts.com/modules/data.js"></script>
-<script src="http://code.highcharts.com/modules/exporting.js"></script>
+
 
 <!-- Additional files for the Highslide popup effect -->
 <script type="text/javascript" src="http://www.highcharts.com/media/com_demo/highslide-full.min.js"></script>

@@ -81,20 +81,21 @@ border-collapse:collapse;
 </style>
 
 <?php
-$kiri 	= "<h2>$nm_puskesmas</h2>";	
-$kiri	.= "<p>$alamat</p>";
+$kiri 	= "<h2>Puskesmas $nm_puskesmas</h2>";
+$kiri	.= "<p>$alamat, $nm_kelurahan, $nm_kecamatan, <br> $nm_kota - $nm_propinsi</p>";
+$logo_pus	= "$logo";
 
 $kanan= '';
 
 $judul = "LAPORAN STOK BARANG GUDANG";
-function myheader($kiri,$kanan,$judul){
+function myheader($kiri,$logo_pus,$kanan,$judul){
 ?>
 
 <div class="atas">
 <table width="100%">
 <tr>
 	<td width="60%" valign="top">
-   		<img src='<?php echo base_url();?>asset/images/logoprint.png' style="padding:0; margin:0;" width="85" height="81"> <?php echo $kiri;?>
+   		<img src='<?php echo base_url();?>assets/img/thumbs/<?php echo $logo_pus; ?>' style="padding:0; margin:0;" width="75" height="91"> <?php echo $kiri;?>
     </td>
 	<td width="40%" valign="top">
     	<?php echo $kanan;?>
@@ -134,7 +135,7 @@ function myfooter(){
 		</div>";
 		$page++;
   	}
-   	myheader($kiri,$kanan,$judul);
+   	myheader($kiri,$logo_pus,$kanan,$judul);
 	}
 	?>
     <tr>

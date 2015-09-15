@@ -81,22 +81,22 @@ font-size:12px;
 
 if($data->num_rows()>0){
 
-$kop 	= "<h2>$nm_puskesmas</h2>";	
-$kop 	.= "<p>$alamat, $nm_kecamatan</p>";
-$kop 	.= "<p>$nm_kota - $nm_propinsi</p>";
-
+    $kop 	= "<h2>$nm_puskesmas</h2>";
+    $kop 	.= "<p>$alamat, $nm_kelurahan, $nm_kecamatan, <br> $nm_kota - $nm_propinsi</p>";
+    $logo_pus	.= "$logo";
 
 $kop_kanan= '';
 
-$judul_H = "LAPORAN BARANG KELUAR - APOTEK";
+$judul_H = "LAPORAN BARANG KELUAR DETAIL - APOTEK";
 $judul_H .= "<p> Tanggal ".$tgl1." s/d ".$tgl2."</p>";
 
-function myheader($kop,$kop_kanan,$judul_H){
+function myheader($kop,$logo_pus,$kop_kanan,$judul_H){
 ?>
     <br/>
 <div class="kop">
 	<table width="100%">
     <tr style="text-align: left">
+        <td style="width:85;"><img src='<?php echo base_url();?>assets/img/thumbs/<?php echo $logo_pus; ?>' width="75" height="91"> </td>
     	<td><?php echo $kop;?></td>
         <td><?php echo $kop_kanan;?></td>
    	</tr>
@@ -143,7 +143,7 @@ function myfooter(){
         $page++;
 
   	}
-   	myheader($kop,$kop_kanan,$judul_H);
+   	myheader($kop,$logo_pus,$kop_kanan,$judul_H);
 	}
 	?>
     <tr>

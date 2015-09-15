@@ -13,7 +13,8 @@ class Cont_transaksi_pendaftaran extends CI_Controller
 			$this->session->sess_destroy();
 			redirect('login');
 		}
-		
+
+        $this->load->model('m_rujukan');
 		$this->load->library('template');
 		
 		$this->load->library('Datatables');
@@ -266,8 +267,234 @@ class Cont_transaksi_pendaftaran extends CI_Controller
 		
 		echo $data;
 	}
-	
-	
+
+    function cekEktp(){
+
+        $data = json_decode(trim(file_get_contents("http://localhost/simpus-bogortimur/assets/ektp.json")), true);
+        // print_r($data);
+        //echo $data['Nik'];
+        $validasi = $this->m_crud->cek_nik($data['Nik']);
+        if($validasi !== null){
+            $result['status'] = "Pasien sudah terdaftar!";
+            $result['kd_rekam_medis'] = $validasi['kd_rekam_medis'];
+        } else {
+            $result['status'] = "Pasien belum terdaftar!";
+            $result['kd_rekam_medis'] = "";
+        }
+
+        $result['nm_lengkap']       = $data['Nama'];
+        $result['nik']              = $data['Nik'];
+        $result['tempat_lahir']     = $data['TempatLahir'];
+        $result['tanggal_lahir']    = $data['TglLahir'];
+        $result['jenis_kelamin']    = $data['JenisKelamin'];
+        $result['alamat']           = $data['Alamat'].' RT. '.$data['Rt'].' / RW. '.$data['Rw'];
+        $result['propinsi']         = $data['Provinsi'];
+        $result['kota']             = $data['Kota'];
+        $result['kecamatan']        = $data['Kecamatan'];
+        $result['kelurahan']                 = $data['KelDesa'];
+        $result['agama']                 = $data['Agama'];
+        $result['status_kawin']                 = $data['StatusPerkawinan'];
+        $result['pekerjaan']                 = $data['Pekerjaan'];
+        $result['gol_darah']                 = $data['GolDarah'];
+        $result['kewarganegaraan']                 = $data['Kewarganegaraan'];
+        $result['foto']                 = $data['Photo'];
+        $result['ttd']                 = $data['Signature'];
+
+
+
+        echo json_encode($result);
+    }
+
+    public function cetak_rm() {
+        $no_rm = $this->uri->segment(3);
+
+        $view_rekam_medis = $this->m_crud->get_list_pasien($no_rm);
+        $view_trans_pelayanan = $this->m_crud->get_pasien_rekam_medis($no_rm);
+
+        $this->load->library('Pdf');
+        $pdf = new Pdf('P', 'mm', 'F4', true, 'UTF-8', false);
+        // $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $pdf->SetPrintHeader(false);
+        $pdf->SetPrintFooter(false);
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetPageOrientation('P');
+        $pdf->SetAuthor('Pemerintah Kota Bogor');
+        $pdf->SetTitle('Rekam Medis');
+        $pdf->SetSubject('Rekam Medis Pasien');
+        $pdf->SetKeywords('Medical Record');
+        // $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 001', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
+        //$pdf->setFooterData(array(0,64,0), array(0,64,128));
+        $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+        $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+        if (@file_exists(dirname(__FILE__).'/lang/eng.php'))
+        {
+            require_once(dirname(__FILE__).'/lang/eng.php');
+            $pdf->setLanguageArray($l);
+        }
+        $pdf->setFontSubsetting(true);
+        $pdf->SetFont('helvetica', '', 9, '', true);
+        $pdf->SetTopMargin(10);
+        $pdf->AddPage();
+        $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));
+
+        $puskesmas = $this->m_rujukan->get_puskesmas_info($this->session->userdata('kd_puskesmas'));
+        #echo $this->session->userdata('kd_puskesmas');
+        #echo $this->db->last_query(); exit;
+
+        $html     = '<table width="100%" align="center" border="0">';
+        $html    .= '<tr>
+                        <td width="20%" style="text-align: center;"><img src="'.base_url().'assets/img/'.$puskesmas["logo"].'" width="80" height="80"/></td>
+                        <td width="80%" align="center"><h2>PEMERINTAH PROPINSI '.$puskesmas["nm_propinsi"].'<br>DINAS KESEHATAN KOTA '.$puskesmas["nm_kota"].'</h2>
+                        <h1>UPTD '.$puskesmas["nm_puskesmas"].'</h1>
+						<h3>'.$puskesmas["alamat"].' Telp. '.$puskesmas["telp"].'</h3>
+                        </td>
+                    </tr>
+					<tr>
+              <td colspan="" bordercolordark="#0A0A0A" style="text-align: center;">____________________________________________________________________________________________________</td>
+              </tr>';
+        $html    .= '</table><p></p>';
+
+        $html    .= '<div id="rekam-medis">
+                        	<h4 class="widgettitle nomargin">Rekam Medis Pasien</h4>
+                            <div class="widgetcontent bordered">
+                            	<div class="row-fluid">
+                                	<div class="span6">
+                                    	<table class="table table-bordered table-invoice">
+                                            <tbody>
+                                                <tr>
+                                                    <td width="30%">No. Rekam Medis</td>
+                                                    <td width="70%">'.$view_rekam_medis['kd_rekam_medis'].'</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Nama Pasien</td>
+                                                    <td>'.$view_rekam_medis['nm_lengkap'].'</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Tempat, Tgl Lahir</td>
+                                                    <td>'.$view_rekam_medis['tempat_lahir'].' / '.$this->functions->format_tgl_cetak2($view_rekam_medis['tanggal_lahir']).'</td>
+                                                </tr>';
+        $hitung = $this->functions->CalcAge($view_rekam_medis['tanggal_lahir'], date('Y-m-d'));
+        //$hitung = $this->functions->dateDifference($view_rekam_medis['tanggal_lahir'], date('Y-m-d'));
+        $umurku=$hitung[0].' Tahun '.$hitung[1].' Bulan '.$hitung[2].' Hari';
+        // echo $umurku;
+        $html   .='
+                                                <tr>
+                                                    <td>Umur</td>
+                                                    <td>'.$umurku.'
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Jenis Kelamin</td>
+                                                    <td>'.ucwords(strtolower($view_rekam_medis['jenis_kelamin'])).'</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Alamat</td>
+                                                    <td>'.$view_rekam_medis['alamat'].'</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Puskesmas</td>
+                                                    <td>'.$view_rekam_medis['nm_puskesmas'].'</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>';
+
+        $html       .='
+                        </div> <!-- </row-fluid> -->
+                        <div class="clearfix"><br/></div>';
+
+        $html   .='
+            <h4 class="widgettitle">Kunjungan Pasien</h4>
+            <div class="row-fluid">
+                <div class="span12">
+                    <table class="table table-bordered table-stripped table-hover" border="1">
+                        <thead>
+                        <tr align="center">
+                            <th><b>No.</b></th>
+                            <th><b>Tanggal</b></th>
+                            <th><b>Puskesmas</b></th>
+                            <th><b>Poli</b></th>
+                            <th><b>Dokter</b></th>
+                            <th><b>Anamnesa</b></th>
+                            <th><b>Cat.Fisik</b></th>
+                            <th><b>Penyakit</b></th>
+                            <th><b>Tindakan</b></th>
+                            <th><b>Obat (Dosis) (Jml)</b></th>
+                        </tr>
+                        </thead>
+                        <tbody>';
+
+        if(isset($view_trans_pelayanan) && !empty($view_trans_pelayanan)):
+            $i=1; foreach($view_trans_pelayanan as $rs):
+            if ($rs['anamnesa'] == '0') { $rs['anamnesa']="-";}
+            if ($rs['catatan_fisik'] == '0') { $rs['catatan_fisik']="-";}
+            if ($rs['tindakan'] == '') { $rs['tindakan']="-";}
+            if ($rs['dokter'] == '') { $rs['dokter']="-";}
+
+            $html   .= '<tr>
+                                    <td>'.$i.'</td>
+                                    <td>'.$this->functions->convert_date_indo(array("datetime" => $rs['tgl_pelayanan'])).'</td>
+                                    <td>'.$rs['nm_puskesmas'].'</td> <!-- jenis layanan diganti poli mana -->
+                                    <td>'.$rs['unit_layanan'].'</td>
+                                    <td>'.$rs['dokter'].'</td>
+                                    <td>'.$rs['anamnesa'].'</td>
+                                    <td>'.$rs['catatan_fisik'].'</td>
+                                    <td>'.$rs['kd_icd'].' - '.$rs['penyakit'].'</td>
+                                    <td>'.$rs['tindakan'].'</td>';
+
+
+
+            $pecahObat = explode(';', $rs['obat']);
+            $pecahDosis = explode(';', $rs['dosis']);
+            $pecahJml = explode(';', $rs['jml_obat']);
+            $obatku = '';
+            for($z=0; $z < count($pecahObat); $z++){
+                $obatku .= $pecahObat[$z] . " (" . $pecahDosis[$z] . ") (" . $pecahJml[$z].")";
+                if($z != (count($pecahObat)-1))
+                    $obatku .= " \n- ";
+            }
+            $html   .= '
+
+
+                                    <td>'. $obatku.'</td>
+
+                                </tr>';
+            $i++;
+        endforeach;
+        else:
+
+            $html   .= '
+
+                            <tr>
+                                <td colspan="11"><center>Tidak ada riwayat kunjungan</center></td>
+                            </tr>';
+
+        endif;
+        $html   .='
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            </div> <!-- </widgetcontent> -->
+            </div>';
+
+
+        $pdf->SetTitle('Judul');
+        $pdf->SetHeaderMargin(30);
+        $pdf->SetTopMargin(20);
+        $pdf->setFooterMargin(20);
+        $pdf->SetAutoPageBreak(true);
+        $pdf->SetAuthor('Pengarang');
+        $pdf->SetDisplayMode('real', 'default');
+        $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
+        $pdf->Output('Rekam Medis.pdf', 'I');
+    }
 	
 }
 ?>

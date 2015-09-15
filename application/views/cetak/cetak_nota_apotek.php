@@ -81,22 +81,18 @@ font-size:12px;
 
 if($data->num_rows()>0){
 
-$kop 	= "<h2>$nm_puskesmas</h2>";	
-$kop 	.= "<p>$alamat</p>";
-
-$kop_kanan  = "<p> Malang, ".$tgl_terima."</p>";
-$kop_kanan  .= "<p><center> </center></p>";
-$kop_kanan  .= "<p>Pengirim</p>";
-$kop_kanan  .= "<p>Jl.......</p>";
-
+    $kop 	= "<h2>$nm_puskesmas</h2>";
+    $kop 	.= "<p>$alamat, $nm_kelurahan, $nm_kecamatan, <br> $nm_kota - $nm_propinsi</p>";
+    $logo_pus	.= "$logo";
 
 $judul_H = "PENERIMAAN NO. : ".$id;
 
-function myheader($kop,$kop_kanan,$judul_H){
+function myheader($kop,$logo_pus,$judul_H){
 ?>
 <div class="kop">
 	<table width="100%">
     <tr>
+        <td style="width:85;"><img src='<?php echo base_url();?>assets/img/thumbs/<?php echo $logo_pus; ?>' width="75" height="91"> </td>
     	<td><?php echo $kop;?></td>
         <td><?php echo $kop_kanan;?></td>
    	</tr>
@@ -138,7 +134,7 @@ function myfooter(){
     <?php
 		$page++;
   	}
-   	myheader($kop,$kop_kanan,$judul_H);
+   	myheader($kop,$logo_pus,$judul_H);
 	}
 	?>
     <tr>

@@ -573,7 +573,7 @@ DATE_FORMAT(pelayanan.tgl_pelayanan, "%d-%m-%Y") as tgl_format, pelayanan.kd_rek
             $sql->join('status_keluar_pasien', 'pelayanan.kd_status_pasien=status_keluar_pasien.kd_status_pasien');
 			
 			$sql->where('pelayanan.tgl_pelayanan',date ('Y-m-d'));
-			//$sql->order_by('pelayanan.kd_status_pasien','Asc');
+			//$sql->order_by('pelayanan.kd_trans_pelayanan','desc');
 
 			if ($this->session->userdata('id_akses') == 2) // pendaftaran, tanpa status keluar pasien
 				{	
@@ -616,13 +616,12 @@ DATE_FORMAT(pelayanan.tgl_pelayanan, "%d-%m-%Y") as tgl_format, pelayanan.kd_rek
                                               <li><a href="'.base_url().'cont_transaksi_pelayanan/pelayanan_today/ubah/$1" >Ubah</a></li>
                                               <li><a href="#" onClick="event.preventDefault(); return jConfirm(\'Anda yakin ingin menghapus data ini?\',\'Konfirmasi Hapus Data\', function(r){if(r==true){var href = \''.base_url().'cont_transaksi_pelayanan/pelayanan_today/hapus/$1\';window.location.href=href;}else{event.preventDefault();}});" title="Hapus">Hapus</a></li>
                                               <li class="divider"></li>						  
-                                        	<li><a href="'.base_url().'cont_transaksi_pelayanan/pelayanan_today/view/$2" target="_blank">Lihat Rekam Medis</a></li> 
+                                        	<li><a href="'.base_url().'cont_transaksi_pendaftaran/pendaftaran/view/$2" target="_blank">Lihat Rekam Medis</a></li> 
 											<li><a href="'.base_url().'cont_transaksi_pelayanan/cetak_resep/$1" target="blank" title="Cetak Resep">Cetak Resep</a></li>
 											 <li><a href="'.base_url().'cont_transaksi_pelayanan/cetak_rujukan/$1" target="_blank">Cetak Rujukan</a></li>
                                             </ul>
                                           </div>			 
                         ','pelayanan.kd_trans_pelayanan, pelayanan.kd_rekam_medis');
-						
 				}  
 				//filter aksi untuk admin, operator, nambah bayar
 				else if($this->session->userdata('id_akses') == 1  || $this->session->userdata('id_akses') == 7 )

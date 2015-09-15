@@ -56,6 +56,7 @@ class Operator extends CI_Controller
                         set_puskesmas.kd_propinsi,
                         set_puskesmas.kd_kota,
                         set_puskesmas.kd_kelurahan,
+                        set_puskesmas.logo,
                         propinsi.nm_propinsi,
                         kecamatan.nm_kecamatan,
                         kelurahan.nm_kelurahan,
@@ -69,14 +70,15 @@ class Operator extends CI_Controller
             $hasil = $this->m_crud->manualQuery($text);
             foreach($hasil->result() as $t){
                 $data['nm_puskesmas']   = $t->nm_puskesmas;
-                $data['nip_kpl']    = $t->nip_kpl;
+                $data['nip_kpl']        = $t->nip_kpl;
                 $data['kpl_puskesmas']  = $t->kpl_puskesmas;
                 $data['nm_kota']        = $t->nm_kota;
                 $data['nm_kecamatan']   = $t->nm_kecamatan;
                 $data['nm_kelurahan']   = $t->nm_kelurahan;
                 $data['nm_propinsi']    = $t->nm_propinsi;
                 $data['alamat']         = $t->alamat;
-            }		
+                $data['logo']           = $t->logo;
+            }
 			$data['total_pasien_date'] 	= $this->m_dashboard->get_total_pasien_today(date('Y-m-d'));
 			$data['total_pasien_month']	= $this->m_dashboard->get_total_pasien_monthly(date('m'));
 			$data['total_pasien_year']	= $this->m_dashboard->get_total_pasien_yearly(date('Y'));

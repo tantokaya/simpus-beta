@@ -82,19 +82,20 @@ font-size:12px;
 if($data->num_rows()>0){
 
     $kop 	= "<h2>$nm_puskesmas</h2>";
-    $kop 	.= "<p>$alamat, $nm_kecamatan</p>";
-    $kop 	.= "<p>$nm_kota - $nm_propinsi</p>";
+    $kop 	.= "<p>$alamat, $nm_kelurahan, $nm_kecamatan, <br> $nm_kota - $nm_propinsi</p>";
+    $logo_pus	.= "$logo";
 
 $kop_kanan= '';
 
 $judul_H = "LAPORAN MASUK DETAIL - APOTEK";
 $judul_H .= "<p> Tanggal ".$tgl1." s/d ".$tgl2."</p>";
 
-function myheader($kop,$kop_kanan,$judul_H){
+function myheader($kop,$logo_pus,$kop_kanan,$judul_H){
 ?>
 <div class="kop">
 	<table width="100%">
     <tr>
+        <td style="width:85;"><img src='<?php echo base_url();?>assets/img/thumbs/<?php echo $logo_pus; ?>' width="75" height="91"> </td>
     	<td><?php echo $kop;?></td>
         <td><?php echo $kop_kanan;?></td>
    	</tr>
@@ -139,15 +140,15 @@ function myfooter(){
         $page++;
 
   	}
-   	myheader($kop,$kop_kanan,$judul_H);
+   	myheader($kop,$logo_pus,$kop_kanan,$judul_H);
 	}
 	?>
         <tr>
             <td style="text-align: center; width: 20px;"><?php echo $no; ?></td>
             <td style="text-align: center; width: 80px;"><?php echo $dp['kd_masuk']; ?></td>
-            <td style="text-align: center; width: 60px;"><?php echo $tgl; ?></td>
+            <td style="text-align: center; width: 110px;"><?php echo $tgl; ?></td>
             <td style="text-align: center; width: 90px;"><?php echo $dp['kd_obat']; ?></td>
-            <td style="text-align: left; width: 400px;"><?php echo $dp['nama_obat']; ?></td>
+            <td style="text-align: left; width: 350px;"><?php echo $dp['nama_obat']; ?></td>
             <td style="text-align: right; width: 50px;"><?php echo number_format($total); ?></td>
             <td style="text-align: center; width: 60px;"><?php echo $dp['sat_kecil_obat']; ?></td>
         </tr>

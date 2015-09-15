@@ -643,6 +643,7 @@
                         <script type="text/javascript">
 							jQuery(document).ready(function () {
 								var oTable = jQuery('#dyntable').dataTable({
+									"aaSorting": [[6,'desc'], [0,'asc']],	
 									"bProcessing": true,
 									"bServerSide": true,
 									"bAutoWidth": false,

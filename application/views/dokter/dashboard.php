@@ -186,3 +186,7 @@
         </div><!--maincontent-->
         
     </div><!--mainright-->
+<!--highcharts-->
+<script type="text/javascript" src="<?php echo base_url();?>assets/js/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/data.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>

@@ -76,7 +76,7 @@ class Cont_cetak_lap_harian extends CI_Controller
 			$cr_byr = "Pasien $caraku ";
 			
 			$objPHPExcel->getActiveSheet()->setCellValue('A1', $judul);
-			$objPHPExcel->getActiveSheet()->setCellValue('A2', $puskesmas['nm_puskesmas']);
+			$objPHPExcel->getActiveSheet()->setCellValue('A2', 'Puskesmas '.$puskesmas['nm_puskesmas']);
             $objPHPExcel->getActiveSheet()->setCellValue('A3', $tgl_mulai.' sd '.$tgl_akhir);
 			$objPHPExcel->getActiveSheet()->setCellValue('A4', $cr_byr);
 

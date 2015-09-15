@@ -153,6 +153,9 @@
                     	<div class="widgetcontent bordered">
         <table>
             <tr>
+                <td><img src="<?php echo base_url(); ?>assets/img/thumbs/<?php echo $logo; ?>"><br/></td>
+            </tr>
+            <tr>
                 <td>N I P</td><td>&nbsp;:</td><td>&nbsp;<b><?php echo $nip_kpl; ?></b></td>
             </tr>
             <tr>
@@ -186,3 +189,8 @@
         </div><!--maincontent-->
         
     </div><!--mainright-->
+
+<!--highcharts-->
+<script type="text/javascript" src="<?php echo base_url();?>assets/js/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/data.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>

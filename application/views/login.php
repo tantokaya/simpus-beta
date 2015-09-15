@@ -28,7 +28,34 @@ if ($this->session->flashdata('flash_message') != ""): ?>
     </script>
 <?php endif; ?>
 
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tbody>
+    <tr>
+        <td width="10%">&nbsp;</td>
+        <td align="left" style="padding-right:10px; padding-top: 30px;" >
+            <table>
+                <tr>
+                    <td>
+                        <p class="animate7 bounceIn">
+                        <img src="<?php echo base_url(); ?>assets/img/thumbs/<?php echo $logo; ?>" style="height: 100px; width: 80px">
+                        </p>
+                    </td>
+                    <td  style="font-size: 20px; vertical-align: middle; " >
+                        <p class="animate7 bounceIn">
+                        &nbsp; Puskesmas <br/>
+                        &nbsp; <?php echo $nm_puskesmas; ?>
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+
+    </tr>
+    </tbody>
+</table>
+
 <div class="loginwrapper">
+
     <div class="loginwrap zindex100 animate2 bounceInDown">
         <h1 class="logintitle">
         <span class="iconfa-lock"></span>
@@ -41,10 +68,7 @@ if ($this->session->flashdata('flash_message') != ""): ?>
             <?php
             echo form_open('login', array('id' =>'loginform')); ?>
 
-<!--            <p class="animate4 bounceIn">-->
-<!--                <input type="text" id="email" name="email" placeholder="Email" autocomplete="off" />-->
-<!--            </p>-->
-            <p class="animate4 bounceIn">
+           <p class="animate4 bounceIn">
                 <input type="text" id="username" name="username" placeholder="Username" autocomplete="off" />
             </p>
             <p class="animate5 bounceIn">
@@ -72,6 +96,8 @@ if ($this->session->flashdata('flash_message') != ""): ?>
   </div>
 
 </div>
+
+<p style="text-align: center; " class="animate7 fadeInUp"><b>Powered by : IPTEKnet - BPPT</b></p>
 <!--loginwrapper-->
 
 <script type="text/javascript">

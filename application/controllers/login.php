@@ -41,16 +41,55 @@ class Login extends CI_Controller {
 				'rules' => 'required|xss_clean|callback__validate_login'
 			)
 		);
-		
-		$this->form_validation->set_rules($config);
+
+
+        $this->form_validation->set_rules($config);
 		$this->form_validation->set_message('_validate_login', ' Login failed!');
 		$this->form_validation->set_error_delimiters('<div class="alert alert-error">
 	<button type="button" class="close" data-dismiss="alert">×</button>', '</div>');
 		
 		if ($this->form_validation->run() == FALSE) {
 			//$this->load->view('login');
-			$this->template->display_login();
-		} else {
+            $text = "SELECT  set_puskesmas.`status`,
+                        set_puskesmas.kd_puskesmas,
+                        set_puskesmas.nm_puskesmas,
+                        set_puskesmas.alamat,
+                        set_puskesmas.id_jenis_puskesmas,
+                        set_puskesmas.kd_kecamatan,
+                        set_puskesmas.puskesmas_induk,
+                        set_puskesmas.obat_prev,
+                        set_puskesmas.jns_puskesmas,
+                        set_puskesmas.nip_kpl,
+                        set_puskesmas.kpl_puskesmas,
+                        set_puskesmas.kd_propinsi,
+                        set_puskesmas.kd_kota,
+                        set_puskesmas.kd_kelurahan,
+                        set_puskesmas.logo,
+                        propinsi.nm_propinsi,
+                        kecamatan.nm_kecamatan,
+                        kelurahan.nm_kelurahan,
+                       kota.nm_kota
+                        FROM
+                        set_puskesmas
+                        LEFT JOIN propinsi ON set_puskesmas.kd_propinsi = propinsi.kd_propinsi
+                        LEFT JOIN kecamatan ON set_puskesmas.kd_kecamatan = kecamatan.kd_kecamatan
+                        LEFT JOIN kelurahan ON set_puskesmas.kd_kelurahan = kelurahan.kd_kelurahan
+                        LEFT JOIN kota ON set_puskesmas.kd_kota = kota.kd_kota ";
+            $hasil = $this->m_crud->manualQuery($text);
+            foreach($hasil->result() as $t){
+                $data['nm_puskesmas']   = $t->nm_puskesmas;
+                $data['nip_kpl']    = $t->nip_kpl;
+                $data['kpl_puskesmas']  = $t->kpl_puskesmas;
+                $data['nm_kota']        = $t->nm_kota;
+                $data['nm_kecamatan']   = $t->nm_kecamatan;
+                $data['nm_kelurahan']   = $t->nm_kelurahan;
+                $data['nm_propinsi']    = $t->nm_propinsi;
+                $data['alamat']         = $t->alamat;
+                $data['logo']           = $t->logo;
+            }
+//            $this->template->display_login();
+            $this->load->view('login',$data);
+        } else {
 			//redirect('admin/dashboard');
 			
 			switch($this->session->userdata('id_akses')){

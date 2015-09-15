@@ -16,88 +16,57 @@
     </div><!--pagetitle-->
 
     <div class="maincontent">
-        <div class="contentinner content-dashboard">
-            <div class="row-fluid">
-                <div class="span12">
+        <div class="contentinner content-editprofile">
+            <h4 class="widgettitle nomargin">..:: Profile Puskesmas ::..</h4>
+            <div class="widgetcontent bordered">
+                <div class="row-fluid">
+                    <div class="span3 profile-left">
 
-                    <h4 class="widgettitle">Data Puskesmas</h4>
-                    <div class="row-fluid">
-                        <div class="span6">
-                            <?php echo form_open('cont_master_setting/simpan', array('class' => 'stdform stdform2', 'id' => 'form_input')); ?>
-                            <table class="table table-bordered table-invoice">
-                                <tr>
-                                    <td>Kode Puskesmas</td>
-                                    <td><input type="text" name="kd_puskesmas" id="kd_puskesmas" class="input-medium" value="<?php echo $kd_puskesmas; ?>"/></td>
-                                </tr>
-				<tr>
-                                    <td>N I P</td>
-                                    <td><input type="text" name="nip_kpl" id="nip_kpl" class="input-xlarge" value="<?php echo $nip_kpl; ?>"/></td>
-                                </tr>
-                                
-                                <tr>
-                                    <td>Kepala Puskesmas</td>
-                                    <td><input type="text" name="kpl_puskesmas" id="kpl_puskesmas" class="input-xlarge" value="<?php echo $kpl_puskesmas; ?>"/></td>
-                                </tr>
-                                <tr>
-                                    <td>Nama Puskesmas</td>
-                                    <td><input type="text" name="nm_puskesmas" id="nm_puskesmas" class="input-xlarge" value="<?php echo $nm_puskesmas; ?>"/></td>
-                                </tr>
-                                <tr>
-                                    <td>Propinsi *</td>
-                                    <td>
-                                        <select name="kd_propinsi" id="kd_propinsi" data-placeholder="Pilih Propinsi" style="width:250px" class="chzn-select" tabindex="2" required>
-                                            <option value=""></option>
-                                            <?php foreach($list_provinsi as $lp) : ?>
-                                                <option value="<?php echo $lp['kd_propinsi']; ?>"><?php echo $lp['nm_propinsi']; ?></option>
+                        <h4>Logo</h4>
+
+                        <div class="profilethumb">
+                            <a href="">Change Thumbnail</a>
+                            <img src="<?php echo base_url(); ?>assets/img/logo.png" alt="" class="img-polaroid" width="141" height="147" />
+                        </div><!--profilethumb-->
 
 
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Kota / Kabupaten *</td>
-                                    <td>
-                                        <select name="kd_kota" id="kd_kota" data-placeholder="Pilih Kota" style="width:250px" class="chzn-select" required>
-                                            <option value=""></option>
 
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Kecamatan *</td>
-                                    <td>
-                                        <select name="kd_kecamatan" id="kd_kecamatan" data-placeholder="Pilih Kecamatan" style="width:250px" class="chzn-select" required>
-                                            <option value=""></option>
+                    </div><!--span3-->
+                    <div class="span9">
+                        <form action="editprofile.html" class="editprofileform" method="post">
 
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Kelurahan *</td>
-                                    <td>
-                                        <select name="kd_kelurahan" id="kd_kelurahan" data-placeholder="Pilih Kelurahan" style="width:250px" class="chzn-select" required>
-                                            <option value=""></option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Alamat Puskesmas</td>
-                                    <td><textarea name="alamat" id="alamat" class="input-xlarge" rows="3"><?php echo $alamat; ?></textarea></td>
-                                </tr>
-
-                            </table>
-                            <p class="stdformbutton">
-                                <button class="btn btn-inverse"><i class="icon-ok-circle icon-white"></i> Simpan</button>
-
+                            <h4>Informasi Puskesmas</h4>
+                            <p>
+                                <label  style="width: 125px">Kode PUSKESMAS  :</label>
+                                <input type="text" name="firstname" class="input-xlarge" style="font-weight: bold" value="<?php echo $kd_puskesmas; ?>"  readonly/>
+                            </p>
+                            <p>
+                                <label style="width: 125px">NIP KAPUS :</label>
+                                <input type="text" name="lastname" class="input-xlarge" style="font-weight: bold" value="<?php echo $nip_kpl; ?>" readonly />
+                            </p>
+                            <p>
+                                <label style="width: 125px">Nama KAPUS :</label>
+                                <input type="text" name="location" class="input-xlarge" style="font-weight: bold" value="<?php echo $kpl_puskesmas; ?>" readonly/>
+                            </p>
+                            <p>
+                                <label style="width: 125px">Nama Puskesmas :</label>
+                                <input type="text" name="website" class="input-xlarge" style="font-weight: bold" value="<?php echo $nm_puskesmas; ?>" readonly/>
+                            </p>
+                            <p>
+                                <label style="width: 125px">Alamat :</label>
+                                <textarea name="about" class="span8" style="font-weight: bold" readonly><?php echo $alamat .', '. $nm_kelurahan .', '. $nm_kecamatan;  echo $nm_kota .'- '. $nm_propinsi; ?></textarea>
                             </p>
 
-                            <?php echo form_close();  ?>
-                        </div><!--widgetcontent-->
-                    </div>
-                    <!---- END TAMBAH PUSKESMAS---->
-                </div><!--tabs-->
-            </div><!--row-fluid-->
+                            <br />
+
+                            <h4></h4>
+                            <p>
+                                <button type="submit" class="btn btn-primary">Update Profile</button>
+                            </p>
+                        </form>
+                    </div><!--span9-->
+                </div><!--row-fluid-->
+            </div><!--widgetcontent-->
         </div><!--contentinner-->
     </div><!--maincontent-->
 </div><!--mainright-->

@@ -1523,8 +1523,8 @@ class Cont_transaksi_pelayanan extends CI_Controller
 		
         $html     = '<table width="100%" align="center" border="0">';
         $html    .= '<tr>
-                        <td width="20%" style="text-align: center;"><img src="'.base_url().'assets/img/logo.png" width="80" height="80"/></td>
-                        <td width="80%" align="center"><h2>PEMERINTAH KOTA BOGOR<br>DINAS KESEHATAN KOTA</h2>
+                        <td width="20%" style="text-align: center;"><img src="'.base_url().'assets/img/'.$puskesmas["logo"].'" width="80" height="80"/></td>
+                        <td width="80%" align="center"><h2>PEMERINTAH PROPINSI '.$puskesmas["nm_propinsi"].'<br>DINAS KESEHATAN KOTA '.$puskesmas["nm_kota"].'</h2>
                         <h1>UPTD '.$puskesmas["nm_puskesmas"].'</h1>
 						<h3>'.$puskesmas["alamat"].' Telp. '.$puskesmas["no_telp"].'</h3>
                         </td>
@@ -1566,7 +1566,7 @@ class Cont_transaksi_pelayanan extends CI_Controller
                       </tr>
                       <tr>
 					   <td> </td>
-                        <td>Di Bogor</td>
+                        <td>Di '.$puskesmas["nm_kota"].'</td>
                       </tr>
                     </table>
                     ';                  
@@ -1626,14 +1626,14 @@ class Cont_transaksi_pelayanan extends CI_Controller
 		if ($surat['jenis_rujukan'] == 'umum' OR $surat['jenis_rujukan'] == 'BPJS') {
 			$txt1 = ""; $txt2 = "";
 		} elseif ($surat['jenis_rujukan'] == 'sktm' OR $surat['jenis_rujukan'] == 'jamkesda') {
-			$txt1 ="Disetujui Dinas Kesehatan Kota Bogor";     
+			$txt1 ="Disetujui Dinas Kesehatan Kota ".$puskesmas["nm_kota"];
 			$txt2 = "..........................................."; }
 		
 		$html .= '<table cellpadding="2" cellspacing="0" border="0" width="100%">
                      <tr>
                         <td width="56%">&nbsp;</td>
                         <td width="10%">&nbsp;</td>
-                        <td width="34%">Bogor,  '.$tgl.'</td>
+                        <td width="34%">'.$puskesmas["nm_kota"].',  '.$tgl.'</td>
                       </tr>
                       <tr>
                         <td>'.$txt1.'</td>
@@ -1705,7 +1705,7 @@ $html .='<table width="100%" border="0" cellpadding="3">
   </tr>
   <tr>
     <td colspan="4">&nbsp;</td>
-    <td>Bogor,  '.$tgl.'</td>
+    <td>'.$puskesmas["nm_kota"].',  '.$tgl.'</td>
   </tr>
   <tr>
     <td colspan="4">&nbsp;</td>
@@ -1789,7 +1789,7 @@ $html .='<table width="100%" border="0" cellpadding="3">
 						<tr>
                         <td width="20%" style="text-align: center;"><img src="'.base_url().'assets/img/logo.png" width="80" height="80"/></td>
 						
-                        <td width="80%" style="text-align: center;"><h4>00/DOK IN PKM - USI/01/PKM/151/2011</h4><br><h3>PEMERINTAH KOTA BOGOR<br>DINAS KESEHATAN</h3>
+                        <td width="80%" style="text-align: center;"><h4>00/DOK IN PKM - USI/01/PKM/151/2011</h4><br><h3>PEMERINTAH PROPINSI '.$puskesmas["nm_propinsi"].'<br>DINAS KESEHATAN KOTA '.$puskesmas["nm_kota"].'</h3>
                         <h4>UPTD '.$puskesmas["nm_puskesmas"].'<br>'.$puskesmas["alamat"].'<br>'.$puskesmas["no_telp"].'</h4>
 					    </td>
                     </tr>';
@@ -1800,7 +1800,7 @@ $html .='<table width="100%" border="0" cellpadding="3">
     <tr>
         <td width="20%" border="1px" style="text-align: center;">'.$surat["kd_bayar"].'</td>
         <td width="5%" style="text-align: left;"></td>
-        <td width="75%" style="text-align: right;">Bogor, '.$tgl.'</td>
+        <td width="75%" style="text-align: right;">'.$puskesmas["nm_kota"].', '.$tgl.'</td>
     </tr>
     <tr>
         <td style="text-align: right;" colspan="3">No KK: '.$surat["idkartu_medical"].'</td>

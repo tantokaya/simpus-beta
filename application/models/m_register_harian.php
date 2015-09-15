@@ -7,10 +7,10 @@ class M_register_harian extends CI_Model {
         parent::__construct();
     }
 
-    function get_puskesmas_info($kd_puskesmas){
+    function get_puskesmas_info(){
         $this->db->select('nm_puskesmas');
-        $this->db->from('puskesmas');
-        $this->db->where('kd_puskesmas', $kd_puskesmas);
+        $this->db->from('set_puskesmas');
+        $this->db->where('status', '1');
 
         $query = $this->db->get();
         return $query->row_array();

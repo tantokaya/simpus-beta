@@ -78,7 +78,7 @@
 
 if($data->num_rows()>0){
 
-    $kop 	= "<h3>DINAS KESEHATAN KOTA BOGOR</3>";
+    $kop 	= "<h3>DINAS KESEHATAN</3>";
     $kop 	.= "<h3>UPTD PUSKESMAS $nm_puskesmas</h3>";
     $kop 	.= "<p>$alamat $nm_kota </p>";
     $kop    .="<p>TELP. $telp </p>";

@@ -496,6 +496,38 @@ class M_crud extends CI_Model {
 		$query = $this->db->get();
 		return $query->result_array();
 	}
+
+    function get_list_kelurahan()
+    {
+        $this->db->select('*');
+        $this->db->from('kelurahan');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    function get_list_all_kecamatan()
+    {
+        $this->db->select('*');
+        $this->db->from('kecamatan');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    function get_profile_puskesmas()
+    {
+        $this->db->select('propinsi.nm_propinsi,set_puskesmas.telp,set_puskesmas.nip_kpl,set_puskesmas.kpl_puskesmas,
+                    set_puskesmas.alamat,set_puskesmas.nm_puskesmas,set_puskesmas.kd_puskesmas,set_puskesmas.`status`,
+                    set_puskesmas.logo, kecamatan.nm_kecamatan,kota.nm_kota,kelurahan.nm_kelurahan');
+        $this->db->from('set_puskesmas');
+        $this->db->join('propinsi','propinsi.kd_propinsi = set_puskesmas.kd_propinsi');
+        $this->db->join('kota','kota.kd_kota = set_puskesmas.kd_kota');
+        $this->db->join('kelurahan','kelurahan.kd_kelurahan = set_puskesmas.kd_kelurahan');
+        $this->db->join('kecamatan','kecamatan.kd_kecamatan = set_puskesmas.kd_kecamatan');
+        $this->db->where('set_puskesmas.status','1');
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 	/**********************************************************************************************************/
 	/* AGAMA																							  */
 	/**********************************************************************************************************/
@@ -1440,7 +1472,14 @@ public function ItemAwalApotek($id){
 					));
 		return $query->result_array();
 	}
-	
+
+    function get_setting_puskesmas_id($id)
+    {
+        $query	=	$this->db->get_where('set_puskesmas', array(
+            'kd_puskesmas' => $id
+        ));
+        return $query->result_array();
+    }
 	/**********************************************************************************************************/
 	/* STOK OBAT*/
 	/**********************************************************************************************************/
@@ -2750,13 +2789,16 @@ public function ItemAwalApotek($id){
 		return $query->row_array();
 	}
 	
-	function get_info_puskesmas($id)
+	function get_info_puskesmas()
 	{
-		$this->db->select('puskesmas.*, kecamatan.nm_kecamatan, jenis_puskesmas.jenis_puskesmas');
-		$this->db->from('puskesmas');
-		$this->db->where('kd_puskesmas', $id);
-		$this->db->join('kecamatan', 'puskesmas.kd_kecamatan = kecamatan.kd_kecamatan');
-		$this->db->join('jenis_puskesmas', 'puskesmas.id_jenis_puskesmas = jenis_puskesmas.id_jenis_puskesmas');
+		$this->db->select('set_puskesmas.*, kecamatan.nm_kecamatan, kota.nm_kota, propinsi.nm_propinsi, kelurahan.nm_kelurahan,jenis_puskesmas.jenis_puskesmas');
+		$this->db->from('set_puskesmas');
+		$this->db->where('status', '1');
+		$this->db->join('kecamatan', 'set_puskesmas.kd_kecamatan = kecamatan.kd_kecamatan');
+		$this->db->join('jenis_puskesmas', 'set_puskesmas.id_jenis_puskesmas = jenis_puskesmas.id_jenis_puskesmas');
+        $this->db->join('kota','set_puskesmas.kd_kota = kota.kd_kota');
+        $this->db->join('propinsi','set_puskesmas.kd_propinsi = propinsi.kd_propinsi');
+        $this->db->join('kelurahan','set_puskesmas.kd_kelurahan = kelurahan.kd_kelurahan');
 		$query = $this->db->get();
 		
 		return $query->result_array();

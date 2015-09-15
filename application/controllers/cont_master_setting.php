@@ -147,43 +147,107 @@ class Cont_master_setting extends CI_Controller
 	
 	
 	
-	function setting_puskesmas()
+	function setting_puskesmas($par1 = '', $par2 = '', $par3 = '')
 	{
-		if ($this->session->userdata('logged_in') == true)
-		{
-			$text = "SELECT * FROM set_puskesmas where status ='1' ";
-			$hasil = $this->m_crud->manualQuery($text);
-			$r = $hasil->num_rows();
-			if($r>0){
-				foreach($hasil->result() as $t){
-					$data['kd_puskesmas']	= $t->kd_puskesmas;
-					$data['nip_kpl']	= $t->nip_kpl;
-					$data['kpl_puskesmas']	= $t->kpl_puskesmas;
-					$data['nm_puskesmas']	= $t->nm_puskesmas;
-					$data['alamat']		    = $t->alamat;
-					
-				}
-			}else{
-					$data['kd_puskesmas'] 	= '';
-					$data['nip_kpl']	= '';
-					$data['kpl_puskesmas']  = '';
-					$data['nm_puskesmas'] 	= '';
-					$data['alamat'] 		= '';
-					
-			}	
-			$data['page_name']  = 'setting';
-			$data['page_title'] = 'Setting Puskesmas';
+        if (!$this->session->userdata('logged_in') == true)
+        {
+            redirect('login');
+        }
 
-            $data['list_provinsi'] = $this->m_crud->get_list_provinsi('1');
-			
-			$this->template->display('setting_puskesmas', $data, true);
-		} else {
-			redirect('login');
-		}
-		
+	    if ($par1 == 'ubah' && $par2 == 'do_update') {
+
+            if (!empty($_FILES['userfile']['name'])) {
+                // upload
+                $config['upload_path']   = './assets/img/';
+                $config['allowed_types'] = 'gif|jpg|png';
+                $config['file_name']     = 'logo';
+
+                $this->load->library('upload');
+                $this->upload->initialize($config);
+
+                if ( ! $this->upload->do_upload())
+                {
+                    redirect('404');
+                }
+                else
+                {
+                    //Image Resizing
+                    $data_upload = $this->upload->data();
+
+                    $file_name = $data_upload["file_name"];
+
+                    $this->load->library('image_lib');
+                    $config_resize['image_library'] = 'gd2';
+                    $config_resize['create_thumb'] = FALSE;
+                    $config_resize['maintain_ratio'] = FALSE;
+                    $config_resize['source_image'] = './assets/img/'. $file_name;
+                    $config_resize['new_image'] = './assets/img/thumbs/'.$file_name;
+                    $config_resize['master_dim'] = 'height';
+                    $config_resize['quality'] = "100%";
+
+
+                    $config_resize['width'] = 95;
+                    $config_resize['height'] = 119;
+                    $this->image_lib->initialize($config_resize);
+                    $this->image_lib->resize();
+
+
+
+                    $pp = array('upload_data' => $this->upload->data());
+                }
+
+             $data['logo']         = $pp['upload_data']['file_name'];
+            }
+
+             $data['kd_puskesmas']  = $this->input->post('kd_puskesmas');
+             $data['nm_puskesmas']  = $this->input->post('nm_puskesmas');
+             $data['nip_kpl']       = $this->input->post('nip_kpl');
+             $data['kpl_puskesmas'] = $this->input->post('kpl_puskesmas');
+             $data['nm_puskesmas']  = $this->input->post('nm_puskesmas');
+             $data['kd_kelurahan']  = $this->input->post('kd_kelurahan');
+             $data['kd_kecamatan']  = $this->input->post('kd_kecamatan');
+             $data['kd_kota']       = $this->input->post('kd_kota');
+             $data['kd_propinsi']   = $this->input->post('kd_propinsi');
+             $data['alamat']        = $this->input->post('alamat');
+             $data['telp']          = $this->input->post('telp');
+            // cek jika ada file yg diupload
+
+             $this->m_crud->perbaharui('kd_puskesmas', $par3, 'set_puskesmas', $data);
+             $this->session->set_flashdata('flash_message', 'Data Profil Puskesmas berhasil diperbaharui!');
+             redirect('cont_master_setting/setting_puskesmas', 'refresh');
+
+        } else if ($par1 == 'ubah') {
+             $data['edit_profil_puskesmas'] = $this->m_crud->get_setting_puskesmas_id($par2);
+        }
+
+			$data['page_name']      = 'setting';
+			$data['page_title']     = 'Setting Puskesmas';
+            $data['list_kelurahan'] = $this->m_crud->get_list_kelurahan();
+            $data['list_kecamatan'] = $this->m_crud->get_list_all_kecamatan();
+            $data['list_kota']      = $this->m_crud->get_list_kota();
+            $data['list_propinsi']  = $this->m_crud->get_list_provinsi();
+            $data['data_profile']   = $this->m_crud->get_profile_puskesmas();
+
+
+			$this->template->display('set_puskesmas', $data, true);
+
+
 	}
-	
-	public function simpan()
+
+    function reset_data($par1 = '', $par2 = '', $par3 = '')
+    {
+        if (!$this->session->userdata('logged_in') == true)
+        {
+            redirect('login');
+        }
+
+        $data['page_name']      = 'setting';
+        $data['page_title']     = 'Reset DataBase Puskesmas';
+
+        $this->template->display('reset', $data, true);
+    }
+
+        public function simpan()
 	{
 		
 		$cek = $this->session->userdata('logged_in');

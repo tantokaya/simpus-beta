@@ -31,7 +31,7 @@
 		  <td width="100"><button type="button" id="cari" class="btn btn-inverse"><i class="icon-search icon-white"></i> Cari Data</button></td>
 		  <td width="80"><button type="button" id="cetak" class="btn btn-inverse"><i class="icon-print icon-white"></i> Cetak</button></td>
 		  <td>
-		  <a href="<?php echo base_url(); ?>barang/gudang">
+		  <a href="<?php echo base_url(); ?>barang/apotek">
 			<button type="button" class="btn btn-inverse"><i class="icon-off icon-white"></i> Tutup</button>
 		  </a>
 		  </td>

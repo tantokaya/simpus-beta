@@ -226,6 +226,7 @@ class Cont_master_pelayanan extends CI_Controller
 		}
 		
 		if ($par1 == 'tambah') {
+			$data['kd_lb1'] = 'ZONK';
 			$data['kd_penyakit'] = $this->input->post('kd_penyakit');
 			$data['penyakit'] = $this->input->post('penyakit');
 			//$data['includes'] = $this->input->post('includes');

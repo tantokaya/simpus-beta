@@ -37,7 +37,7 @@
 		<td colspan="3" align="center">
 	    <button type="button" name="cari" id="cari" class="btn btn-inverse btn-rounded" ><i class="icon-zoom-in icon-white"></i> Tampil</button>
 	    <button type="button" name="cetak" id="cetak" class="btn btn-inverse btn-rounded"><i class="icon-print icon-white"></i> Cetak</button>
-	    <a href="<?php echo base_url();?>barang/gudang">
+	    <a href="<?php echo base_url();?>barang/apotek">
 	    <button type="button" name="kembali" id="kembali" class="btn btn-inverse btn-rounded"><i class="icon-off icon-white"></i> Tutup</button>
 	    </a>
 	    </td>
