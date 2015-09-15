@@ -33,7 +33,7 @@ class M_register_harian extends CI_Model {
 	
 	function get_pasien_rawat_umum_by_date($tgl_mulai, $tgl_akhir, $kd_unit_pelayanan, $kd_bayar){
 		
-        $sql = $this->db->select('pelayanan.kd_rekam_medis, dokter.nm_dokter,pelayanan.kd_trans_pelayanan, pelayanan.tgl_pelayanan, pasien.no_reg, pelayanan.kd_rekam_medis, pasien.nm_lengkap, pasien.kd_jenis_kelamin, golongan_umur.gol_umur,cara_bayar.cara_bayar, pasien.no_asuransi, unit_pelayanan.nm_unit, pasien.alamat, kelurahan.nm_kelurahan, kota.nm_kota, pelayanan_penyakit.kd_penyakit,jenis_kasus.jenis_kasus, GROUP_CONCAT(DISTINCT jenis_kasus.jenis_kasus SEPARATOR "; ") as jns_kasus, pelayanan_tindakan.kd_produk, GROUP_CONCAT(DISTINCT tindakan.produk SEPARATOR "; ") as tindakan, status_keluar_pasien.keterangan,GROUP_CONCAT(DISTINCT pelayanan_penyakit.kd_penyakit SEPARATOR "; ") as kd_icd, GROUP_CONCAT(DISTINCT icd.penyakit SEPARATOR "; ") as penyakit', false);
+        $sql = $this->db->select('pelayanan.kd_rekam_medis, dokter.nm_dokter,pelayanan.kd_trans_pelayanan, pelayanan.tgl_pelayanan, pasien.no_reg, pelayanan.kd_rekam_medis, pasien.nm_lengkap, pasien.kd_jenis_kelamin, golongan_umur.gol_umur,cara_bayar.cara_bayar, pasien.no_asuransi, unit_pelayanan.nm_unit, set_wil_kerja_pusk.kd_wil, pasien.alamat, kelurahan.nm_kelurahan, kota.nm_kota, pelayanan_penyakit.kd_penyakit,jenis_kasus.jenis_kasus, GROUP_CONCAT(DISTINCT jenis_kasus.jenis_kasus SEPARATOR "; ") as jns_kasus, pelayanan_tindakan.kd_produk, GROUP_CONCAT(DISTINCT tindakan.produk SEPARATOR "; ") as tindakan, status_keluar_pasien.keterangan,GROUP_CONCAT(DISTINCT pelayanan_penyakit.kd_penyakit SEPARATOR "; ") as kd_icd, GROUP_CONCAT(DISTINCT icd.penyakit SEPARATOR "; ") as penyakit',false);
         $sql->from('pelayanan');
         $sql->join('pasien','pelayanan.kd_rekam_medis = pasien.kd_rekam_medis','left');
         $sql->join('cara_bayar','pelayanan.kd_bayar = cara_bayar.kd_bayar','left');
@@ -48,6 +48,7 @@ class M_register_harian extends CI_Model {
 		$sql->join('tindakan','pelayanan_tindakan.kd_produk=tindakan.kd_produk','left');
 		$sql->join('golongan_umur','pelayanan.kd_gol_umur=golongan_umur.kd_gol_umur','left');
 		$sql->join('jenis_kasus','pelayanan_penyakit.kd_jenis_kasus=jenis_kasus.kd_jenis_kasus','left');
+		$sql->join('set_wil_kerja_pusk','pasien.kd_kelurahan=set_wil_kerja_pusk.kd_kelurahan','left');
 		$sql->where('pelayanan.tgl_pelayanan >=', $tgl_mulai);
 		$sql->where('pelayanan.tgl_pelayanan <=', $tgl_akhir);
 	

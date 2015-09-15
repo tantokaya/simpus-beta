@@ -73,6 +73,53 @@ class M_dashboard extends CI_Model {
 		return $query->row_array();
 	}
 	
+	function get_total_kunjungan_today_dlm_wil($sess = NULL)
+	{
+		$this->db->select('count(*) as total_kunjungan');
+		$this->db->from('pelayanan');
+		$this->db->join('pasien','pelayanan.kd_rekam_medis = pasien.kd_rekam_medis');
+		$this->db->join('set_wil_kerja_pusk','pasien.kd_kelurahan=set_wil_kerja_pusk.kd_kelurahan');
+		$this->db->where('pelayanan.tgl_pelayanan = CURDATE()');
+		$this->db->where('set_wil_kerja_pusk.kd_wil', 1);
+		
+		if($sess !== NULL){
+			$this->db->where('kd_puskesmas', $sess);
+		}
+		$query = $this->db->get();
+		return $query->row_array();
+	}
+	
+	function get_total_kunjungan_today_luar_wil($sess = NULL)
+	{
+		$this->db->select('count(*) as total_kunjungan');
+		$this->db->from('pelayanan');
+		$this->db->join('pasien','pelayanan.kd_rekam_medis = pasien.kd_rekam_medis');
+		$this->db->join('set_wil_kerja_pusk','pasien.kd_kelurahan=set_wil_kerja_pusk.kd_kelurahan');
+		$this->db->where('pelayanan.tgl_pelayanan = CURDATE()');
+		$this->db->where('set_wil_kerja_pusk.kd_wil', 2);
+		
+		if($sess !== NULL){
+			$this->db->where('kd_puskesmas', $sess);
+		}
+		$query = $this->db->get();
+		return $query->row_array();
+	}
+	
+	function get_total_kunjungan_today_luar_kota($sess = NULL)
+	{
+		$this->db->select('count(*) as total_kunjungan');
+		$this->db->from('pelayanan');
+		$this->db->join('pasien','pelayanan.kd_rekam_medis = pasien.kd_rekam_medis');
+		$this->db->where('pelayanan.tgl_pelayanan = CURDATE()');
+		$this->db->where('pasien.kd_kota != 3271');
+		
+		if($sess !== NULL){
+			$this->db->where('kd_puskesmas', $sess);
+		}
+		$query = $this->db->get();
+		return $query->row_array();
+	}
+	
 	function get_total_kunjungan_monthly($month, $sess = NULL)
 	{
 		$this->db->select('COUNT(*) as total_kunjungan');
@@ -92,6 +139,56 @@ class M_dashboard extends CI_Model {
 	{
 		$this->db->select('COUNT(*) as total_kunjungan');
 		$this->db->from('pelayanan');
+		$this->db->where('YEARWEEK(tgl_pelayanan) = YEARWEEK(CURRENT_DATE)');
+		
+		if($sess !== NULL){
+			$this->db->where('kd_puskesmas', $sess);
+		}
+
+		$query = $this->db->get();
+		
+		return $query->row_array();
+	}
+	function get_total_kunjungan_weekly_dlm_wil($sess = NULL)
+	{
+		$this->db->select('COUNT(*) as total_kunjungan');
+		$this->db->from('pelayanan');
+		$this->db->join('pasien','pelayanan.kd_rekam_medis = pasien.kd_rekam_medis');
+		$this->db->join('set_wil_kerja_pusk','pasien.kd_kelurahan=set_wil_kerja_pusk.kd_kelurahan');
+		$this->db->where('set_wil_kerja_pusk.kd_wil', 1);
+		$this->db->where('YEARWEEK(tgl_pelayanan) = YEARWEEK(CURRENT_DATE)');
+		
+		if($sess !== NULL){
+			$this->db->where('kd_puskesmas', $sess);
+		}
+
+		$query = $this->db->get();
+		
+		return $query->row_array();
+	}
+	function get_total_kunjungan_weekly_luar_wil($sess = NULL)
+	{
+		$this->db->select('COUNT(*) as total_kunjungan');
+		$this->db->from('pelayanan');
+		$this->db->join('pasien','pelayanan.kd_rekam_medis = pasien.kd_rekam_medis');
+		$this->db->join('set_wil_kerja_pusk','pasien.kd_kelurahan=set_wil_kerja_pusk.kd_kelurahan');
+		$this->db->where('set_wil_kerja_pusk.kd_wil', 2);
+		$this->db->where('YEARWEEK(tgl_pelayanan) = YEARWEEK(CURRENT_DATE)');
+		
+		if($sess !== NULL){
+			$this->db->where('kd_puskesmas', $sess);
+		}
+
+		$query = $this->db->get();
+		
+		return $query->row_array();
+	}
+	function get_total_kunjungan_weekly_luar_kota($sess = NULL)
+	{
+		$this->db->select('COUNT(*) as total_kunjungan');
+		$this->db->from('pelayanan');
+		$this->db->join('pasien','pelayanan.kd_rekam_medis = pasien.kd_rekam_medis');
+		$this->db->where('pasien.kd_kota != 3271');
 		$this->db->where('YEARWEEK(tgl_pelayanan) = YEARWEEK(CURRENT_DATE)');
 		
 		if($sess !== NULL){

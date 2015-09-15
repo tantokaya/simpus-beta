@@ -2293,6 +2293,14 @@ public function ItemAwalApotek($id){
 		//$query	=	$this->db->get('kota' );
 		return $query->result_array();
 	}*/
+	function get_list_kelurahan_by_kec($tansar)
+	{	$this->db->select('*');
+		$this->db->from('kelurahan');
+		$this->db->like('kd_kelurahan',$tansar);
+		
+		$query = $this->db->get('');
+		return $query->result_array();
+	}
 	
 	function get_list_spesialisasi($id)
 	{

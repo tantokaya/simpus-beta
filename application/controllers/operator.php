@@ -87,6 +87,12 @@ class Operator extends CI_Controller
 			$data['total_kunjungan_month']	= $this->m_dashboard->get_total_kunjungan_monthly(date('m'));
 			$data['total_kunjungan_week']	= $this->m_dashboard->get_total_kunjungan_weekly();
 			$data['total_kunjungan_year']	= $this->m_dashboard->get_total_kunjungan_yearly(date('Y'));
+			$data['total_kunjungan_date_dlm_wil'] 	= $this->m_dashboard->get_total_kunjungan_today_dlm_wil();
+			$data['total_kunjungan_date_luar_wil'] 	= $this->m_dashboard->get_total_kunjungan_today_luar_wil();
+			$data['total_kunjungan_date_luar_kota'] = $this->m_dashboard->get_total_kunjungan_today_luar_kota();
+			$data['total_kunjungan_week_dlm_wil']	= $this->m_dashboard->get_total_kunjungan_weekly_dlm_wil();
+			$data['total_kunjungan_week_luar_wil']	= $this->m_dashboard->get_total_kunjungan_weekly_luar_wil();
+			$data['total_kunjungan_week_luar_kota']	= $this->m_dashboard->get_total_kunjungan_weekly_luar_kota();
 			
 			$data['top_desease']			= $this->m_dashboard->get_top5_desease();
 			

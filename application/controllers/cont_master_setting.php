@@ -138,6 +138,66 @@ class Cont_master_setting extends CI_Controller
 				
 	}
 	
+	/***MASTER WILAYAH KERJA PUSKESMAS - setting aplikasi***/
+	function set_wil_kerja_pusk($par1 = '', $par2 = '', $par3 = '')
+	{
+		if (!$this->session->userdata('logged_in') == true)
+		{
+			redirect('login');
+		}
+		
+		if ($par1 == 'tambah') {
+			$data['id'] = '';
+			$data['email'] = $this->input->post('email');
+            $data['username'] = $this->input->post('username');
+			$data['password'] = md5($this->input->post('password'));
+			$data['nip'] = $this->input->post('nip');
+			$data['nama'] = $this->input->post('nama');
+			$data['id_akses'] = $this->input->post('id_akses');
+			$data['kd_puskesmas'] = $this->session->userdata('kd_puskesmas');
+			
+			$this->m_crud->simpan('user', $data);
+			$this->session->set_flashdata('flash_message', 'Data user berhasil disimpan!');
+			redirect('cont_master_setting/pengguna', 'refresh');
+		}
+		if ($par1 == 'ubah' && $par2 == 'do_update') {
+			$data['email'] = $this->input->post('email');
+			$data['nip'] = $this->input->post('nip');
+			$data['nama'] = $this->input->post('nama');
+			$data['id_akses'] = $this->input->post('id_akses');
+			$data['kd_puskesmas'] = $this->session->userdata('kd_puskesmas');
+			$data['username'] = $this->input->post('username');
+			//$data['password'] = $this->input->post('password');
+					
+			$this->m_crud->perbaharui('id_user', $par3, 'user', $data);
+			$this->session->set_flashdata('flash_message', 'Data user berhasil diperbaharui!');
+			redirect('cont_master_setting/pengguna', 'refresh');
+			
+		} else if ($par1 == 'ubah') {
+			$data['edit_pengguna'] = $this->m_crud->get_user_by_id($par2);
+		}
+		if ($par1 == 'hapus') {
+			$this->db->where('id_user', $par2);
+			$this->db->delete('user');
+			$this->session->set_flashdata('flash_message', 'Data user berhasil dihapus!');
+			redirect('cont_master_setting/pengguna', 'refresh');
+		}
+
+		$data['page_name']  = 'pengguna';
+		$data['page_title'] = 'Pengguna';
+		//$data['pengguna']	= $this->m_crud->get_all_user_akses();
+		
+		$tmpl = array('table_open' => '<table id="dyntable" class="table table-bordered">');
+        $this->table->set_template($tmpl);
+ 		$this->table->set_heading('Nama', 'NIP', 'Username', 'Group', 'Nama Instansi','Aksi');
+		
+		$data['list_kelurahan'] = $this->m_crud->get_list_kelurahan(); 
+		
+			
+		$this->template->display('pengguna', $data);
+		
+	}
+	
 	public function sinkronisasi(){
 		$data['page_name']  = 'sinkronisasi';
 		$data['page_title'] = 'Sinkronisasi Data';

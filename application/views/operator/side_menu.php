@@ -21,9 +21,10 @@
                         <li><a href="<?php echo base_url(); ?>admin/setting_aplikasi">Setting Aplikasi</a></li>
                     !-->
                     <li><a href="<?php echo base_url(); ?>cont_master_setting/setting_puskesmas">Setting Puskesmas</a></li>
+			<!--	<li><a href="<?php echo base_url(); ?>cont_master_setting/set_wil_kerja_pusk">Wilayah Kerja</a></li>-->
                     <li><a href="<?php echo base_url(); ?>cont_master_setting/group_pengguna">Group Pengguna</a></li>
                     <li><a href="<?php echo base_url(); ?>cont_master_setting/pengguna">Pengguna</a></li>
-                    <li><a href="<?php echo base_url(); ?>cont_master_setting/reset_data">Reset Database</a></li>
+            <!--        <li><a href="<?php echo base_url(); ?>cont_master_setting/reset_data">Reset Database</a></li>	-->
                 </ul>
             </li>
             <!--             <li class="<?php if($page_name == 'propinsi' || $page_name == 'puskesmas')echo 'active';?> dropdown"><a href=""><span class="icon-briefcase"></span> Master Wilayah dan Puskesmas</a>

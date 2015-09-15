@@ -63,9 +63,11 @@
                         	<?php if(isset($edit_pelayanan)):?>
             				<li class="ui-tabs-active"><a href="#ubah"><i class="icon-edit"></i> Ubah Data Transaksi Pelayanan</a></li>
             				<?php endif;?>
-      						
-                            <li class="<?php if(!isset($edit_pelayanan) && strlen($this->uri->segment(3)) < 8)echo 'ui-tabs-active';?>"><a href="#list"><i class="icon-align-justify"></i> Daftar Transaksi Pelayanan</a></li>
-                            <li class="<?php if(!isset($edit_pelayanan) && strlen($this->uri->segment(3)) >= 8)echo 'ui-tabs-active'; ?>"><a href="#tambah"><i class="icon-plus"></i>Transaksi Pelayanan Baru</a></li>
+      						<li class="<?php if(!isset($edit_pelayanan) && !isset($view_rekam_medis) && strlen($this->uri->segment(3)) < 8)echo 'ui-tabs-active';?>"><a href="#list"><i class="icon-align-justify"></i> Daftar Transaksi Pelayanan</a></li>
+                  <!--          <li class="<?php if(!isset($edit_pelayanan) && !isset($view_rekam_medis) && strlen($this->uri->segment(3)) >= 8)echo 'ui-tabs-active'; ?>"><a href="#tambah"><i class="icon-plus"></i>Transaksi Pelayanan Baru</a></li>	-->
+							<?php if(isset($view_rekam_medis)):?>
+            				<li class="ui-tabs-active"><a href="#rekam-medis"><i class="icon-file"></i> Rekam Medis</a></li>
+            				<?php endif;?>
                         </ul>
                         
                         
@@ -84,29 +86,33 @@
                                         <td>
 						<input type="text" name="kd_rekam_medis" id="kd_rekam_medis2" class="input-medium" value="<?php echo $row['kd_rekam_medis']; ?>" readonly />
 						<input type="hidden" name="kodepelayanan" id="kodepelayanan" class="input-medium" value="<?php echo $row['kd_trans_pelayanan']; ?>" readonly />
-					</td>
+						</td>
                                     </tr>
                                     <tr>
                                     	<td>Nama Lengkap</td>
                                         <td><input type="text" name="nm_lengkap" id="nm_lengkap2" class="input-large" value="<?php echo $edit_pasien['nm_lengkap']; ?>" readonly /></td>
-                                    </tr>
-                                    
-					
-                                       
+                                    </tr>        
                                 </table>
                             </div>
                             <div class="span6">
                             	<table class="table table-bordered table-invoice">
-                                	<tr>
+                    <!--            	<tr>
                                         <td class="width30">Tanggal Transaksi</td>
-                                        <td class="width70"><input type="text" name="tgl_pelayanan" id="tgl_pelayanan2" class="input-small" value="<?php echo $this->functions->convert_date_indo(array("datetime" => $row['tgl_pelayanan'])); ?>" /></td>
+                                        <td class="width70"><input type="text" name="tgl_pelayanan" id="tgl_pelayanan2" readonly class="input-small" value="<?php echo $this->functions->convert_date_indo(array("datetime" => $row['tgl_pelayanan'])); ?>" /></td>
                                     </tr>
                                     <tr>
                                         <td>NIK</td>
                                         <td><input type="text" name="nik" id="nik2" class="input-medium" value="<?php echo $edit_pasien['nik']; ?>" readonly /></td>
+                                    </tr>	-->
+                                    <input type="hidden" name="tgl_pelayanan" id="tgl_pelayanan2" readonly class="input-small" value="<?php echo $this->functions->convert_date_indo(array("datetime" => $row['tgl_pelayanan'])); ?>" />
+                                    <tr>
+                                        <td>Alamat</td>
+                                        <td><input type="text" name="alamat" id="alamat2" class="input-medium" value="<?php echo $edit_pasien['alamat']; ?>" readonly /></td>
                                     </tr>
-                                   
-                                    
+                                    <tr>
+                                        <td>Umur</td>
+                                        <td><input type="text" name="umur" id="umur2" class="input-medium" value="<?php echo $row['umur']; ?>" readonly /></td>
+                                    </tr>
 				</table>
 				
                             </div>
@@ -125,24 +131,31 @@
                                                 <span class="label">Unit Pelayanan</span>
                                             </a>
                             			</li>
+										<li>
+                                            <a href="#wiz1step1_5" class="disabled" isdone="0" rel="4">
+                                                <span class="h2">STEP 2</span>
+                                                <span class="label">Riwayat Penyakit</span>
+                                            </a>
+                                        </li>
                             			<li>
                                             <a href="#wiz1step1_2" class="disabled" isdone="0" rel="2">
-                                                <span class="h2">STEP 2</span>
+                                                <span class="h2">STEP 3</span>
                                                 <span class="label">Rekam Medis</span>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#wiz1step1_3" class="disabled" isdone="0" rel="3">
-                                                <span class="h2">STEP 3</span>
+                                                <span class="h2">STEP 4</span>
                                                 <span class="label">Obat</span>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#wiz1step1_4" class="disabled" isdone="0" rel="4">
-                                                <span class="h2">STEP 4</span>
+                                                <span class="h2">STEP 5</span>
                                                 <span class="label">Rujukan</span>
                                             </a>
                                         </li>
+										
                         			</ul>
                                     
                         			<div id="wiz1step1_1" class="formwiz content" style="display: block;">
@@ -154,13 +167,6 @@
                                                		<option value="-">Pilih Jenis Pelayanan</option>
 													<?php foreach($list_jenis_layanan as $ljl) : ?>
                                                     <?php 
-													if($ljl['kd_jenis_layanan']=='3'){
-														echo"<script type='text/javascript'>
-														jQuery(document).ready(function(){
-															jQuery('#rawat-inap2').show();
-															});
-														</script>";
-														}
 														if($ljl['kd_jenis_layanan'] == $row['kd_jenis_layanan'])
                                                     		echo '<option value="'.$ljl['kd_jenis_layanan'].'" selected>'.$ljl['jenis_layanan'].'</option>';
 														else
@@ -203,8 +209,7 @@
                                             </span>
                                         </p>
 
-                                        
-                                        <div id="rawat-inap2">
+                                         <div id="rawat-inap2">
                                         	<h4>Data Ruang Inap</h4>
                                             <p>
                                                 <label>Ruangan</label> 
@@ -235,9 +240,72 @@
                                             </p>    
 
                                         </div> <!-- end Rawat Inap -->
+                                        
                         			</div>
+									<div id="wiz1step1_5" class="content" style="display: none;">
+                                    	<h4>Step 2: Riwayat Rekam Medis</h4>
+                                    	<table class="table table-bordered table-stripped table-hover">
+                                        	<thead>
+                                            	<tr>
+                                                	<th>No.</th>
+                                                    <th>Tanggal</th>
+                                                    <th>Puskesmas</th>
+                                                    <th>Poli</th>
+                                                    <th>Dokter</th>
+                                                    <th>Anamnesa</th>
+													<th>Cat.Fisik</th>
+                                                    <th>Penyakit</th>
+                                                    <th>Tindakan</th>
+                                                    <th>Obat (Dosis) (Jml)</th>
+                                                   </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php if(isset($view_trans_pelayanan) && !empty($view_trans_pelayanan)): ?>
+                                            	<?php $i=1; foreach($view_trans_pelayanan as $rs): 
+													if ($rs['anamnesa'] == '0') { $rs['anamnesa']="-";}
+													if ($rs['catatan_fisik'] == '0') { $rs['catatan_fisik']="-";}
+													if ($rs['tindakan'] == '') { $rs['tindakan']="-";}
+													if ($rs['dokter'] == '') { $rs['dokter']="-";}
+													
+												?>
+                                            	<tr>
+                                                	<td><?php echo $i; ?></td>
+                                                    <td><?php echo $this->functions->convert_date_indo(array("datetime" => $rs['tgl_pelayanan'])); ?></td>
+                                                    <td><?php echo $rs['nm_puskesmas']; ?></td> <!-- jenis layanan diganti poli mana -->
+                                                    <td><?php echo $rs['unit_layanan']; ?></td>
+                                                    <td><?php echo $rs['dokter']; ?></td>
+                                                    <td><?php echo $rs['anamnesa']; ?></td>
+													<td><?php echo $rs['catatan_fisik']; ?></td>
+                                                    <td><?php echo $rs['kd_icd']; ?> - <?php echo $rs['penyakit']; ?></td>
+                                                    <td><?php echo $rs['tindakan']; ?></td>
+													<?php 	
+														
+														$pecahObat = explode(';', $rs['obat']);
+														$pecahDosis = explode(';', $rs['dosis']);
+														$pecahJml = explode(';', $rs['jml_obat']);
+														$obatku = '';
+														for($z=0; $z < count($pecahObat); $z++){
+															$obatku .= $pecahObat[$z] . " (" . $pecahDosis[$z] . ") (" . $pecahJml[$z].")";
+															if($z != (count($pecahObat)-1))
+																$obatku .= " \n- ";
+														}	
+
+														?>
+                                                    <td><?php echo $obatku; ?></td>
+                                                  
+                                                </tr>
+                                                <?php $i++; ?>
+                                            	<?php endforeach; ?>
+                                            <?php else: ?>
+                                            	<tr>
+                                                	<td colspan="11"><center>Tidak ada riwayat kunjungan</center></td>
+                                                </tr>
+                                            <?php endif; ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
                             		<div id="wiz1step1_2" class="formwiz content" style="display: none;">
-                                        <h4>Step 2: Rekam Medis</h4> 
+                                        <h4>Step 3: Rekam Medis</h4> 
                                         <p>
                                             <label>Dokter</label>
                                             <span class="field">
@@ -433,7 +501,7 @@
                                         </p>												
                                     </div>
                             		<div id="wiz1step1_3" class="content" style="display: none;">
-                                        <h4>Step 3: Obat</h4>
+                                        <h4>Step 4: Obat</h4>
                                         <p>
                                             <table class="table table-stripped table-bordered" id="tbl-obat2">
                                                 <colgroup>
@@ -441,16 +509,16 @@
                                                     <col class="con1" />
                                                     <col class="con0" />
                                                     <col class="con1" />
-<!--                                                    <col class="con0" />-->
+                                                    <col class="con0" />
 						    <col class="con1" />
                                                 </colgroup>
                                                 <thead>
                                                     <tr>
                                                         <th>No.</th>
                                                         <th>Obat</th>
-<!--                                                        <th>Satuan</th>-->
+                                                    <!--    <th>Satuan</th>	-->
                                                         <th>Dosis</th>
-														<th>Stok</th>
+							<th>Stok</th>
                                                         <th>Jumlah</th>
 							<th>Racikan</th>
                                                     </tr>
@@ -467,7 +535,19 @@
                                                         <td>
                                                         	<input type="text" name="nama_obat_<?php echo $i; ?>" id="nama_obat2_<?php echo $i; ?>" value="<?php echo $eo['nama_obat']; ?>" class="nama_obat2 input-large" />
                                                         </td>
-
+                                              <!--          <td>
+                                                            <select name="satuan_<?php echo $i; ?>" id="satuan2_<?php echo $i; ?>" class="satuan2 uniformselect" style="width:100px;">
+                                                                <option name="-">Pilih Satuan</option>
+                                                                <?php foreach($list_satuan_kecil as $lsk) : ?>
+                                                                    <?php 
+                                                                    if($lsk['kd_sat_kecil_obat'] == $eo['kd_sat_kecil_obat']) 
+                                                                        echo '<option value="'.$lsk['kd_sat_kecil_obat'].'" selected>'.$lsk['sat_kecil_obat'].'</option>';
+                                                                    else
+                                                                        echo '<option value="'.$lsk['kd_sat_kecil_obat'].'">'.$lsk['sat_kecil_obat'].'</option>';
+                                                                    ?>
+                                                                <?php endforeach; ?>
+                                                            </select>
+                                                        </td>	-->
                                                         <td>
                                                         	<input type="text" name="dosis_<?php echo $i; ?>" id="dosis2_<?php echo $i; ?>" value="<?php echo $eo['dosis']; ?>" class="dosis2 input-small" />
                                                         </td>
@@ -497,12 +577,12 @@
 					</p>
                         			</div>
                                     <div id="wiz1step1_4" class="content" style="display: none;">
-                                    	<h4>Step 4: Status Keluar Pasien</h4>
+                                    	<h4>Step 5: Status Keluar Pasien</h4>
                                     	<p>
                                             <label>Status Keluar Pasien</label>
                                             <span class="field">
                                             	<select name="kd_status_pasien" id="kd_status_pasien2" class="uniformselect">
-                                               <!--		<option value="-">Pilih Status Keluar Pasien</option>	-->
+                                               		
 													<?php foreach($list_status_keluar as $lsk) : ?>
                                                     	<?php 
 														if($lsk['kd_status_pasien'] == $row['kd_status_pasien']) 
@@ -519,7 +599,7 @@
                                             <label>No. Rujukan</label>
                                             <span class="field"><input type="text" name="no_rujukan" id="no_rujukan2" value="<?php echo $row['no_rujukan']; ?>" readonly class="input-large" /></span>
                                         </p>  
-										 <p>
+                                       <p>
                                             <label>Jenis Rujukan</label>
                                             <span class="field">
                                             	<select name="jenis_rujukan" id="jenis_rujukan2" class="uniformselect">
@@ -532,7 +612,7 @@
                             					</select>
                                             </span>
                                         </p> 
-                                        <p>
+										<p>
                                             <label>RS / Tempat Rujukan</label>
                                             <span class="field"><input type="text" name="tempat_rujukan" id="tempat_rujukan2" value="<?php echo $row['tempat_rujukan']; ?>" class="input-large" /></span>
                                         </p>
@@ -541,6 +621,7 @@
                                             <span class="field"><input type="text" name="poli_rujukan" id="poli_rujukan2" value="<?php echo $row['poli_rujukan']; ?>" class="input-large" /></span>
                                         </p>
                                     </div>
+									
       							</div><!--#wizard-->                        
                 			<!-- END OF TABBED WIZARD -->
       						</div>
@@ -562,6 +643,7 @@
                         <script type="text/javascript">
 							jQuery(document).ready(function () {
 								var oTable = jQuery('#dyntable').dataTable({
+									"aaSorting": [[6,'desc'], [0,'asc']],	
 									"bProcessing": true,
 									"bServerSide": true,
 									"bAutoWidth": false,
@@ -597,338 +679,136 @@
                          <!---- END DAFTAR PELAYANAN TODAY---->
 						 
                         
-                        <!---- TAMBAH PELAYANAN START ---->
                         
-                        <div id="tambah">
-                        <?php echo form_open('cont_transaksi_pelayanan/pelayanan_today/tambah', array('class' => 'stdform', 'id' => 'form_input')); ?>
-                       		<h4 class="widgettitle">Transaksi Pelayanan</h4>
-                           
-                            <div class="row-fluid">
-                            <div class="span6">
-                            	<table class="table table-bordered table-invoice">
-                                	<tr>
-                                    	<td>No. Rekam Medis</td>
-                                        <td>
-						<input type="text" name="kd_rekam_medis" id="kd_rekam_medis" class="input-medium"  />
-						<button type="button" name="list_medis" id="list_medis" class="btn btn-danger btn-small" title="Cari No Rekam Medis"><i class="icon-list-alt icon-white"></i></button>
-					</td>
-                                    </tr>
-                                    <tr>
-                                    	<td>Nama Lengkap</td>
-                                        <td><input type="text" name="nm_lengkap" id="nm_lengkap" class="input-large" readonly /></td>
-                                    </tr>
-                                    
-                                    <input type="hidden" name="tanggal_lahir" id="tanggal_lahir" class="input-small" readonly />
-                                    <input type="hidden" name="jenis_kelamin" id="jenis_kelamin" class="input-large" readonly />
-                                    
-                                </table>
-                            </div>
-                            <div class="span6">
-                            	<table class="table table-bordered table-invoice">
-				    <tr>
-                                        <td class="width30">Tanggal Transaksi</td>
-                                        <td class="width70"><input type="text" name="tgl_pelayanan" id="tgl_pelayanan" class="input-small" value="<?php echo date('d-m-Y'); ?>" /></td>
-                                    </tr>
-				    <tr>
-                                        <td>NIK</td>
-                                        <td><input type="text" name="nik" id="nik" class="input-medium" readonly /></td>
-                                    </tr>
-                                    <input type="hidden" name="no_kk" id="no_kk" class="input-large" readonly />
-				    <input type="hidden" name="nm_kk" id="nm_kk" class="input-large" readonly />
-                                </table>
-                                <br>
-                                
-                            </div>
-                            </div>
-                            <div class="clearfix"><br/></div>
-                            <!--<h4 class="widgettitle">Data Alamat</h4>-->
-                            
-                            <div class="widgetcontent">
-                			<!-- START OF TABBED WIZARD -->
-                    			<div id="wizard2" class="wizard tabbedwizard">
-                    				<ul class="tabbedmenu anchor">
-                            			<li>
-                                            <a href="#wiz1step2_1" class="selected" isdone="1" rel="1">
-                                                <span class="h2">STEP 1</span>
-                                                <span class="label">Unit Pelayanan</span>
-                                            </a>
-                            			</li>
-                          			<li>
-                                            <a href="#wiz1step2_2" class="disabled" isdone="0" rel="2">
-                                                <span class="h2">STEP 2</span>
-                                                <span class="label">Rekam Medis</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#wiz1step2_3" class="disabled" isdone="0" rel="3">
-                                                <span class="h2">STEP 3</span>
-                                                <span class="label">Obat</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#wiz1step2_4" class="disabled" isdone="0" rel="4">
-                                                <span class="h2">STEP 4</span>
-                                                <span class="label">Rujukan</span>
-                                            </a>
-                                        </li>	
-                        			</ul>
-                                    
-                        			<div id="wiz1step2_1" class="formwiz content" style="display: block;">
-                        				<h4>Step 1: Unit Pelayanan</h4>
-                                        <p>
-                                            <label>Jenis Pelayanan</label>
-                                            <span class="field">
-                                            	<select name="kd_jenis_layanan" id="kd_jenis_layanan" class="uniformselect">
-                                               		<option value="-">Pilih Jenis Pelayanan</option>
-													<?php foreach($list_jenis_layanan as $ljl) : ?>
-                                                    	<option value="<?php echo $ljl['kd_jenis_layanan']; ?>"><?php echo $ljl['jenis_layanan']; ?></option>
-                                                    <?php endforeach; ?>
-                            					</select>
-                                           </span>
-                                        </p>
-                                        <p>
-                                            <label>Unit pelayanan yang dituju</label>
-                                            <span class="field">
-                                            	<select name="kd_unit_pelayanan" id="kd_unit_pelayanan" class="uniformselect">
-                                               		<option value="-">Pilih Unit Pelayanan</option>
-													<?php foreach($list_unit_pelayanan as $lup) : ?>
-                                                    	<option value="<?php echo $lup['kd_unit_pelayanan']; ?>"><?php echo $lup['nm_unit']; ?></option>
-                                                    <?php endforeach; ?>
-                            					</select>
-                                            </span>
-                                        </p>                             
-                                        <p>
-                                            <label>Metode Pembayaran</label>
-                                            <span class="field">
-                                            	<select name="kd_bayar" id="kd_bayar" class="uniformselect">
-                                               		<option value="-">Pilih Cara Bayar</option>
-													<?php foreach($list_cara_bayar as $lp) : ?>
-                                                    	<option value="<?php echo $lp['kd_bayar']; ?>"><?php echo $lp['cara_bayar']; ?></option>
-                                                    <?php endforeach; ?>
-                            					</select>
-                                            </span>
-                                        </p>
-
-                                        
-                                        <div id="rawat-inap">
-                                        	<h4>Data Ruang Inap</h4>
-                                  <p>
-                                                <label>Ruangan</label> 
-                                                <span class="field">
-                                                <select name="kd_ruangan" id="kd_ruangan" data-placeholder="Pilih Ruangan" style="width:250px" class="chzn-select">
-                                            	<option value=""></option>
-                                            	<?php foreach($list_ruangan as $lr) : ?>
-                                            	<option value="<?php echo $lr['kd_ruangan']; ?>"><?php echo $lr['nm_ruangan']; ?></option>
-												<?php endforeach; ?>
-                                            </select>
-                                            
-                                             </span>
-                                            </p>
-
-                                       <p>	<label>Kamar/Bed</label> 
-                                                <span class="field">  
-                                              <select name="kd_bed" id="kd_bed" data-placeholder="Pilih Bed" style="width:250px" class="chzn-select" required>
-                                            	<option value=""></option>
-                                 			</select>
-                                           
-                                        		</span>
-                                            </p>    
-                                      </div> <!-- end Rawat Inap -->
-                        			</div>
-                         		<div id="wiz1step2_2" class="formwiz content" style="display: none;">
-                                        <h4>Step 2: Rekam Medis</h4> 
-                                        <p>
-                                            <label>Dokter</label>
-                                            <span class="field">
-                                            	<select name="kd_dokter" id="kd_dokter" class="uniformselect">
-                                               		<option value="-">Pilih Dokter</option>
-													<?php foreach($list_dokter as $ld) : ?>
-                                                    	<option value="<?php echo $ld['kd_dokter']; ?>"><?php echo $ld['nm_dokter']; ?></option>
-                                                    <?php endforeach; ?>
-                            					</select>
-                                            </span>
-                                        </p>
-                                        <p>
-                                            <label>Anamnesa</label>
-                                            <span class="field"><textarea cols="80" rows="5" class="span6" name="anamnesa" id="anamnesa"></textarea></span>
-                                        </p>
-                                        <p>
-                                            <label>Catatan Fisik</label>
-                                            <span class="field"><textarea cols="80" rows="5" class="span6" name="cat_fisik" id="cat_fisik"></textarea></span>
-                                        </p>  
-                                        <p>
-                                            <label>Catatan Dokter</label>
-                                            <span class="field"><textarea cols="80" rows="5" class="span6" name="cat_dokter" id="cat_dokter"></textarea></span>
-                                        </p> 
-                                        <h4>Diagnosa</h4>
-                                        <p>
-                                            <table class="table table-stripped table-bordered" id="tbl-penyakit">
-                                                <colgroup>
-                                                    <col class="con0" />
-                                                    <col class="con1" />
-                                                    <col class="con0" />
-                                                    <col class="con1" />
-                                                    <col class="con0" />
-                                                </colgroup>
-                                                <thead>
-                                                    <tr>
-                                                        <th>No.</th>
-                                                        <th>Kode Penyakit</th>
-                                                        <th>Penyakit</th>
-                                                        <th>Jenis Kasus</th>
-                                                        <th>Jenis Diagnosa</th>
-                                                     </tr>
-                                                </thead>
-                                                <tbody>
-                                                    
-                                                </tbody>
-                                            </table>
-                                        </p>
-                                        <p>
-                                        	<a href="#" id="addPenyakit" class="btn btn-primary btn-rounded"><i class="icon-plus icon-white"></i>&nbsp;Tambah</a> <a href="#" id="removePenyakit" class="btn btn-danger btn-rounded"><i class="icon-trash icon-white"></i>&nbsp;Hapus</a>
-                                        </p>
-                                        <h4>Tindakan</h4> 
-                                        <p>
-                                        	<table class="table table-stripped table-bordered" id="tbl-tindakan">
-                                                <colgroup>
-                                                    <col class="con0" />
-                                                    <col class="con1" />
-                                                    <col class="con0" />
-                                                    <col class="con1" />
-                                                    <col class="con0" />
-                                                </colgroup>
-                                                <thead>
-                                                    <tr>
-                                                        <th>No.</th>
-                                                        <th>Jenis Tindakan</th>
-                                                        <th>Harga</th>
-                                                        <th>Jumlah (Qty)</th>
-                                                        <th>Keterangan Tindakan</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    
-                                                </tbody>
-                                            </table>
-                                         </p>
-                                         <p>
-                                        	<a href="#" id="addTindakan" class="btn btn-primary btn-rounded"><i class="icon-plus icon-white"></i>&nbsp;Tambah</a> <a href="#" id="removeTindakan" class="btn btn-danger btn-rounded"><i class="icon-trash icon-white"></i>&nbsp;Hapus</a>
-                                        </p>	
-
-											<h4>Laboratorium</h4> 
-                                        <p>
-                                        	<table class="table table-stripped table-bordered" id="tbl-lab2">
-                                                <colgroup>
-                                                    <col class="con0" />
-                                                    <col class="con1" />
-                                                    <col class="con0" />
-                                                    <col class="con1" />
-                                                    <col class="con0" />
-                                                </colgroup>
-                                                <thead>
-                                                    <tr>
-                                                        <th>No.</th>
-                                                        <th>Jenis Pemeriksaan Laboratorium</th>
-                                                        <th>Harga</th>
-                                                        <th>Jumlah (Qty)</th>
-                                                        <th>Keterangan Tindakan</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    
-                                                </tbody>
-                                            </table>
-                                         </p>
-                                         <p>
-                                        	<a href="#" id="addTindakan4" class="btn btn-primary btn-rounded"><i class="icon-plus icon-white"></i>&nbsp;Tambah</a> <a href="#" id="removeTindakan4" class="btn btn-danger btn-rounded"><i class="icon-trash icon-white"></i>&nbsp;Hapus</a>
-                                        </p>			    
+						<!---- VIEW REKAM MEDIS STARTS---->
+        						<?php if(isset($view_rekam_medis)):?>
+                        <div id="rekam-medis">
+                        	<h4 class="widgettitle nomargin">Rekam Medis Pasien</h4>
+                            <div class="widgetcontent bordered">
+                            	<div class="row-fluid">
+                                	<div class="span6">
+                                    	<table class="table table-bordered table-invoice">
+                                            <tbody>
+                                                <tr>
+                                                    <td width="30%">No. Rekam Medis</td>
+                                                    <td width="70%"><?php echo $view_rekam_medis['kd_rekam_medis']; ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Nama Pasien</td>
+                                                    <td><?php echo $view_rekam_medis['nm_lengkap']; ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Tempat, Tgl Lahir</td>
+                                                    <td><?php echo $view_rekam_medis['tempat_lahir'].' / '.$this->functions->format_tgl_cetak2($view_rekam_medis['tanggal_lahir']); ?></td>
+                                                </tr>
+                                                
+                                                <tr>
+                                                    <td>Umur</td>
+                                                    <td>
+													<?php 
+														$hitung = $this->functions->CalcAge($view_rekam_medis['tanggal_lahir'], date('Y-m-d'));
+														//$hitung = $this->functions->dateDifference($view_rekam_medis['tanggal_lahir'], date('Y-m-d'));
+														$umurku=$hitung[0].' Tahun '.$hitung[1].' Bulan '.$hitung[2].' Hari';
+														echo $umurku;
+	    												//echo $hitung[0].' Tahun '.$hitung[1].' Bulan '.$hitung[2].' Hari'; 
+														//print_r ($hitung); exit;
+													?> 
+                                                   	</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
-                            		<div id="wiz1step2_3" class="content" style="display: none;">
-                                        <h4>Step 3: Obat</h4>
-                                        <p>
-                                            <table class="table table-stripped table-bordered" id="tbl-obat">
-                                                <colgroup>
-                                                    <col class="con0" />
-                                                    <col class="con1" />
-                                                    <col class="con0" />
-                                                    <col class="con1" />
-                                                    <col class="con0" />
-						    <col class="con1" />
-                                                </colgroup>
-                                                <thead>
-                                                    <tr>
-                                                        <th>No.</th>
-                                                        <th>Obat</th>
-<!--                                                        <th>Satuan</th>-->
-                                                        <th>Dosis</th>
-														<th>Stok</th>
-                                                        <th>Jumlah</th>
-							                         <th>Racikan</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    
-                                                </tbody>
-                                            </table>
-                                        </p>
-                                        <p>
-                                        	<a href="#" id="addObat" class="btn btn-primary btn-rounded"><i class="icon-plus icon-white"></i>&nbsp;Tambah</a> <a href="#" id="removeObat" class="btn btn-danger btn-rounded"><i class="icon-trash icon-white"></i>&nbsp;Hapus</a>
-						
-					</p>
-                        			</div>
+                                    <div class="span6">
+                                    	<table class="table table-bordered table-invoice">
+                                            <tbody>
+                                          
+                                                <tr>
+                                                    <td>Jenis Kelamin</td>
+                                                    <td><?php echo ucwords(strtolower($view_rekam_medis['jenis_kelamin'])); ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Alamat</td>
+                                                    <td><?php echo $view_rekam_medis['alamat']; ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Puskesmas</td>
+                                                    <td><?php echo $view_rekam_medis['nm_puskesmas']; ?></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div> <!-- </span6> --> 
+                                </div> <!-- </row-fluid> -->
+                               <div class="clearfix"><br/></div>
+                               <h4 class="widgettitle">Kunjungan Pasien</h4>
+                                <div class="row-fluid">
+                                	<div class="span12">
+                                   		<table class="table table-bordered table-stripped table-hover">
+                                        	<thead>
+                                            	<tr>
+                                                	<th>No.</th>
+                                                    <th>Tanggal</th>
+                                                    <th>Puskesmas</th>
+                                                    <th>Poli</th>
+                                                    <th>Dokter</th>
+                                                    <th>Anamnesa</th>
+													<th>Cat.Fisik</th>
+                                                    <th>Penyakit</th>
+                                                    <th>Tindakan</th>
+                                                    <th>Obat (Dosis) (Jml)</th>
+                                                   </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php if(isset($view_trans_pelayanan) && !empty($view_trans_pelayanan)): ?>
+                                            	<?php $i=1; foreach($view_trans_pelayanan as $rs): 
+													if ($rs['anamnesa'] == '0') { $rs['anamnesa']="-";}
+													if ($rs['catatan_fisik'] == '0') { $rs['catatan_fisik']="-";}
+													if ($rs['tindakan'] == '') { $rs['tindakan']="-";}
+													if ($rs['dokter'] == '') { $rs['dokter']="-";}
+													
+												?>
+                                            	<tr>
+                                                	<td><?php echo $i; ?></td>
+                                                    <td><?php echo $this->functions->convert_date_indo(array("datetime" => $rs['tgl_pelayanan'])); ?></td>
+                                                    <td><?php echo $rs['nm_puskesmas']; ?></td> <!-- jenis layanan diganti poli mana -->
+                                                    <td><?php echo $rs['unit_layanan']; ?></td>
+                                                    <td><?php echo $rs['dokter']; ?></td>
+                                                    <td><?php echo $rs['anamnesa']; ?></td>
+													<td><?php echo $rs['catatan_fisik']; ?></td>
+                                                    <td><?php echo $rs['kd_icd']; ?> - <?php echo $rs['penyakit']; ?></td>
+                                                    <td><?php echo $rs['tindakan']; ?></td>
+													<?php 	
+														
+														$pecahObat = explode(';', $rs['obat']);
+														$pecahDosis = explode(';', $rs['dosis']);
+														$pecahJml = explode(';', $rs['jml_obat']);
+														$obatku = '';
+														for($z=0; $z < count($pecahObat); $z++){
+															$obatku .= $pecahObat[$z] . " (" . $pecahDosis[$z] . ") (" . $pecahJml[$z].")";
+															if($z != (count($pecahObat)-1))
+																$obatku .= " \n- ";
+														}	
 
-                                    <div id="wiz1step2_4" class="content" style="display: none;">
-                                    	<h4>Step 4: Status Keluar Pasien</h4>
-                                    	<p>
-                                            <label>Status Keluar Pasien</label>
-                                            <span class="field">
-                                            	<select name="kd_status_pasien" id="kd_status_pasien" class="uniformselect">
-                                               	<!--	<option value="-">Pilih Status Keluar Pasien</option>	-->
-													<?php foreach($list_status_keluar as $lsk) : ?>
-                                                    	<option value="<?php echo $lsk['kd_status_pasien']; ?>"><?php echo $lsk['keterangan']; ?></option>
-                                                    <?php endforeach; ?>
-                            					</select>
-                                            </span>
-                                        </p>
-                                        <h4>Rujukan</h4>
-                            <!--            <p>
-                                            <label>No. Rujukan</label>
-                                            <span class="field"><input type="text" name="no_rujukan" id="no_rujukan" class="input-large" /></span>
-                                        </p>  -->
-										<p>
-                                            <label>Jenis Rujukan</label>
-                                            <span class="field">
-                                            	<select name="jenis_rujukan" id="jenis_rujukan" class="uniformselect">
-                                               		<option value="-">Pilih Jenis Rujukan</option>
-                                                    	<option value="Umum">Umum</option>
-														<option value="Jamkesda">Jamkesda</option>
-														<option value="SKTM">SKTM</option>
-														<option value="BPJS">BPJS</option>
-                            					</select>
-                                            </span>
-                                        </p>
-                                        <p>
-                                            <label>RS / Tempat Rujukan</label>
-                                            <span class="field"><input type="text" name="tempat_rujukan" id="tempat_rujukan" class="input-large" /></span>
-                                        </p>
-										 <p>
-                                            <label>Nama Poli Rujukan</label>
-                                            <span class="field"><input type="text" name="poli_rujukan" id="poli_rujukan" class="input-large" /></span>
-                                        </p>
-                                    </div>	
-      							</div><!--#wizard-->                        
-                			<!-- END OF TABBED WIZARD -->
-      						</div>
-                        </div>
-				<div class="clearfix"><br /> </div>
-					<div id="DataRekamMedis" title="Data Rekam Medis">
-					Cari : <input type="text" id="carimedis" class="input-large search-query" placeholder="pencarian">
-					<button type="button" name="tutup" id="tutup" class="btn btn-small btn-info"><i class="icon-off icon-white"></i> Tutup</button>
-					<div class="clearfix"><br /> </div>	
-						<div id="daftarrekammedis"></div>
-					</div>
-                        <?php echo form_close();  ?>
-                        <!---- END TAMBAH PELAYANAN ---->
+														?>
+                                                    <td><?php echo $obatku; ?></td>
+                                                  
+                                                </tr>
+                                                <?php $i++; ?>
+                                            	<?php endforeach; ?>
+                                            <?php else: ?>
+                                            	<tr>
+                                                	<td colspan="11"><center>Tidak ada riwayat kunjungan</center></td>
+                                                </tr>
+                                            <?php endif; ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div> <!-- </widgetcontent> -->
+                        </div> <!-- <./rekam medis>
+                        <?php endif; ?>
+
+                        <!---- END VIEW REKAM MEDIS ---->
+						
                 	</div><!--tabs-->
                 </div><!--span12-->
             </div><!--row-fluid-->
@@ -1074,7 +954,6 @@ jQuery(document).ready(function(){
 			}  
 		 });
      });
-
 
 	<?php if(isset($edit_bed)): ?>
    		jQuery('#rawat-inap2').show();
@@ -1659,6 +1538,8 @@ jQuery(function() { // Tambah Obat
 			jQuery('a#removeObat').removeAttr('disabled');
 		}
 			
+		//var inputHTML = '<tr><td><div id="'+counter3+'">'+counter3+'</div><input type="hidden" name="kd_obat_'+counter3+'" id="kd_obat_'+counter3+'" class="kd_obat" /></td><td><input type="text" name="nama_obat_'+counter3+'" id="nama_obat_'+counter3+'" class="nama_obat input-large" /></td><td><select name="satuan_'+counter3+'" id="satuan_'+counter3+'" class="satuan uniformselect" style="width:100px;"><option name="-">Pilih Satuan</option><?php foreach($list_satuan_kecil as $lsk) : ?><option value="<?php echo $lsk['kd_sat_kecil_obat']; ?>"><?php echo $lsk['sat_kecil_obat']; ?></option><?php endforeach; ?></select></td><td><input type="text" name="dosis_'+counter3+'" id="dosis_'+counter3+'" class="dosis input-small" /></td><td><input type="text" name="apotek_stok_'+counter3+'" id="apotek_stok_'+counter3+'" class="apotek_stok input-small" readonly/></td><td><input type="text" name="jumlah_'+counter3+'" id="jumlah_'+counter3+'" class="jumlah input-small" /></td><td><select name="racikan_'+counter3+'" id="racikan_'+counter3+'" class="racikan uniformselect" style="width:100px;"><option value="0">Non Racikan</option><option value="1">Racikan</option></select></td></tr>';
+		
 		var inputHTML = '<tr><td><div id="'+counter3+'">'+counter3+'</div><input type="hidden" name="kd_obat_'+counter3+'" id="kd_obat_'+counter3+'" class="kd_obat" /></td><td><input type="text" name="nama_obat_'+counter3+'" id="nama_obat_'+counter3+'" class="nama_obat input-large" /></td><td><input type="text" name="dosis_'+counter3+'" id="dosis_'+counter3+'" class="dosis input-small" /></td><td><input type="text" name="apotek_stok_'+counter3+'" id="apotek_stok_'+counter3+'" class="apotek_stok input-small" readonly/></td><td><input type="text" name="jumlah_'+counter3+'" id="jumlah_'+counter3+'" class="jumlah input-small" /></td><td><select name="racikan_'+counter3+'" id="racikan_'+counter3+'" class="racikan uniformselect" style="width:100px;"><option value="0">Non Racikan</option><option value="1">Racikan</option></select></td></tr>';
 		
 		jQuery(inputHTML).appendTo("table#tbl-obat tbody");
@@ -1756,6 +1637,8 @@ jQuery(function() { // Edit Obat
 			jQuery('a#removeObat2').removeAttr('disabled');
 		}
 			
+		//var inputHTML = '<tr><td><div id="'+counter3+'">'+counter3+'</div><input type="hidden" name="kd_obat_'+counter3+'" id="kd_obat2_'+counter3+'" class="kd_obat2" /></td><td><input type="text" name="nama_obat_'+counter3+'" id="nama_obat2_'+counter3+'" class="nama_obat2 input-large" /></td><td><select name="satuan_'+counter3+'" id="satuan2_'+counter3+'" class="satuan2 uniformselect" style="width:100px;"><option name="-">Pilih Satuan</option><?php foreach($list_satuan_kecil as $lsk) : ?><option value="<?php echo $lsk['kd_sat_kecil_obat']; ?>"><?php echo $lsk['sat_kecil_obat']; ?></option><?php endforeach; ?></select></td><td><input type="text" name="dosis_'+counter3+'" id="dosis2_'+counter3+'" class="dosis2 input-small" /></td><td><input type="text" name="apotek_stok_'+counter3+'" id="apotek_stok2_'+counter3+'" class="apotek_stok2 input-small" /></td><td><input type="text" name="jumlah_'+counter3+'" id="jumlah2_'+counter3+'" class="jumlah2 input-small" /></td><td><select name="racikan_'+counter3+'" id="racikan2_'+counter3+'" class="racikan2 uniformselect" style="width:100px;"><option value="0">Non Racikan</option><option value="1">Racikan</option></select></tr>';
+		
 		var inputHTML = '<tr><td><div id="'+counter3+'">'+counter3+'</div><input type="hidden" name="kd_obat_'+counter3+'" id="kd_obat2_'+counter3+'" class="kd_obat2" /></td><td><input type="text" name="nama_obat_'+counter3+'" id="nama_obat2_'+counter3+'" class="nama_obat2 input-large" /></td><td><input type="text" name="dosis_'+counter3+'" id="dosis2_'+counter3+'" class="dosis2 input-small" /></td><td><input type="text" name="apotek_stok_'+counter3+'" id="apotek_stok2_'+counter3+'" class="apotek_stok2 input-small" /></td><td><input type="text" name="jumlah_'+counter3+'" id="jumlah2_'+counter3+'" class="jumlah2 input-small" /></td><td><select name="racikan_'+counter3+'" id="racikan2_'+counter3+'" class="racikan2 uniformselect" style="width:100px;"><option value="0">Non Racikan</option><option value="1">Racikan</option></select></tr>';
 		
 		jQuery(inputHTML).appendTo("table#tbl-obat2 tbody");
@@ -1802,25 +1685,6 @@ jQuery(function() { // Edit Obat
 	
 	
 	DataRekamMedis();
-
-	jQuery("#tgl_pelayanan").datepicker({ 
-		dateFormat: 'dd-mm-yy',
-		changeMonth: true,
-		changeYear: true,
-		yearRange: "-150:+0",
-		dayNamesMin: ['M', 'S', 'S', 'R', 'K', 'J', 'S'],
-		monthNamesShort: [ "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember" ],
-	});
-
-	jQuery("#tgl_pelayanan2").datepicker({ 
-		dateFormat: 'dd-mm-yy',
-		changeMonth: true,
-		changeYear: true,
-		yearRange: "-150:+0",
-		dayNamesMin: ['M', 'S', 'S', 'R', 'K', 'J', 'S'],
-		monthNamesShort: [ "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember" ],
-	});
-
 	
 	
 	

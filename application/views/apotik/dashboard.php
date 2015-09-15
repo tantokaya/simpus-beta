@@ -60,31 +60,76 @@
         javascript:startTyping(text, 50, "textDestination");
     </script>
     Berikut ini adalah data-data Pelayanan Kesehatan Masyarakat dari <?php echo $nm_puskesmas; ?> <b><?php echo $nm_kota; ?></b>.                </div><!--alert-->
-				
+			<!-- Barisan statistik hari ini-->	
 				<div class="row-fluid">
+				
 				<div class="span4">
-				<h4 class="widgettitle nomargin">Statistik Hari ini</h4>
+				<h4 class="widgettitle nomargin">Kunjungan Pasien Dalam Wilayah Hari ini</h4>
+                <div class="widgetcontent bordered">
+					<center><h1><?php echo $total_kunjungan_date_dlm_wil['total_kunjungan']; ?></h1><br/>
+					Kunjungan loket</center>
+                </div><!--widgetcontent-->
+				</div>
+
+				<div class="span4">
+				<h4 class="widgettitle nomargin">Kunjungan Pasien Luar Wilayah Hari ini</h4>
+                <div class="widgetcontent bordered">
+                   <center><h1><?php echo $total_kunjungan_date_luar_wil['total_kunjungan']; ?></h1><br/>
+					Kunjungan loket</center>
+                </div><!--widgetcontent-->
+				</div>
+				
+				<div class="span4">
+				<h4 class="widgettitle nomargin">Kunjungan Pasien Luar Kota Hari ini</h4>
+                <div class="widgetcontent bordered">
+                   <center><h1><?php echo $total_kunjungan_date_luar_kota['total_kunjungan']; ?></h1><br/>
+					Kunjungan loket</center>
+                </div><!--widgetcontent-->
+				</div>
+								
+				</div>
+           
+	<!-- Barisan statistik MINGGU ini-->	
+				<div class="row-fluid">
+				
+				<div class="span4">
+				<h4 class="widgettitle nomargin">Pasien Dalam Wilayah Minggu ini</h4>
+                <div class="widgetcontent bordered">
+					<center><h1><?php echo $total_kunjungan_week_dlm_wil['total_kunjungan']; ?></h1><br/>
+					Kunjungan loket</center>
+                </div><!--widgetcontent-->
+				</div>
+
+				<div class="span4">
+				<h4 class="widgettitle nomargin">Pasien Luar Wilayah Minggu ini</h4>
+                <div class="widgetcontent bordered">
+                   <center><h1><?php echo $total_kunjungan_week_luar_wil['total_kunjungan']; ?></h1><br/>
+					Kunjungan loket</center>
+                </div><!--widgetcontent-->
+				</div>
+				
+				<div class="span4">
+				<h4 class="widgettitle nomargin">Pasien Luar Kota Minggu ini</h4>
+                <div class="widgetcontent bordered">
+                   <center><h1><?php echo $total_kunjungan_week_luar_kota['total_kunjungan']; ?></h1><br/>
+					Kunjungan loket</center>
+                </div><!--widgetcontent-->
+				</div>
+								
+				</div>
+
+<!-- Barisan statistik BULAN ini-->	
+
+
+<!--	Total			<div class="span4">
+				<h4 class="widgettitle nomargin">Total Kunjungan Hari ini</h4>
                 <div class="widgetcontent bordered">
 					<center><h1><?php echo $total_kunjungan_date['total_kunjungan']; ?></h1><br/>
 					Kunjungan loket</center>
-                </div><!--widgetcontent-->
-				</div>
-				<div class="span4">
-				<h4 class="widgettitle nomargin">Statistik Minggu ini</h4>
-                <div class="widgetcontent bordered">
-                   <center><h1><?php echo $total_kunjungan_week['total_kunjungan']; ?></h1><br/>
-					Kunjungan loket</center>
-                </div><!--widgetcontent-->
-				</div>
-				<div class="span4">
-				<h4 class="widgettitle nomargin">Statistik Bulan ini</h4>
-                <div class="widgetcontent bordered">
-                   <center><h1><?php echo $total_kunjungan_month['total_kunjungan']; ?></h1><br/>
-					Kunjungan loket</center>
-                </div><!--widgetcontent-->
-				</div>
-				</div>
-                
+                </div>
+				</div>	-->
+
+				
                 <div class="row-fluid">
                 	<div class="span8">
                     	<!--<ul class="widgeticons row-fluid">
@@ -152,6 +197,9 @@
 <h4 class="widgettitle nomargin">Variable Unit Kerja</h4>
                     	<div class="widgetcontent bordered">
         <table>
+            <tr>
+                <td><img src="<?php echo base_url(); ?>assets/img/thumbs/<?php echo $logo; ?>"><br/></td>
+            </tr>
             <tr>
                 <td>N I P</td><td>&nbsp;:</td><td>&nbsp;<b><?php echo $nip_kpl; ?></b></td>
             </tr>
